@@ -73,7 +73,7 @@ commands:
   container-runner-server:
       steps:
         - run:
-            name: echo envvars for cloud container runner
+            name: echo envvars for server container runner
             command: |
               echo 'export TF_VAR_imlogang_organization_container_runner_server="'"${IMLOGANG_CONTAINER_RUNNER_SERVER}"'"' >> "$BASH_ENV"
               
