@@ -4,6 +4,10 @@ jobs:
   terraform-plan:
     machine: true 
     resource_class: imlogang-organization-server/ubuntu-k8s
+    environment:
+      TF_VAR_CLIENT_ID: ${CLIENT_ID}
+      TF_VAR_BEEMOVIEBOT: ${BEEMOVIEBOT}
+      TF_VAR_PteroToken: ${PteroToken}
     steps:
       - checkout
       - run:

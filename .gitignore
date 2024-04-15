@@ -8,6 +8,9 @@
 # Crash log files
 crash.log
 
+# Exclude all .tfvars files, which might contain secret data, such as passwords, private keys, and other sensitive data
+*.tfvars
+
 # Ignore override files as they are usually used to override resources locally and so are not checked in
 override.tf
 override.tf.json
