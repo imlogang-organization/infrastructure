@@ -1,5 +1,9 @@
 version: 2.1 
 
+parameters:
+  namespace:
+    default: "beemoviebot"
+
 jobs:
   terraform-plan:
     machine: true 
@@ -39,6 +43,9 @@ jobs:
             echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
       - attach_workspace:
           at: .
+      - run: 
+          name: make sure namespace managed
+          command: terraform import kubernetes_namespace.<< pipeline.parameters.namespace >> << pipeline.parameters.namespace >>
       - run:
           name: terraform apply
           command: |
