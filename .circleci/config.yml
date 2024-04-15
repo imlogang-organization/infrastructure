@@ -41,9 +41,9 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: terraform plan
+          name: terraform apply
           command: |
-            terraform plan "plan.tf"
+            terraform apply "plan.tf"
 
 workflows:
   terraform-beemoviebot:
