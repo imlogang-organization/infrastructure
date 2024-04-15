@@ -1,70 +1,15 @@
-version: 2.1 
+version: 2.1
+setup: true
 
-parameters:
-  namespace:
-    default: "beemoviebot"
-    type: string
-
-jobs:
-  terraform-plan:
-    machine: true 
-    resource_class: imlogang-organization-server/ubuntu-k8s
-    steps:
-      - checkout
-      - run: 
-          name: make envvars correct 
-          command: |
-            echo 'export TF_VAR_client_id="'"${CLIENT_ID}"'"' >> "$BASH_ENV"
-            echo 'export TF_VAR_beemoviebot="'"${BEEMOVIEBOT}"'"' >> "$BASH_ENV"
-            echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
-      - run:
-          name: terraform init
-          command: |
-            cd Kubernetes/Secrets
-            terraform init
-      - run: 
-          name: make sure namespace managed
-          command: |
-            cd Kubernetes/Secrets
-            terraform import kubernetes_namespace.<< pipeline.parameters.namespace >> << pipeline.parameters.namespace >>
-      - run: 
-          name: terraform plan
-          command: |
-            cd Kubernetes/Secrets 
-            terraform plan -out plan.tf
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-  
-  terraform-apply:
-    machine: true
-    resource_class: imlogang-organization-server/ubuntu-k8s
-    steps:
-      - run: 
-          name: make envvars correct 
-          command: |
-            echo 'export TF_VAR_client_id="'"${CLIENT_ID}"'"' >> "$BASH_ENV"
-            echo 'export TF_VAR_beemoviebot="'"${BEEMOVIEBOT}"'"' >> "$BASH_ENV"
-            echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
-      - attach_workspace:
-          at: .
-      - run:
-          name: terraform apply
-          command: |
-            cd Kubernetes/Secrets 
-            terraform apply -auto-approve "plan.tf"
+orbs:
+  path-filtering: circleci/path-filtering@0.1.7
 
 workflows:
-  terraform-beemoviebot:
+  generate-config:
     jobs:
-      - terraform-plan:
-          context:
-            - kubeconfig
-            - beemoviebot
-      - terraform-apply:
-          requires:
-            - terraform-plan
-          context:
-            - kubeconfig
-            - beemoviebot
+      - path-filtering/filter:
+          base-revision: main
+          config-path: .circleci/continue_config.yml
+          mapping: |
+            Kubernetes/Secrets/beemoviebot/.* prod true
+            Kubernetes/Secrets/beemoviebotstage/.* stage true

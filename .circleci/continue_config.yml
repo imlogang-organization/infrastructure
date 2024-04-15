@@ -1,0 +1,140 @@
+version: 2.1 
+
+parameters:
+  namespace-prod:
+    default: "beemoviebot"
+    type: string
+  namespace-stage:
+    default: "beemoviebotstage"
+    type: string
+  prod:
+    default: false
+    type: boolean
+  stage:
+    default: false
+    type: boolean
+
+commands:
+  envvar-prod:
+    steps:
+      - run:
+          name: echo envvars for prod
+          command: |
+            echo 'export TF_VAR_client_id="'"${CLIENT_ID}"'"' >> "$BASH_ENV"
+            echo 'export TF_VAR_beemoviebot="'"${BEEMOVIEBOT}"'"' >> "$BASH_ENV"
+            echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
+  envvar-stage:
+    steps:
+      - run:
+          name: echo envvars for staging
+          command: |
+            echo 'export TF_VAR_client_id="'"${CLIENT_ID_STAGING}"'"' >> "$BASH_ENV"
+            echo 'export TF_VAR_beemoviebot="'"${BEEMOVIEBOT_STAGING}"'"' >> "$BASH_ENV"
+            echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
+
+jobs:
+  terraform-plan-prod:
+    machine: true 
+    resource_class: imlogang-organization-server/ubuntu-k8s
+    steps:
+      - checkout
+      - envvar-prod
+      - run:
+          name: terraform init
+          command: |
+            cd Kubernetes/Secrets/beemoviebot
+            terraform init
+      - run: 
+          name: make sure namespace managed
+          command: |
+            cd Kubernetes/Secrets/beemoviebot
+            terraform import kubernetes_namespace.<< pipeline.parameters.namespace-prod >> << pipeline.parameters.namespace-prod >>
+      - run: 
+          name: terraform plan
+          command: |
+            cd Kubernetes/Secrets 
+            terraform plan -out plan.tf
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+  
+  terraform-apply-prod:
+    machine: true
+    resource_class: imlogang-organization-server/ubuntu-k8s
+    steps:
+      - envvar-prod
+      - attach_workspace:
+          at: .
+      - run:
+          name: terraform apply
+          command: |
+            cd Kubernetes/Secrets/beemoviebot
+            terraform apply -auto-approve "plan.tf"
+
+  terraform-plan-stage:
+    machine: true 
+    resource_class: imlogang-organization-server/ubuntu-k8s
+    steps:
+      - checkout
+      - envvar-stage
+      - run:
+          name: terraform init
+          command: |
+            cd Kubernetes/Secrets/beemoviebotstage
+            terraform init
+      - run: 
+          name: make sure namespace managed
+          command: |
+            cd Kubernetes/Secrets
+            terraform import kubernetes_namespace.<< pipeline.parameters.namespace-stage >> << pipeline.parameters.namespace-stage >>
+      - run: 
+          name: terraform plan
+          command: |
+            cd Kubernetes/Secrets/beemoviebotstage
+            terraform plan -out plan.tf
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+    
+  terraform-apply-stage:
+    machine: true
+    resource_class: imlogang-organization-server/ubuntu-k8s
+    steps:
+      - envvar-prod
+      - attach_workspace:
+          at: .
+      - run:
+          name: terraform apply
+          command: |
+            cd Kubernetes/Secrets/beemoviebotstage
+            terraform apply -auto-approve "plan.tf"
+workflows:
+  terraform-prod:
+    when: << pipeline.parameters.prod >>
+    jobs:
+      - terraform-plan-prod:
+          context:
+            - kubeconfig
+            - beemoviebot
+      - terraform-apply-prod:
+          requires:
+            - terraform-plan-stage
+          context:
+            - kubeconfig
+            - beemoviebot
+          
+  terraform-stage:
+    when: << pipeline.parameters.stage >>
+    jobs:
+      - terraform-plan-stage:
+          context:
+            - kubeconfig
+            - beemoviebot
+      - terraform-apply-stage:
+          requires:
+            - terraform-plan-stage
+          context:
+            - kubeconfig
+            - beemoviebot
