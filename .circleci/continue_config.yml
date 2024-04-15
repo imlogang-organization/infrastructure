@@ -39,8 +39,8 @@ commands:
         - run:
             name: echo envvars for cloud container runner
             command: |
-              echo 'export TF_VAR_imlogang-organization-container-runner="'"${IMLOGANG_CONTAINER_RUNNER}"'"' >> "$BASH_ENV"
-              echo 'export TF_VAR_logan-container-runner="'"${LOGAN_CONTAINER_RUNNER}"'"' >> "$BASH_ENV"
+              echo 'export TF_VAR_imlogang_organization_container_runner="'"${IMLOGANG_CONTAINER_RUNNER}"'"' >> "$BASH_ENV"
+              echo 'export TF_VAR_logan_container_runner="'"${LOGAN_CONTAINER_RUNNER}"'"' >> "$BASH_ENV"
 
 jobs:
   terraform-plan-prod:
