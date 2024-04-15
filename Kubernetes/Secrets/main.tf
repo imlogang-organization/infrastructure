@@ -11,9 +11,9 @@ resource "kubernetes_secret" "production-secrets" {
   }
 
   data = {
-    CLIENT_ID = locals.client_id
-    BEEMOVIEBOT = locals.beemoviebot
-    PteroToken = locals.pterotoken
+    CLIENT_ID = local.client_id
+    BEEMOVIEBOT = local.beemoviebot
+    PteroToken = local.pterotoken
   }
 
   type = "Opaque"
