@@ -3,6 +3,7 @@ version: 2.1
 parameters:
   namespace:
     default: "beemoviebot"
+    type: string
 
 jobs:
   terraform-plan:
