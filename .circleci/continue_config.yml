@@ -86,7 +86,7 @@ jobs:
       - run: 
           name: make sure namespace managed
           command: |
-            cd Kubernetes/Secrets
+            cd Kubernetes/Secrets/beemoviebotstage
             terraform import kubernetes_namespace.<< pipeline.parameters.namespace-stage >> << pipeline.parameters.namespace-stage >>
       - run: 
           name: terraform plan
