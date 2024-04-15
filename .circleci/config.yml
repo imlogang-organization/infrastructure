@@ -20,4 +20,7 @@ workflows:
             Kubernetes/Secrets/container-runner-cloud/.* container-runner-cloud true
             Kubernetes/Secrets/container-runner-cloud/.* namespace "circleci"
             Kubernetes/Secrets/container-runner-cloud/.* file-path "Kubernetes/Secrets/container-runner-cloud"
+            Kubernetes/Secrets/container-runner-server/.* container-runner-server true
+            Kubernetes/Secrets/container-runner-server/.* namespace "container-runner-server"
+            Kubernetes/Secrets/container-runner-server/.* file-path "Kubernetes/Secrets/container-runner-server"
           circleci_domain: cciserver.logangodsey.com
