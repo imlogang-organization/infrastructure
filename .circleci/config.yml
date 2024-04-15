@@ -9,8 +9,8 @@ jobs:
       - run:
           name: terraform init
           command: |
-          cd Kubernetes/Secrets
-          terraform init
+            cd Kubernetes/Secrets
+            terraform init
       - run: 
           name: terraform plan
           command: |
