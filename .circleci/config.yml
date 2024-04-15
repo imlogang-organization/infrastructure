@@ -23,7 +23,7 @@ jobs:
             cd Kubernetes/Secrets 
             terraform plan -out plan.tf
       - persist_to_workspace:
-          root: .
+          root: Kubernetes/Secrets
           paths:
             - plan.tf
   
