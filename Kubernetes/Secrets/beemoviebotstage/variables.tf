@@ -9,6 +9,6 @@ variable "beemoviebot" {
 }
 
 variable "pterotoken" {
-    description = "Pterodactyl Server Host"
+    description = "Pterodactyl Server Host Token"
     type = string
 }
