@@ -1,0 +1,45 @@
+version: 2.1 
+
+jobs:
+  terraform-plan:
+    machine: true 
+    resource_class: imlogang-organization-server/ubuntu-k8s
+    steps:
+      - checkout
+      - run:
+          name: terraform init
+          command: terraform init
+      - run: 
+          name: terraform plan
+          command: |
+            terraform plan -out plan.tf
+      - persist_to_workspace:
+          root: .
+          paths:
+            - plan.tf
+  
+  terraform-apply:
+    machine: true
+    resource_class: imlogang-organization-server/ubuntu-k8s
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: terraform plan
+          command: |
+            terraform plan "plan.tf"
+
+workflows:
+  terraform-beemoviebot:
+    jobs:
+      - terraform-plan:
+          contexts:
+            - kubeconfig
+            - beemoviebot
+      - terraform-apply:
+          requires:
+            - terraform-plan
+          contexts:
+            - kubeconfig
+            - beemoviebot
