@@ -2,7 +2,7 @@ version: 2.1
 
 parameters:
   namespace:
-    default: "beemoviebot"
+    default: "beemoviebotstage"
     type: string
 
 jobs:
@@ -14,9 +14,14 @@ jobs:
       - run: 
           name: make envvars correct 
           command: |
-            echo 'export TF_VAR_client_id="'"${CLIENT_ID}"'"' >> "$BASH_ENV"
-            echo 'export TF_VAR_beemoviebot="'"${BEEMOVIEBOT}"'"' >> "$BASH_ENV"
-            echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
+            if [ $CIRCLE_BRANCH == "Main" ]; then
+              echo 'export TF_VAR_client_id="'"${CLIENT_ID}"'"' >> "$BASH_ENV"
+              echo 'export TF_VAR_beemoviebot="'"${BEEMOVIEBOT}"'"' >> "$BASH_ENV"
+              echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
+            else
+              echo 'export TF_VAR_client_id_staging="'"${CLIENT_ID_STAGING}"'"' >> "$BASH_ENV"
+              echo 'export TF_VAR_beemoviebot_staging="'"${BEEMOVIEBOT_STAGING}"'"' >> "$BASH_ENV"
+              echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
       - run:
           name: terraform init
           command: |
@@ -44,9 +49,14 @@ jobs:
       - run: 
           name: make envvars correct 
           command: |
-            echo 'export TF_VAR_client_id="'"${CLIENT_ID}"'"' >> "$BASH_ENV"
-            echo 'export TF_VAR_beemoviebot="'"${BEEMOVIEBOT}"'"' >> "$BASH_ENV"
-            echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
+            if [ $CIRCLE_BRANCH == "Main" ]; then
+              echo 'export TF_VAR_client_id="'"${CLIENT_ID}"'"' >> "$BASH_ENV"
+              echo 'export TF_VAR_beemoviebot="'"${BEEMOVIEBOT}"'"' >> "$BASH_ENV"
+              echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
+            else
+              echo 'export TF_VAR_client_id_staging="'"${CLIENT_ID_STAGING}"'"' >> "$BASH_ENV"
+              echo 'export TF_VAR_beemoviebot_staging="'"${BEEMOVIEBOT_STAGING}"'"' >> "$BASH_ENV"
+              echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
       - attach_workspace:
           at: .
       - run:
@@ -62,9 +72,13 @@ workflows:
           context:
             - kubeconfig
             - beemoviebot
-      - terraform-apply:
+      - hold:
+          type: approval
           requires:
             - terraform-plan
+      - terraform-apply:
+          requires:
+            - hold
           context:
             - kubeconfig
             - beemoviebot
