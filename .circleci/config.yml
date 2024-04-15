@@ -21,7 +21,7 @@ jobs:
             else
               echo 'export TF_VAR_client_id_staging="'"${CLIENT_ID_STAGING}"'"' >> "$BASH_ENV"
               echo 'export TF_VAR_beemoviebot_staging="'"${BEEMOVIEBOT_STAGING}"'"' >> "$BASH_ENV"
-              echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"\
+              echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
             fi
       - run:
           name: terraform init
