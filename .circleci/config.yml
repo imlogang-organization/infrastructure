@@ -46,7 +46,9 @@ jobs:
           at: .
       - run: 
           name: make sure namespace managed
-          command: terraform import kubernetes_namespace.<< pipeline.parameters.namespace >> << pipeline.parameters.namespace >>
+          command: |
+            cd Kubernetes/Secrets
+            terraform import kubernetes_namespace.<< pipeline.parameters.namespace >> << pipeline.parameters.namespace >>
       - run:
           name: terraform apply
           command: |
