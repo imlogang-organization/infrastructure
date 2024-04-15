@@ -42,7 +42,8 @@ jobs:
       - run:
           name: terraform apply
           command: |
-            terraform apply "plan.tf"
+            cd Kubernetes/Secrets 
+            terraform apply -auto-approve "plan.tf"
 
 workflows:
   terraform-beemoviebot:
