@@ -34,12 +34,12 @@ workflows:
   terraform-beemoviebot:
     jobs:
       - terraform-plan:
-          contexts:
+          context:
             - kubeconfig
             - beemoviebot
       - terraform-apply:
           requires:
             - terraform-plan
-          contexts:
+          context:
             - kubeconfig
             - beemoviebot
