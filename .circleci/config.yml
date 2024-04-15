@@ -23,15 +23,14 @@ jobs:
             cd Kubernetes/Secrets 
             terraform plan -out plan.tf
       - persist_to_workspace:
-          root: Kubernetes/Secrets
+          root: .
           paths:
-            - plan.tf
+            - .
   
   terraform-apply:
     machine: true
     resource_class: imlogang-organization-server/ubuntu-k8s
     steps:
-      - checkout
       - run: 
           name: make envvars correct 
           command: |
