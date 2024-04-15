@@ -8,11 +8,11 @@ jobs:
       - checkout
       - run:
           name: terraform init
-          command: terraform init
+          command: cd Kubernetes/Secrets terraform init
       - run: 
           name: terraform plan
           command: |
-            terraform plan -out plan.tf
+            cd Kubernetes/Secrets && terraform plan -out plan.tf
       - persist_to_workspace:
           root: .
           paths:
