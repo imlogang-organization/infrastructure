@@ -1,23 +1,47 @@
 version: 2.1 
 
 parameters:
-  namespace:
-    default: ""
-    type: string
   prod:
     default: false
     type: boolean
   stage:
     default: false
     type: boolean
+  container-runner-cloud:
+    default: false
+    type: boolean
+  namespace:
+    default: ""
+    type: string
   file-path:
     default: ""
     type: string
-  container-runner-cloud:
-    default: ""
-    type: boolean
+  
 
 commands:
+  managed-namespace:
+    steps:
+      - run: 
+          name: make sure namespace managed
+          command: |
+            cd << pipeline.parameters.file-path >>
+            terraform import kubernetes_namespace.<< pipeline.parameters.namespace >> << pipeline.parameters.namespace >>
+
+  terraform-plan:
+    steps:
+      - run: 
+          name: terraform plan
+          command: |
+            cd << pipeline.parameters.file-path >>
+            terraform plan -out plan.tf
+  terraform-init:
+    steps:
+      - run:
+          name: terraform init
+          command: |
+            cd << pipeline.parameters.file-path >>
+            terraform init
+            
   envvar-prod:
     steps:
       - run:
@@ -26,6 +50,7 @@ commands:
             echo 'export TF_VAR_client_id="'"${CLIENT_ID}"'"' >> "$BASH_ENV"
             echo 'export TF_VAR_beemoviebot="'"${BEEMOVIEBOT}"'"' >> "$BASH_ENV"
             echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
+  
   envvar-stage:
     steps:
       - run:
@@ -34,6 +59,7 @@ commands:
             echo 'export TF_VAR_client_id="'"${CLIENT_ID_STAGING}"'"' >> "$BASH_ENV"
             echo 'export TF_VAR_beemoviebot="'"${BEEMOVIEBOT_STAGING}"'"' >> "$BASH_ENV"
             echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
+  
   cloud-container-runner:
       steps:
         - run:
@@ -41,7 +67,7 @@ commands:
             command: |
               echo 'export TF_VAR_imlogang_organization_container_runner="'"${IMLOGANG_CONTAINER_RUNNER}"'"' >> "$BASH_ENV"
               echo 'export TF_VAR_logan_container_runner="'"${LOGAN_CONTAINER_RUNNER}"'"' >> "$BASH_ENV"
-
+              
 jobs:
   terraform-plan-prod:
     machine: true 
@@ -49,21 +75,9 @@ jobs:
     steps:
       - checkout
       - envvar-prod
-      - run:
-          name: terraform init
-          command: |
-            cd Kubernetes/Secrets/beemoviebot
-            terraform init
-      - run: 
-          name: make sure namespace managed
-          command: |
-            cd Kubernetes/Secrets/beemoviebot
-            terraform import kubernetes_namespace.<< pipeline.parameters.namespace >> << pipeline.parameters.namespace >>
-      - run: 
-          name: terraform plan
-          command: |
-            cd Kubernetes/Secrets 
-            terraform plan -out plan.tf
+      - terraform-init
+      - managed-namespace
+      - terraform-plan
       - persist_to_workspace:
           root: .
           paths:
@@ -75,21 +89,9 @@ jobs:
     steps:
       - checkout
       - envvar-stage
-      - run:
-          name: terraform init
-          command: |
-            cd Kubernetes/Secrets/beemoviebotstage
-            terraform init
-      - run: 
-          name: make sure namespace managed
-          command: |
-            cd Kubernetes/Secrets/beemoviebotstage
-            terraform import kubernetes_namespace.<< pipeline.parameters.namespace >> << pipeline.parameters.namespace >>
-      - run: 
-          name: terraform plan
-          command: |
-            cd Kubernetes/Secrets/beemoviebotstage
-            terraform plan -out plan.tf
+      - terraform-init
+      - managed-namespace
+      - terraform-plan
       - persist_to_workspace:
           root: .
           paths:
@@ -101,21 +103,9 @@ jobs:
     steps:
       - checkout
       - cloud-container-runner
-      - run:
-          name: terraform init
-          command: |
-            cd << pipeline.parameters.file-path >>
-            terraform init
-      - run: 
-          name: make sure namespace managed
-          command: |
-            cd << pipeline.parameters.file-path >>
-            terraform import kubernetes_namespace.<< pipeline.parameters.namespace >> << pipeline.parameters.namespace >>
-      - run: 
-          name: terraform plan
-          command: |
-            cd << pipeline.parameters.file-path >>
-            terraform plan -out plan.tf
+      - terraform-init
+      - managed-namespace
+      - terraform-plan
       - persist_to_workspace:
           root: .
           paths:
