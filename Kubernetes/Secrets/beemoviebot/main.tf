@@ -1,9 +1,3 @@
-resource "kubernetes_namespace" "beemoviebot" {
-  metadata {
-    name = "beemoviebot"
-  }
-}
-
 resource "kubernetes_secret" "production-secrets" {
   metadata {
     name      = "production-secrets"

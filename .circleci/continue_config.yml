@@ -1,11 +1,8 @@
 version: 2.1 
 
 parameters:
-  namespace-prod:
-    default: "beemoviebot"
-    type: string
-  namespace-stage:
-    default: "beemoviebotstage"
+  namespace:
+    default: ""
     type: string
   prod:
     default: false
@@ -13,6 +10,12 @@ parameters:
   stage:
     default: false
     type: boolean
+  file-path:
+    default: ""
+    type: string
+  container-runner-cloud:
+    default: ""
+    type: string
 
 commands:
   envvar-prod:
@@ -31,6 +34,13 @@ commands:
             echo 'export TF_VAR_client_id="'"${CLIENT_ID_STAGING}"'"' >> "$BASH_ENV"
             echo 'export TF_VAR_beemoviebot="'"${BEEMOVIEBOT_STAGING}"'"' >> "$BASH_ENV"
             echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
+  cloud-container-runner:
+      steps:
+        - run:
+            name: echo envvars for cloud container runner
+            command: |
+              echo 'export TF_VAR_imlogang-organization-container-runner="'"${IMLOGANG_CONTAINER_RUNNER}"'"' >> "$BASH_ENV"
+              echo 'export TF_VAR_logan-container-runner="'"${LOGAN_CONTAINER_RUNNER}"'"' >> "$BASH_ENV"
 
 jobs:
   terraform-plan-prod:
@@ -48,7 +58,7 @@ jobs:
           name: make sure namespace managed
           command: |
             cd Kubernetes/Secrets/beemoviebot
-            terraform import kubernetes_namespace.<< pipeline.parameters.namespace-prod >> << pipeline.parameters.namespace-prod >>
+            terraform import kubernetes_namespace.<< pipeline.parameters.namespace >> << pipeline.parameters.namespace >>
       - run: 
           name: terraform plan
           command: |
@@ -58,19 +68,6 @@ jobs:
           root: .
           paths:
             - .
-  
-  terraform-apply-prod:
-    machine: true
-    resource_class: imlogang-organization-server/ubuntu-k8s
-    steps:
-      - envvar-prod
-      - attach_workspace:
-          at: .
-      - run:
-          name: terraform apply
-          command: |
-            cd Kubernetes/Secrets/beemoviebot
-            terraform apply -auto-approve "plan.tf"
 
   terraform-plan-stage:
     machine: true 
@@ -87,7 +84,7 @@ jobs:
           name: make sure namespace managed
           command: |
             cd Kubernetes/Secrets/beemoviebotstage
-            terraform import kubernetes_namespace.<< pipeline.parameters.namespace-stage >> << pipeline.parameters.namespace-stage >>
+            terraform import kubernetes_namespace.<< pipeline.parameters.namespace >> << pipeline.parameters.namespace >>
       - run: 
           name: terraform plan
           command: |
@@ -98,7 +95,33 @@ jobs:
           paths:
             - .
     
-  terraform-apply-stage:
+  terraform-plan-container-runner-cloud:
+    machine: true 
+    resource_class: imlogang-organization-server/ubuntu-k8s
+    steps:
+      - checkout
+      - cloud-container-runner
+      - run:
+          name: terraform init
+          command: |
+            cd << pipeline.parameters.file-path >>
+            terraform init
+      - run: 
+          name: make sure namespace managed
+          command: |
+            cd << pipeline.parameters.file-path >>
+            terraform import kubernetes_namespace.<< pipeline.parameters.namespace >> << pipeline.parameters.namespace >>
+      - run: 
+          name: terraform plan
+          command: |
+            cd << pipeline.parameters.file-path >>
+            terraform plan -out plan.tf
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  terraform-apply:
     machine: true
     resource_class: imlogang-organization-server/ubuntu-k8s
     steps:
@@ -108,33 +131,48 @@ jobs:
       - run:
           name: terraform apply
           command: |
-            cd Kubernetes/Secrets/beemoviebotstage
+            cd << pipeline.parameters.file-path >>
             terraform apply -auto-approve "plan.tf"
+
 workflows:
-  terraform-prod:
+  terraform-beemoviebot-prod:
     when: << pipeline.parameters.prod >>
     jobs:
       - terraform-plan-prod:
           context:
             - kubeconfig
             - beemoviebot
-      - terraform-apply-prod:
+      - terraform-apply:
           requires:
             - terraform-plan-stage
           context:
             - kubeconfig
             - beemoviebot
           
-  terraform-stage:
+  terraform-beemoviebot-stage:
     when: << pipeline.parameters.stage >>
     jobs:
       - terraform-plan-stage:
           context:
             - kubeconfig
             - beemoviebot
-      - terraform-apply-stage:
+      - terraform-apply:
           requires:
             - terraform-plan-stage
           context:
             - kubeconfig
             - beemoviebot
+  
+  terraform-cloud-container-runner:
+    when: << pipeline.parameters.container-runner-cloud >>
+    jobs:
+      - terraform-plan-container-runner-cloud:
+          context:
+            - kubeconfig
+            - container-runner-cloud
+      - terraform-apply:
+          requires:
+            - terraform-plan-container-runner-cloud
+          context:
+            - kubeconfig
+            - container-runner-cloud

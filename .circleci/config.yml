@@ -12,5 +12,12 @@ workflows:
           config-path: .circleci/continue_config.yml
           mapping: |
             Kubernetes/Secrets/beemoviebot/.* prod true
+            Kubernetes/Secrets/beemoviebot/.* namespace "beemoviebot"
+            Kubernetes/Secrets/beemoviebot/.* file-path "Kubernetes/Secrets/beemoviebot"
             Kubernetes/Secrets/beemoviebotstage/.* stage true
+            Kubernetes/Secrets/beemoviebotstage/.* namespace "beemoviebotstage"
+            Kubernetes/Secrets/beemoviebotstage/.* file-path "Kubernetes/Secrets/beemoviebotstage"
+            Kubernetes/Secrets/container-runner-cloud/.* container-runner-cloud true
+            Kubernetes/Secrets/container-runner-cloud/.* namespace "circleci"
+            Kubernetes/Secrets/container-runner-cloud/.* file-path "Kubernetes/Secrets/container-runner-cloud"
           circleci_domain: cciserver.logangodsey.com
