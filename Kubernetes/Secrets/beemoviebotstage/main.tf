@@ -1,7 +1,7 @@
-resource "kubernetes_secret" "production-secrets" {
+resource "kubernetes_secret" "staging-secrets" {
   metadata {
-    name      = "production-secrets"
-    namespace = kubernetes_namespace.beemoviebot.metadata[0].name
+    name      = "staging-secrets"
+    namespace = kubernetes_namespace.beemoviebotstage.metadata[0].name
   }
 
   data = {
@@ -13,6 +13,6 @@ resource "kubernetes_secret" "production-secrets" {
   type = "Opaque"
 
   depends_on = [
-    kubernetes_namespace.beemoviebot,
+    kubernetes_namespace.beemoviebotstage,
   ]
 }

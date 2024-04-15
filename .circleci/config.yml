@@ -13,3 +13,4 @@ workflows:
           mapping: |
             Kubernetes/Secrets/beemoviebot/.* prod true
             Kubernetes/Secrets/beemoviebotstage/.* stage true
+          circleci_domain: cciserver.logangodsey.com
