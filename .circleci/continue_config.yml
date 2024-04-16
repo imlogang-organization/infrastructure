@@ -16,6 +16,9 @@ parameters:
   circleci-release-agent-system:
     default: false
     type: boolean
+  minio:
+    default: false
+    type: boolean
   namespace:
     default: ""
     type: string
@@ -86,7 +89,7 @@ commands:
             name: echo envvars for server container runner
             command: |
               echo 'export TF_VAR_circleci_release_agent_system_token="'"${CIRCLECI_RELEASE_AGENT_TOKEN}"'"' >> "$BASH_ENV"
-              
+  
 jobs:
   terraform-plan-prod:
     machine: true 
@@ -152,6 +155,18 @@ jobs:
       - circleci-release-agent-system
       - terraform-init
       - managed-namespace
+      - terraform-plan
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  terraform-minio:
+    machine: true 
+    resource_class: imlogang-organization-server/ubuntu-k8s
+    steps:
+      - checkout
+      - terraform-init
       - terraform-plan
       - persist_to_workspace:
           root: .
@@ -241,3 +256,17 @@ workflows:
           context:
             - kubeconfig
             - circleci-release-agent-system
+    
+  terraform-minio:
+    when: << pipeline.parameters.minio >>
+    jobs:
+        - terraform-minio:
+            context:
+              - kubeconfig
+              - minio
+        - terraform-apply:
+            requires:
+              - terraform-minio
+            context:
+              - kubeconfig
+              - minio

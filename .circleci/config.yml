@@ -26,4 +26,6 @@ workflows:
             Kubernetes/Secrets/circleci-release-agent-system/.* circleci-release-agent-system true
             Kubernetes/Secrets/circleci-release-agent-system/.* namespace "circleci-release-agent-system"
             Kubernetes/Secrets/circleci-release-agent-system/.* file-path "Kubernetes/Secrets/circleci-release-agent-system"
+            minio/.* minio true
+            minio/.* file-path "minio"
           circleci_domain: cciserver.logangodsey.com
