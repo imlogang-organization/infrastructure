@@ -237,7 +237,7 @@ workflows:
             - circleci-release-agent-system
       - terraform-apply:
           requires:
-            - terraform-plan-circleci-release-agent-system
+            - terraform-circleci-release-agent-system
           context:
             - kubeconfig
             - circleci-release-agent-system
