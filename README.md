@@ -18,5 +18,5 @@ Please note that `kubeconfig` is needed for each workflow as that is an easy way
 # Partitions 
 * `AWS` This is the Terraform for AWS.
 * `docker` This is the Terraform for Docker Containers on the Host.
-* `Kubernetes` This is the Terraform for my Kubernetes Host.
+* `Kubernetes` This is the Terraform for my Kubernetes Host and the subsequent folders are for each namespace.
 * `minio` This is the Terraform for MiniO.
