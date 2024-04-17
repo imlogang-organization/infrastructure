@@ -9,11 +9,9 @@ This will also handle the creation of new buckets in my locally hosted MiniO, my
 All secrets are stored in Contexts inside of my self-hosted CircleCI Server and are referenced in each workflow as needed. 
 Please note that `kubeconfig` is needed for each workflow as that is an easy way to make sure that Machine Runner most jobs run on has access to the underlying Kubernetes infrastructure. 
 
---- 
-
 # Prerequisites for usage
-* Terraform either installed on MacOS (`brew install terraform`) or Windows.
-* Access to the CircleCI Server it runs on.
+* Terraform either installed on MacOS (`brew install terraform`) or [Windows](https://developer.hashicorp.com/terraform/install#windows).
+* Access to the [CircleCI Server](https://app.cciserver.logangodsey.com/pipelines/github/imlogang-organization/logan-infrastructure) it runs on.
 
 # Partitions 
 * `AWS` This is the Terraform for AWS.
