@@ -212,7 +212,6 @@ jobs:
     machine: true
     resource_class: imlogang-organization-server/ubuntu-k8s
     steps:
-      - envvar-prod
       - attach_workspace:
           at: .
       - run:
@@ -226,7 +225,10 @@ jobs:
       - image: dockerregistry.logangodsey.com/aws:04-17-2024
     resource_class: medium
     steps:
-      - envvar-prod
+      - aws-cli/assume_role_with_web_identity:
+          region: us-east-2
+          role_arn: arn:aws:iam::339712737644:role/cciserver-aws-terraform
+      - aws-fix-envvars
       - attach_workspace:
           at: .
       - run:
