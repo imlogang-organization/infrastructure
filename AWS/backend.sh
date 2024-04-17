@@ -12,6 +12,9 @@ terraform {
     skip_credentials_validation = true
     skip_metadata_api_check     = true
     force_path_style            = true
+    skip_requesting_account_id  = true
   }
 }
 EOF
+
+echo "Backend script created"
