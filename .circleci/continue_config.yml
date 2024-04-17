@@ -180,8 +180,9 @@ jobs:
             - .
 
   terraform-aws:
-    machine: true 
-    resource_class: imlogang-organization-server/ubuntu-k8s
+    docker:
+      - image: dockerregistry.logangodsey.com/aws:04-17-2024
+    resource_class: medium
     steps:
       - checkout
       - aws-cli/assume_role_with_web_identity:
@@ -191,7 +192,7 @@ jobs:
           name: execute backend script
           command: |
             cd << pipeline.parameters.file-path >>
-            sudo chmod +x ./backend.sh
+            sudo chmod +x ./backend.sh && ./backend.sh
       - terraform-init
       - terraform-plan
       - persist_to_workspace:
@@ -202,6 +203,20 @@ jobs:
   terraform-apply:
     machine: true
     resource_class: imlogang-organization-server/ubuntu-k8s
+    steps:
+      - envvar-prod
+      - attach_workspace:
+          at: .
+      - run:
+          name: terraform apply
+          command: |
+            cd << pipeline.parameters.file-path >>
+            terraform apply -auto-approve "plan.tf"
+    
+  terraform-apply-aws:
+    docker:
+      - image: dockerregistry.logangodsey.com/aws:04-17-2024
+    resource_class: medium
     steps:
       - envvar-prod
       - attach_workspace:
@@ -304,7 +319,7 @@ workflows:
             context:
               - kubeconfig
               - minio_backend
-        - terraform-apply:
+        - terraform-apply-aws:
             requires:
               - terraform-aws
             context:
