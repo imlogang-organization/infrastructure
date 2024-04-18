@@ -17,5 +17,5 @@ variable "has_public_ip" {
 }
 variable "ec2_ssh_key_name" {
     description = "The keypair name in AWS"
-    default = aws-ec2-mac
+    default = "aws-ec2-mac"
 }
