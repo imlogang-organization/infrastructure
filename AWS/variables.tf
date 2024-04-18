@@ -7,3 +7,11 @@ variable "instance_type" {
     description = "Instance type in AWS"
     default = "t2.micro"
 }
+variable "runner_ami" {
+    description = "The AMI for Runner Instance"
+    default = "ami-0f30a9c3a48f3fa79" 
+}
+variable "has_public_ip" {
+    description = "If the Instance should have a public IP"
+    default = true
+}
