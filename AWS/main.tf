@@ -20,4 +20,5 @@ resource "aws_instance" "runner_host" {
     tags = {
         Name = "Runner-Host"  
     }
+    vpc_security_group_ids = [ "sg-02a7bd12867aff59c" ]
 }
