@@ -10,6 +10,9 @@ terraform {
 resource "aws_instance" "docker_host" {
     ami           = "ami-05fb0b8c1424f266b"
     instance_type = var.instance_type
+    tags = {
+      Name = "External Docker Host"
+    }
 }
 
 resource "aws_instance" "runner_host" {
