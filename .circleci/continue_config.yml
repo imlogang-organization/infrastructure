@@ -223,6 +223,11 @@ jobs:
     steps:
       - checkout
       - cloudflare-fix-envvars
+      - run: 
+          name: execute backend script
+          command: |
+            cd << pipeline.parameters.file-path >>
+            sudo chmod +x ./backend.sh && ./backend.sh
       - terraform-init
       - terraform-plan
       - persist_to_workspace:
@@ -365,9 +370,11 @@ workflows:
             context:
               - kubeconfig
               - cloudflare
+              - minio_backend
         - terraform-apply:
             requires:
               - terraform-cloudflare
             context:
               - kubeconfig
               - cloudflare
+              - minio_backend
