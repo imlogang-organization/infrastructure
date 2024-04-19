@@ -1,6 +1,5 @@
 variable "cloudflare_api_token" {
     description = "API Token for Cloudflare"
-    default = ""
 }
 
 variable "default_ip_value" {
