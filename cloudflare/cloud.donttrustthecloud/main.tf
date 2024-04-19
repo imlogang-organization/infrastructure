@@ -46,4 +46,3 @@ resource "cloudflare_record" "Minecraft_smp" {
     target   = "minecraft.donttrustthecloud.cloud"
   }
 }
-
