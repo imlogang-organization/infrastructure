@@ -109,9 +109,9 @@ commands:
   cloudflare-fix-envvars:
     steps:
       - run: 
-          name: fix aws envvars
+          name: fix cloudflare envvars
           command: |
-            echo 'export CLOUDFLARE_ACCESS_KEY="'"${TF_VAR_cloudflare_api_token}"'"' >> "$BASH_ENV"
+            echo 'export TF_VAR_cloudflare_api_token="'"${CLOUDFLARE_ACCESS_KEY}"'"' >> "$BASH_ENV"
 jobs:
   terraform-plan-prod:
     machine: true 
