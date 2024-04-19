@@ -19,3 +19,11 @@ variable "ec2_ssh_key_name" {
     description = "The keypair name in AWS"
     default = "aws-ec2-mac"
 }
+variable "http_endpoint" {
+    description = "HTTP endpoint needed to enable IMDSv2"
+    default = "enabled"
+}
+variable "http_tokens" {
+    description = "HTTP Token needed to enable IMDSv2"
+    default = "required"
+}

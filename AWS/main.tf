@@ -21,6 +21,11 @@ resource "aws_instance" "runner_host" {
         Name = "Runner-Host"  
     }
     vpc_security_group_ids = [ aws_security_group.runner.id ]
+
+    metadata_options {
+    http_endpoint = var.http_endpoint
+    http_tokens   = var.http_tokens
+  }
 }
 
 resource "aws_security_group" "runner" {
