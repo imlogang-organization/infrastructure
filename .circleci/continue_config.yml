@@ -230,6 +230,9 @@ jobs:
     machine: true 
     resource_class: imlogang-organization-server/ubuntu-k8s
     steps:
+      - run: 
+          name: echo resource editing
+          command: echo << pipeline.parameters.file-path >>
       - checkout
       - cloudflare-fix-envvars
       - run: 
