@@ -32,4 +32,6 @@ workflows:
             AWS/.* file-path "AWS"
             cloudflare/cloud.donttrustthecloud/.* cloudflare true
             cloudflare/cloud.donttrustthecloud/.* file-path "cloudflare/cloud.donttrustthecloud"
+            cloudflare/com.logangodsey/.* logangodsey true
+            cloudflare/com.logangodsey/.* file-path "cloudflare/com.logangodsey"
           circleci_domain: cciserver.logangodsey.com

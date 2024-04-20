@@ -28,6 +28,9 @@ parameters:
   cloudflare:
     default: false
     type: boolean
+  logangodsey:
+    default: false
+    type: boolean
   namespace:
     default: ""
     type: string
@@ -112,6 +115,12 @@ commands:
           name: fix cloudflare envvars
           command: |
             echo 'export TF_VAR_cloudflare_api_token="'"${CLOUDFLARE_ACCESS_KEY}"'"' >> "$BASH_ENV"
+  cloudflare-fix-envvars-logangodsey:
+    steps:
+      - run: 
+          name: fix cloudflare envvars
+          command: |
+            echo 'export TF_VAR_cloudflare_api_token="'"${CLOUDFLARE_ACCESS_KEY_LOGANGODSEY}"'"' >> "$BASH_ENV"
 jobs:
   terraform-plan-prod:
     machine: true 
@@ -217,12 +226,30 @@ jobs:
           paths:
             - .
 
-  terraform-cloudflare:
+  terraform-cloudflare-donttrustthecloud:
     machine: true 
     resource_class: imlogang-organization-server/ubuntu-k8s
     steps:
       - checkout
       - cloudflare-fix-envvars
+      - run: 
+          name: execute backend script
+          command: |
+            cd << pipeline.parameters.file-path >>
+            chmod +x ./backend.sh && ./backend.sh
+      - terraform-init
+      - terraform-plan
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  terraform-cloudflare-logangodsey:
+    machine: true 
+    resource_class: imlogang-organization-server/ubuntu-k8s
+    steps:
+      - checkout
+      - cloudflare-fix-envvars-logangodsey
       - run: 
           name: execute backend script
           command: |
@@ -363,17 +390,33 @@ workflows:
               - kubeconfig
               - minio_backend
 
-  terraform-cloudflare:
+  terraform-cloudflare-donttrustthecloud:
     when: << pipeline.parameters.cloudflare >>
     jobs:
-        - terraform-cloudflare:
+        - terraform-cloudflare-donttrustthecloud:
             context:
               - kubeconfig
               - cloudflare
               - minio_backend
         - terraform-apply:
             requires:
-              - terraform-cloudflare
+              - terraform-cloudflare-donttrustthecloud
+            context:
+              - kubeconfig
+              - cloudflare
+              - minio_backend
+    
+  terraform-cloudflare-logangodsey:
+    when: << pipeline.parameters.cloudflare >>
+    jobs:
+        - terraform-cloudflare-logangodsey:
+            context:
+              - kubeconfig
+              - cloudflare
+              - minio_backend
+        - terraform-apply:
+            requires:
+              - terraform-cloudflare-logangodsey
             context:
               - kubeconfig
               - cloudflare

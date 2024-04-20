@@ -1,10 +1,55 @@
-resource "cloudflare_zone" "donttrustthecloud_cloud" {
-  zone = "donttrustthecloud.cloud"
-  account_id = "b64462c993207214e5e05ebac1b42ac4"
+resource "cloudflare_zone" "logangodsey_com" {
+  zone = "logangodsey.com"
+  account_id = "3394786b1427593ec6ed41d93684f599"
+}
+
+resource "cloudflare_record" "app_cciserver" {
+  zone_id = cloudflare_zone.logangodsey_com.id
+  name    = "app.cciserver"
+  value   = var.current_external_ip
+  type    = var.default_type
+  ttl     = var.default_ttl
+  proxied = var.proxy_state
+}
+
+resource "cloudflare_record" "cciserver" {
+  zone_id = cloudflare_zone.logangodsey_com.id
+  name    = "cciserver"
+  value   = var.current_external_ip
+  type    = var.default_type
+  ttl     = var.default_ttl
+  proxied = var.proxy_state
+}
+
+resource "cloudflare_record" "app_gcp" {
+  zone_id = cloudflare_zone.logangodsey_com.id
+  name    = "app.gcp"
+  value   = var.gcp_external_ip
+  type    = var.default_type
+  ttl     = var.default_ttl
+  proxied = var.proxy_state
+}
+
+resource "cloudflare_record" "gcp" {
+  zone_id = cloudflare_zone.logangodsey_com.id
+  name    = "gcp"
+  value   = var.gcp_external_ip
+  type    = var.default_type
+  ttl     = var.default_ttl
+  proxied = var.proxy_state
+}
+
+resource "cloudflare_record" "dockerregistry" {
+  zone_id = cloudflare_zone.logangodsey_com.id
+  name    = "dockerregistry"
+  value   = var.docker_host
+  type    = var.default_type
+  ttl     = var.default_ttl
+  proxied = var.proxy_state
 }
 
 resource "cloudflare_record" "games" {
-  zone_id = cloudflare_zone.donttrustthecloud_cloud.id
+  zone_id = cloudflare_zone.logangodsey_com.id
   name    = "games"
   #value   = var.default_ip_value
   type    = var.default_type
@@ -12,8 +57,26 @@ resource "cloudflare_record" "games" {
   proxied = var.proxy_state
 }
 
+resource "cloudflare_record" "influxdb2" {
+  zone_id = cloudflare_zone.logangodsey_com.id
+  name    = "influxdb2"
+  value   = var.ec2_docker_host
+  type    = var.default_type
+  ttl     = var.default_ttl
+  proxied = var.proxy_state
+}
+
+resource "cloudflare_record" "minecraftdell" {
+  zone_id = cloudflare_zone.logangodsey_com.id
+  name    = "minecraftdell"
+  value   = var.minecraftdell_ip
+  type    = var.default_type
+  ttl     = var.default_ttl
+  proxied = var.proxy_state
+}
+
 resource "cloudflare_record" "minecraft" {
-  zone_id = cloudflare_zone.donttrustthecloud_cloud.id
+  zone_id = cloudflare_zone.logangodsey_com.id
   name    = "minecraft"
   #value   = var.default_ip_value
   type    = var.default_type
@@ -21,28 +84,29 @@ resource "cloudflare_record" "minecraft" {
   proxied = var.proxy_state
 }
 
-resource "cloudflare_record" "teamspeak" {
-  zone_id = cloudflare_zone.donttrustthecloud_cloud.id
-  name    = "teamspeak"
+resource "cloudflare_record" "openvpn" {
+  zone_id = cloudflare_zone.logangodsey_com.id
+  name    = "openvpn"
   #value   = var.default_ip_value
   type    = var.default_type
   ttl     = var.default_ttl
   proxied = var.proxy_state
 }
 
-resource "cloudflare_record" "Minecraft_smp" {
-  zone_id = cloudflare_zone.donttrustthecloud_cloud.id
-  name    = "_minecraft._tcp.smp"
-  type    = "SRV"
+resource "cloudflare_record" "uptimekuma" {
+  zone_id = cloudflare_zone.logangodsey_com.id
+  name    = "uptimekuma"
+  value   = var.ec2_docker_host
+  type    = var.default_type
   ttl     = var.default_ttl
   proxied = var.proxy_state
-  data {
-    service  = "_minecraft"
-    proto    = "_tcp"
-    name     = "smp"
-    priority = 0
-    weight   = 0
-    port     = 65100
-    target   = "minecraft.donttrustthecloud.cloud"
-  }
+}
+
+resource "cloudflare_record" "wireguard" {
+  zone_id = cloudflare_zone.logangodsey_com.id
+  name    = "wireguard"
+  #value   = var.ec2_docker_host
+  type    = var.default_type
+  ttl     = var.default_ttl
+  proxied = var.proxy_state
 }
