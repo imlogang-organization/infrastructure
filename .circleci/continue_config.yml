@@ -226,30 +226,12 @@ jobs:
           paths:
             - .
 
-  terraform-cloudflare-donttrustthecloud:
+  terraform-cloudflare:
     machine: true 
     resource_class: imlogang-organization-server/ubuntu-k8s
     steps:
       - checkout
       - cloudflare-fix-envvars
-      - run: 
-          name: execute backend script
-          command: |
-            cd << pipeline.parameters.file-path >>
-            chmod +x ./backend.sh && ./backend.sh
-      - terraform-init
-      - terraform-plan
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
-  terraform-cloudflare-logangodsey:
-    machine: true 
-    resource_class: imlogang-organization-server/ubuntu-k8s
-    steps:
-      - checkout
-      - cloudflare-fix-envvars-logangodsey
       - run: 
           name: execute backend script
           command: |
@@ -390,34 +372,18 @@ workflows:
               - kubeconfig
               - minio_backend
 
-  terraform-cloudflare-donttrustthecloud:
+  terraform-cloudflare:
     when: << pipeline.parameters.cloudflare >>
     jobs:
-        - terraform-cloudflare-donttrustthecloud:
-            context:
-              - kubeconfig
-              - cloudflare
-              - minio_backend
-        - terraform-apply:
-            requires:
-              - terraform-cloudflare-donttrustthecloud
-            context:
-              - kubeconfig
-              - cloudflare
-              - minio_backend
-    
-  terraform-cloudflare-logangodsey:
-    when: << pipeline.parameters.logangodsey >>
-    jobs:
-        - terraform-cloudflare-logangodsey:
-            context:
-              - kubeconfig
-              - cloudflare
-              - minio_backend
-        - terraform-apply:
-            requires:
-              - terraform-cloudflare-logangodsey
-            context:
-              - kubeconfig
-              - cloudflare
-              - minio_backend
+      - terraform-cloudflare:
+          context:
+            - kubeconfig
+            - cloudflare
+            - minio_backend
+      - terraform-apply:
+          requires:
+            - terraform-cloudflare
+          context:
+            - kubeconfig
+            - cloudflare
+            - minio_backend
