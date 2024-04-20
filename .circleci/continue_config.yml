@@ -407,7 +407,7 @@ workflows:
               - minio_backend
     
   terraform-cloudflare-logangodsey:
-    when: << pipeline.parameters.cloudflare >>
+    when: << pipeline.parameters.logangodsey >>
     jobs:
         - terraform-cloudflare-logangodsey:
             context:
