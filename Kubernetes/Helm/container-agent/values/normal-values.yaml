@@ -14,10 +14,10 @@ agent:
     imlogang-organization/container-runner:
   customSecret: logan.container-runner
   
-  serviceAccount:
-    annotations:
-      eks.amazonaws.com/role-arn: arn:aws:iam::397187125081:role/cci-iam
-    name: kaniko-test
+  # serviceAccount:
+  #   annotations:
+  #     eks.amazonaws.com/role-arn: arn:aws:iam::397187125081:role/cci-iam
+  #   name: kaniko-test
   # podAnnotations:
   #   eks.amazonaws.com/role-arn: arn:aws:iam::397187125081:role/cci-iam
   # image:
