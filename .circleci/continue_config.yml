@@ -258,6 +258,7 @@ jobs:
           name: echo resource editing
           command: echo << pipeline.parameters.file-path >>
       - checkout
+      - managed-namespace
       - run: 
           name: execute backend script
           command: |

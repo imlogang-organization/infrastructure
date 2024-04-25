@@ -16,7 +16,7 @@ resource "helm_release" "container_agent" {
   values = [
     file("${path.module}/values/normal-values.yaml") // This will refer to Kubernetes/Helm/values.yaml
   ]
-  
+
   depends_on = [
     null_resource.add_helm_repo
   ]
