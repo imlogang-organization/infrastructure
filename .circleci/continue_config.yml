@@ -31,6 +31,9 @@ parameters:
   logangodsey:
     default: false
     type: boolean
+  container-agent-values-update:
+    default: false
+    type: boolean
   namespace:
     default: ""
     type: string
@@ -247,6 +250,26 @@ jobs:
           paths:
             - .
 
+  terraform-container-agent-update:
+    machine: true 
+    resource_class: imlogang-organization-server/ubuntu-k8s
+    steps:
+      - run: 
+          name: echo resource editing
+          command: echo << pipeline.parameters.file-path >>
+      - checkout
+      - run: 
+          name: execute backend script
+          command: |
+            cd << pipeline.parameters.file-path >>
+            chmod +x ./backend.sh && ./backend.sh
+      - terraform-init
+      - terraform-plan
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
   terraform-apply:
     machine: true
     resource_class: imlogang-organization-server/ubuntu-k8s
@@ -389,4 +412,18 @@ workflows:
           context:
             - kubeconfig
             - cloudflare
+            - minio_backend
+
+  terraform-container-agent-update:
+    when: << pipeline.parameters.container-agent-values-update >>
+    jobs:
+      - terraform-container-agent-update:
+          context:
+            - kubeconfig
+            - minio_backend
+      - terraform-apply:
+          requires:
+            - terraform-container-agent-update
+          context:
+            - kubeconfig
             - minio_backend

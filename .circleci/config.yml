@@ -34,4 +34,7 @@ workflows:
             cloudflare/cloud.donttrustthecloud/.* file-path "cloudflare/cloud.donttrustthecloud"
             cloudflare/com.logangodsey/.* cloudflare true
             cloudflare/com.logangodsey/.* file-path "cloudflare/com.logangodsey"
+            Kubernetes/Helm/container-agent/.* container-agent-values-update true
+            Kubernetes/Helm/container-agent/.* file-path "Kubernetes/Helm/container-agent"
           circleci_domain: cciserver.logangodsey.com
+ 

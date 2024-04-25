@@ -14,7 +14,9 @@ Please note that `kubeconfig` is needed for each workflow as that is an easy way
 * Access to the [CircleCI Server](https://app.cciserver.logangodsey.com/pipelines/github/imlogang-organization/logan-infrastructure) it runs on.
 
 # Partitions 
-* `AWS` This is the Terraform for AWS.
-* `docker` This is the Terraform for Docker Containers on the Host.
-* `Kubernetes` This is the Terraform for my Kubernetes Host and the subsequent folders are for each namespace.
-* `minio` This is the Terraform for MiniO.
+* `AWS`: This is the Terraform for AWS.
+* `cloudflare`: Handles both domains and their records.
+* `docker`: This is the Terraform for Docker Containers on the Host.
+* `Kubernetes/Secrets`: This is the Terraform for my Kubernetes Host and the secrets in it. Folder structure is a `namespace` is a folder.
+* `Kuberentes/Helm`: This is the Terraform for any deployments that are done via Helm. Folder structure is a `namespace` is a folder.
+* `minio`: This is the Terraform for MiniO.
