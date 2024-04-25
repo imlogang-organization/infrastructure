@@ -258,13 +258,13 @@ jobs:
           name: echo resource editing
           command: echo << pipeline.parameters.file-path >>
       - checkout
-      - managed-namespace
       - run: 
           name: execute backend script
           command: |
             cd << pipeline.parameters.file-path >>
             chmod +x ./backend.sh && ./backend.sh
       - terraform-init
+      - managed-namespace
       - terraform-plan
       - persist_to_workspace:
           root: .
