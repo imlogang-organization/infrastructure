@@ -19,13 +19,13 @@ resource "minio_iam_user" "ptero_backup_user" {
 }
 
 output "test" {
-  value = "${ptero_backup_user.test.id}"
+  value = "${minio_iam_user.ptero_backup_user.id}"
 }
 
 output "status" {
-  value = "${ptero_backup_user.test.status}"
+  value = "${minio_iam_user.ptero_backup_user.status}"
 }
 
 output "secret" {
-  value = "${ptero_backup_user.test.secret}"
+  value = "${minio_iam_user.ptero_backup_user.secret}"
 }
