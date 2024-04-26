@@ -20,12 +20,15 @@ resource "minio_iam_user" "ptero_backup_user" {
 
 output "test" {
   value = "${minio_iam_user.ptero_backup_user.id}"
+  sensitive = true
 }
 
 output "status" {
   value = "${minio_iam_user.ptero_backup_user.status}"
+  sensitive = true
 }
 
 output "secret" {
   value = "${minio_iam_user.ptero_backup_user.secret}"
+  sensitive = true
 }
