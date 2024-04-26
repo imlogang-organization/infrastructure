@@ -13,7 +13,19 @@ resource "minio_s3_bucket" "ptero_oats_backup" {
   acl    = "public" 
 }
 
-resource "minio_user" "ptero_oats_user" {
-  access_key = "ptero_oats_user"
-  secret_key = "u97LxZ%SiXCpBuBUp&J"
+resource "minio_iam_user" "ptero_backup_user" {
+   name = "ptero-backup-user"
+   force_destroy = true
+}
+
+output "test" {
+  value = "${minio_iam_user.test.id}"
+}
+
+output "status" {
+  value = "${minio_iam_user.test.status}"
+}
+
+output "secret" {
+  value = "${minio_iam_user.test.secret}"
 }
