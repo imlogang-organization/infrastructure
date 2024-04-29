@@ -43,6 +43,13 @@ parameters:
   
 
 commands:
+  backend_script:
+    steps:
+      - run: 
+          name: execute backend script
+          command: |
+            cd << pipeline.parameters.file-path >>
+            sudo chmod +x ./backend.sh && ./backend.sh
   managed-namespace:
     steps:
       - run: 
@@ -200,6 +207,7 @@ jobs:
     resource_class: imlogang-organization-server/ubuntu-k8s
     steps:
       - checkout
+      - backend_script
       - terraform-init
       - terraform-plan
       - persist_to_workspace:
