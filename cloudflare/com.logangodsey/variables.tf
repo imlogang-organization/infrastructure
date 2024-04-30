@@ -30,7 +30,7 @@ variable "current_external_ip" {
 
 variable "gcp_external_ip" {
     description = "GCP Server External IP."
-    default = "34.41.221.124"
+    default = "35.224.87.105"
 }
 
 variable "docker_host" {
