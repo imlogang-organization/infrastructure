@@ -38,6 +38,7 @@ workflows:
             Kubernetes/Helm/container-agent/.* file-path "Kubernetes/Helm/container-agent"
             Kubernetes/Helm/container-agent/.* namespace "circleci"
             Kubernetes/Secrets/container-agent-gcp-server-upgrade/.* container-agent-gcp-secret-upgrade true
+            Kubernetes/Secrets/container-agent-gcp-server-upgrade/.* namespace "cr-upgrade"
             Kubernetes/Secrets/container-agent-gcp-server-upgrade/.* file-path "Kubernetes/Secrets/container-agent-gcp-server-upgrade"
             Kubernetes/Helm/container-agent-gcp-server-upgrade/.* container-agent-gcp-server-upgrade true
             Kubernetes/Helm/container-agent-gcp-server-upgrade/.* namespace "cr-upgrade"
