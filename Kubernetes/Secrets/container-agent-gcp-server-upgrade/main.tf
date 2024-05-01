@@ -6,7 +6,7 @@ data "google_container_cluster" "circleci-server" {
 
 resource "kubernetes_secret" "container-runner-gcp-upgrade" {
   metadata {
-    name      = "imlogang-organization.gcp-container-runner"
+    name      = "imlogang-organization.gcp-server-runner"
     namespace = kubernetes_namespace.container-runner-gcp-upgrade.metadata[0].name
   }
 
