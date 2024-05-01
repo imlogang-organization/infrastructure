@@ -480,7 +480,7 @@ workflows:
     when: 
       or:
         - << pipeline.parameters.container-agent-gcp-secret-upgrade >>
-        - << pipeline.parameters.container-agent-gcp-secret-upgrade >>
+        - << pipeline.parameters.container-agent-gcp-server-upgrade >>
     jobs:
       - terraform-plan-gcp-container-runner-upgrade:
           context:
