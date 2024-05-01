@@ -479,8 +479,10 @@ workflows:
       - terraform-plan-gcp-container-runner-upgrade:
           context:
             - gcloud
+            - gcp_container_runner_token
       - terraform-apply-gcp:
           requires:
             - terraform-plan-gcp-container-runner-upgrade
           context:
             - gcloud
+            - gcp_container_runner_token

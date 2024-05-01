@@ -11,7 +11,7 @@ resource "kubernetes_secret" "container-runner-gcp-upgrade" {
   }
 
   data = {
-    token = var.circleci_release_agent_system_token
+    token = var.imlogang-organization-gcp-server-runner
   }
 
   type = "Opaque"

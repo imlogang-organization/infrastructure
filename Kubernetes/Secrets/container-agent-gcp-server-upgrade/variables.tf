@@ -1,4 +1,4 @@
-variable "circleci_release_agent_system_token" {
+variable "imlogang-organization-gcp-server-runner" {
   description = "Auth Token of imlogang-organization Container Runner on Cloud to upgrade GCP Server"
   type        = string
 }
