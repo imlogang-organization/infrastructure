@@ -1,4 +1,4 @@
-resource "kubernetes_namespace" "circleci" {
+resource "kubernetes_namespace" "cr-upgrade" {
   metadata {
     name = "cr-upgrade"
   }
