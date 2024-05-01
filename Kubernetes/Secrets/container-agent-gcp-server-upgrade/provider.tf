@@ -11,4 +11,3 @@ provider "kubernetes" {
   client_key             = base64decode(data.google_container_cluster.circleci-server.master_auth[0].client_key)
   cluster_ca_certificate = base64decode(data.google_container_cluster.circleci-server.master_auth[0].cluster_ca_certificate)
 }
-
