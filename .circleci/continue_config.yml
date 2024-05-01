@@ -294,8 +294,8 @@ jobs:
       - gcp-cli/setup:
           use_oidc: true
           version: 445.0.0
-      - managed-namespace
       - terraform-init
+      - managed-namespace
       - terraform-plan
       - persist_to_workspace:
           root: .
