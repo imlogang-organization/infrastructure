@@ -2,7 +2,7 @@
 # Logan Infrastructure 
 This is the terraform repository that controls Logan's Infrastructure to a point. 
 
-Most notabley, this handles the secrets in all Kubernetes Namespaces execpt `circleci-server`. 
+Most notably, this handles the secrets in all Kubernetes Namespaces execpt `circleci-server`. 
 
 This will also handle the creation of new buckets in my locally hosted MiniO, my single EC2 instance in AWS and eventually, my Docker host internally. 
 
