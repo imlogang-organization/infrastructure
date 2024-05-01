@@ -7,7 +7,7 @@ data "google_container_cluster" "circleci-server" {
 resource "kubernetes_secret" "container-runner-gcp-upgrade" {
   metadata {
     name      = "imlogang-organization.gcp-server-runner"
-    namespace = kubernetes_namespace.container-runner-gcp-upgrade.metadata[0].name
+    namespace = kubernetes_namespace.cr-upgrade.metadata[0].name
   }
 
   data = {
@@ -17,6 +17,6 @@ resource "kubernetes_secret" "container-runner-gcp-upgrade" {
   type = "Opaque"
 
   depends_on = [
-    kubernetes_namespace.container-runner-gcp-upgrade,
+    kubernetes_namespace.cr-upgrade,
   ]
 }

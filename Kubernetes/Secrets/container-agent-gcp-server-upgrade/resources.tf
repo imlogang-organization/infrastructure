@@ -1,4 +1,4 @@
-resource "kubernetes_namespace" "container-runner-gcp-upgrade" {
+resource "kubernetes_namespace" "cr-upgrade" {
   metadata {
     name = "cr-upgrade"
   }
