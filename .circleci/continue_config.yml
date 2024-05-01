@@ -34,6 +34,9 @@ parameters:
   container-agent-values-update:
     default: false
     type: boolean
+  container-agent-gcp-server-upgrade:
+    default: false
+    type: boolean
   namespace:
     default: ""
     type: string
@@ -278,6 +281,22 @@ jobs:
           root: .
           paths:
             - .
+  
+  terraform-plan-gcp-container-runner-upgrade:
+    docker:
+      - image: dockerregistry.logangodsey.com/gcp:12-05-2023
+    steps:
+      - checkout
+      - gcp-cli/setup:
+          use_oidc: true
+          version: 445.0.0
+      - terraform-init
+      - terraform-plan
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
 
   terraform-apply:
     machine: true
@@ -307,6 +326,22 @@ jobs:
           command: |
             cd << pipeline.parameters.file-path >>
             terraform apply -auto-approve "plan.tf"
+  
+  terraform-apply-gcp:
+    docker: 
+      - image: dockerregistry.logangodsey.com/gcp:12-05-2023
+    steps:
+      - gcp-cli/setup:
+          use_oidc: true
+          version: 445.0.0
+      - attach_workspace:
+          at: .
+      - run:
+          name: terraform apply
+          command: |
+            cd << pipeline.parameters.file-path >>
+            terraform apply -auto-approve "plan.tf"
+
 
 workflows:
   terraform-beemoviebot-prod:
@@ -436,3 +471,15 @@ workflows:
           context:
             - kubeconfig
             - minio_backend
+
+  terraform-gcp:
+    when: << pipeline.parameters.container-agent-gcp-server-upgrade >>
+    jobs:
+      - terraform-plan-gcp-container-runner-upgrade:
+          context:
+            - gcloud
+      - terraform-apply-gcp:
+          requires:
+            - terraform-plan-gcp-container-runner-upgrade
+          context:
+            - gcloud
