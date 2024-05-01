@@ -1,0 +1,5 @@
+agent:
+  resourceClasses:
+    logan/container-runner:
+  customSecret: imlogang-organization.gcp-container-runner
+  

@@ -35,6 +35,9 @@ parameters:
   container-agent-values-update:
     default: false
     type: boolean
+  container-agent-gcp-secret-upgrade:
+    default: false
+    type: boolean
   container-agent-gcp-server-upgrade:
     default: false
     type: boolean
@@ -291,13 +294,13 @@ jobs:
       - gcp-cli/setup:
           use_oidc: true
           version: 445.0.0
+      - managed-namespace
       - terraform-init
       - terraform-plan
       - persist_to_workspace:
           root: .
           paths:
             - .
-
 
   terraform-apply:
     machine: true
@@ -474,7 +477,10 @@ workflows:
             - minio_backend
 
   terraform-gcp:
-    when: << pipeline.parameters.container-agent-gcp-server-upgrade >>
+    when: 
+      or:
+        - << pipeline.parameters.container-agent-gcp-secret-upgrade >>
+        - << pipeline.parameters.container-agent-gcp-secret-upgrade >>
     jobs:
       - terraform-plan-gcp-container-runner-upgrade:
           context:
