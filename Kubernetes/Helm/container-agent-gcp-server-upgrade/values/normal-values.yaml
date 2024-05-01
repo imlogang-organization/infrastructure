@@ -1,5 +1,5 @@
 agent:
   resourceClasses:
     imlogang-organization/gcp-server-runner:
-  customSecret: imlogang-organization.gcp-container-runner
+  customSecret: imlogang-organization.gcp-server-runner
   
