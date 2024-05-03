@@ -1,0 +1,35 @@
+agent:
+  resourceClasses:
+    logan/container-runner:
+      spec:
+        containers:
+          - livenessProbe:
+              initialDelaySeconds: 250
+              periodSeconds: 35
+              timeoutSeconds: 20
+              successThreshold: 1
+              failureThreshold: 6
+        imagePullSecrets:
+          - name: "aws-secret"
+    imlogang-organization/container-runner:
+  customSecret: logan.container-runner
+  
+  # serviceAccount:
+  #   annotations:
+  #     eks.amazonaws.com/role-arn: arn:aws:iam::397187125081:role/cci-iam
+  #   name: kaniko-test
+  # podAnnotations:
+  #   eks.amazonaws.com/role-arn: arn:aws:iam::397187125081:role/cci-iam
+  # image:
+  #   registry: ""
+  #   repository: "circleci/runner-agent"
+  #   pullPolicy: Always
+  #   tag: "kubernetes-edge"
+  #   digest: ""
+
+  ssh:
+    enabled: true
+    controllerName: "gateway.envoyproxy.io/gatewayclass-controller"
+    parametersRef: {}
+    startPort: 54782
+    numPorts: 20
