@@ -43,5 +43,8 @@ workflows:
             Kubernetes/Helm/container-agent-gcp-server-upgrade/.* container-agent-gcp-server-upgrade true
             Kubernetes/Helm/container-agent-gcp-server-upgrade/.* namespace "cr-upgrade"
             Kubernetes/Helm/container-agent-gcp-server-upgrade/.* file-path "Kubernetes/Helm/container-agent-gcp-server-upgrade"
+            Kubernetes/Helm/container-agent-server/.* container-agent-server-values-update true
+            Kubernetes/Helm/container-agent-server/.* namespace "container-runner-server"
+            Kubernetes/Helm/container-agent-server/.* file-path "Kubernetes/Helm/container-agent-server"
           circleci_domain: cciserver.logangodsey.com
  
