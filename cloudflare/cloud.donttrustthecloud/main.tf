@@ -46,3 +46,20 @@ resource "cloudflare_record" "Minecraft_smp" {
     target   = "minecraft.donttrustthecloud.cloud"
   }
 }
+
+resource "cloudflare_record" "Minecraft_Modded" {
+  zone_id = cloudflare_zone.donttrustthecloud_cloud.id
+  name    = "_modded._tcp.smp"
+  type    = "SRV"
+  ttl     = var.default_ttl
+  proxied = var.proxy_state
+  data {
+    service  = "_minecraft"
+    proto    = "_tcp"
+    name     = "modded"
+    priority = 0
+    weight   = 0
+    port     = 65103
+    target   = "minecraft.donttrustthecloud.cloud"
+  }
+}
