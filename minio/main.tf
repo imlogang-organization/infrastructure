@@ -13,6 +13,11 @@ resource "minio_s3_bucket" "ptero_oats_backup" {
   acl    = "public" 
 }
 
+resource "minio_s3_bucket" "cs_config_backup" {
+  bucket = "cs-config-backup"
+  acl    = "public" 
+}
+
 resource "minio_iam_user" "ptero_backup_user" {
    name = "ptero-backup-user"
    force_destroy = true
