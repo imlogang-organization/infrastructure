@@ -59,7 +59,7 @@ resource "cloudflare_record" "Minecraft_Modded" {
     name     = "modded"
     priority = 0
     weight   = 0
-    port     = 65103
+    port     = 65203
     target   = "minecraft.donttrustthecloud.cloud"
   }
 }
