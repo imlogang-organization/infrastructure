@@ -59,7 +59,7 @@ commands:
           name: execute backend script
           command: |
             cd << pipeline.parameters.file-path >>
-            sudo chmod +x ./backend.sh && ./backend.sh
+            chmod +x ./backend.sh && ./backend.sh
   managed-namespace:
     steps:
       - run: 
@@ -239,7 +239,7 @@ jobs:
           name: execute backend script
           command: |
             cd << pipeline.parameters.file-path >>
-            sudo chmod +x ./backend.sh && ./backend.sh
+            chmod +x ./backend.sh && ./backend.sh
       - terraform-init
       - terraform-plan
       - persist_to_workspace:
