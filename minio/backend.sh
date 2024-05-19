@@ -18,3 +18,4 @@ terraform {
 EOF
 
 echo "Backend script created"
+cat backend.tf

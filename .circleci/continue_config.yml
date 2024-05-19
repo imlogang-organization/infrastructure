@@ -440,12 +440,14 @@ workflows:
             context:
               - kubeconfig
               - minio
+              - minio_backend
         - terraform-apply:
             requires:
               - terraform-minio
             context:
               - kubeconfig
               - minio
+              - minio_backend
 
   terraform-aws:
     when: << pipeline.parameters.aws >>
