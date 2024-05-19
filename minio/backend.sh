@@ -4,9 +4,9 @@ cat > backend.tf << EOF
 terraform {
   backend "s3" {
     endpoint        = "${MINIO_URL}"
-    bucket          = "${BUCKET_NAME}"
+    bucket          = "ci-state-file"
     key             = "minio/terraform.tfstate"
-    region          = "${REGION}"
+    region          = "us-east-1"
     access_key      = "${MINIO_ACCESS_KEY}"
     secret_key      = "${MINIO_SECRET_KEY}"
     skip_credentials_validation = true
