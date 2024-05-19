@@ -14,8 +14,13 @@ resource "minio_s3_bucket" "ptero_oats_backup" {
 }
 
 resource "minio_s3_bucket" "cs_config_backup" {
-  bucket = "cs-config-backup"
+  bucket = "cs2-config-backup"
   acl    = "public" 
+}
+
+resource "minio_s3_bucket" "personal_server_backup" {
+  bucket = "personal-server-backup"
+  acl    = "public"
 }
 
 resource "minio_iam_user" "ptero_backup_user" {
