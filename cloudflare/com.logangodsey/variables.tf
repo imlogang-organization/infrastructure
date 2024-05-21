@@ -47,3 +47,7 @@ variable "minecraftdell_ip" {
     description = "IP of Internal Minecraft Host."
     default = "192.168.10.101"
 }
+
+variable "dynamic_public_ip" {
+    description = "Dynamic IP derived from curl."
+}
