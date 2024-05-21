@@ -141,6 +141,14 @@ commands:
           name: fix cloudflare envvars
           command: |
             echo 'export TF_VAR_cloudflare_api_token="'"${CLOUDFLARE_ACCESS_KEY_LOGANGODSEY}"'"' >> "$BASH_ENV"
+  get_public_ip:
+    steps:
+      - run: 
+          name: find public IP
+          command: |
+            TF_VAR_dynamic_public_ip=$(curl ifconfig.me).
+            echo 'export TF_VAR_dynamic_public_ip="'"${TF_VAR_dynamic_public_ip}"'"' >> "$BASH_ENV"
+            echo "Public IP is $TF_VAR_dynamic_ip"
 jobs:
   terraform-plan-prod:
     machine: true 
@@ -255,6 +263,7 @@ jobs:
           name: echo resource editing
           command: echo << pipeline.parameters.file-path >>
       - checkout
+      - get_public_ip
       - cloudflare-fix-envvars
       - run: 
           name: execute backend script

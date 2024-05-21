@@ -21,3 +21,7 @@ variable "default_ttl" {
     description = "Default TTL."
     default = 1
 }
+
+variable "dynamic_public_ip" {
+    description = "Dynamic IP derived from curl."
+}
