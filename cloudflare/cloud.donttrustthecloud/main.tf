@@ -6,7 +6,7 @@ resource "cloudflare_zone" "donttrustthecloud_cloud" {
 resource "cloudflare_record" "games" {
   zone_id = cloudflare_zone.donttrustthecloud_cloud.id
   name    = "games"
-  #value   = var.default_ip_value
+  value   = var.dynamic_public_ip
   type    = var.default_type
   ttl     = var.default_ttl
   proxied = var.proxy_state
@@ -15,7 +15,7 @@ resource "cloudflare_record" "games" {
 resource "cloudflare_record" "minecraft" {
   zone_id = cloudflare_zone.donttrustthecloud_cloud.id
   name    = "minecraft"
-  #value   = var.default_ip_value
+  value   = var.dynamic_public_ip
   type    = var.default_type
   ttl     = var.default_ttl
   proxied = var.proxy_state
@@ -24,7 +24,7 @@ resource "cloudflare_record" "minecraft" {
 resource "cloudflare_record" "teamspeak" {
   zone_id = cloudflare_zone.donttrustthecloud_cloud.id
   name    = "teamspeak"
-  #value   = var.default_ip_value
+  value   = var.dynamic_public_ip
   type    = var.default_type
   ttl     = var.default_ttl
   proxied = var.proxy_state

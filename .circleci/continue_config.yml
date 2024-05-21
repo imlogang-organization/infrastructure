@@ -148,7 +148,7 @@ commands:
           command: |
             TF_VAR_dynamic_public_ip=$(curl ifconfig.me).
             echo 'export TF_VAR_dynamic_public_ip="'"${TF_VAR_dynamic_public_ip}"'"' >> "$BASH_ENV"
-            echo "Public IP is $TF_VAR_dynamic_ip"
+            echo "Public IP is $TF_VAR_dynamic_public_ip"
 jobs:
   terraform-plan-prod:
     machine: true 
