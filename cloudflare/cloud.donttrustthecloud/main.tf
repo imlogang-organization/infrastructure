@@ -72,7 +72,7 @@ resource "cloudflare_record" "Killing_Floor_2" {
   proxied = var.proxy_state
   data {
     service  = "_minecraft"
-    proto    = "_tcp"
+    proto    = "_udp"
     name     = "kf2"
     priority = 0
     weight   = 0
