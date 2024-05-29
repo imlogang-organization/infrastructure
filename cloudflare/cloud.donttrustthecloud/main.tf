@@ -66,17 +66,9 @@ resource "cloudflare_record" "Minecraft_Modded" {
 
 resource "cloudflare_record" "Killing_Floor_2" {
   zone_id = cloudflare_zone.donttrustthecloud_cloud.id
-  name    = "_kf2._tcp.kf2"
-  type    = "SRV"
+  name    = "kf2"
+  value   = var.dynamic_public_ip
+  type    = var.default_type
   ttl     = var.default_ttl
   proxied = var.proxy_state
-  data {
-    service  = "_minecraft"
-    proto    = "_udp"
-    name     = "kf2"
-    priority = 0
-    weight   = 0
-    port     = 7777
-    target   = "minecraft.donttrustthecloud.cloud"
-  }
 }
