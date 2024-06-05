@@ -84,7 +84,7 @@ resource "cloudflare_record" "plutonium_server" {
 
 resource "cloudflare_record" "plutonium_server_test" {
   zone_id = cloudflare_zone.donttrustthecloud_cloud.id
-  name    = "_pluto._tcp.smp"
+  name    = "_pluto._udp.smp"
   type    = "SRV"
   ttl     = var.default_ttl
   proxied = var.proxy_state
