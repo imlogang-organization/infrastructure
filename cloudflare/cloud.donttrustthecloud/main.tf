@@ -81,3 +81,20 @@ resource "cloudflare_record" "plutonium_server" {
   ttl     = var.default_ttl
   proxied = var.proxy_state
 }
+
+resource "cloudflare_record" "plutonium_server_test" {
+  zone_id = cloudflare_zone.donttrustthecloud_cloud.id
+  name    = "_pluto._tcp.smp"
+  type    = "SRV"
+  ttl     = var.default_ttl
+  proxied = var.proxy_state
+  data {
+    service  = "_pluto"
+    proto    = "_udp"
+    name     = "pluto"
+    priority = 0
+    weight   = 0
+    port     = 28960
+    target   = "plutonium.donttrustthecloud.cloud"
+  }
+}
