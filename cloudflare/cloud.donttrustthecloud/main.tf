@@ -72,3 +72,12 @@ resource "cloudflare_record" "Killing_Floor_2" {
   ttl     = var.default_ttl
   proxied = var.proxy_state
 }
+
+resource "cloudflare_record" "plutonium_server" {
+  zone_id = cloudflare_zone.donttrustthecloud_cloud.id
+  name    = "plutonium"
+  value   = var.dynamic_public_ip
+  type    = var.default_type
+  ttl     = var.default_ttl
+  proxied = var.proxy_state
+}
