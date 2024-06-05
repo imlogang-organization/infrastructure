@@ -1,6 +1,6 @@
 resource "cloudflare_zone" "logangodsey_com" {
   zone = "logangodsey.com"
-  account_id = "3394786b1427593ec6ed41d93684f599"
+  account_id = "b64462c993207214e5e05ebac1b42ac4"
 }
 
 resource "cloudflare_record" "app_cciserver" {

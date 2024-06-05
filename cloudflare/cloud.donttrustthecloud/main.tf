@@ -1,6 +1,6 @@
 resource "cloudflare_zone" "donttrustthecloud_cloud" {
   zone = "donttrustthecloud.cloud"
-  account_id = "b9bb3899e88ae2c6e8abd2ff874645f3"
+  account_id = "b64462c993207214e5e05ebac1b42ac4"
 }
 
 resource "cloudflare_record" "games" {
