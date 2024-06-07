@@ -75,7 +75,7 @@ resource "cloudflare_record" "Killing_Floor_2" {
 
 resource "cloudflare_record" "plutonium_server" {
   zone_id = cloudflare_zone.donttrustthecloud_cloud.id
-  name    = "plutonium"
+  name    = "blops2"
   value   = var.dynamic_public_ip
   type    = var.default_type
   ttl     = var.default_ttl
@@ -95,6 +95,6 @@ resource "cloudflare_record" "plutonium_server_test" {
     priority = 0
     weight   = 0
     port     = 28960
-    target   = "plutonium.donttrustthecloud.cloud"
+    target   = "blops2.donttrustthecloud.cloud"
   }
 }
