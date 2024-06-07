@@ -54,9 +54,6 @@ resource "cloudflare_record" "Minecraft_Modded" {
   ttl     = var.default_ttl
   proxied = var.proxy_state
   data {
-    service  = "_minecraft"
-    proto    = "_tcp"
-    name     = "modded"
     priority = 0
     weight   = 0
     port     = 65203
@@ -80,21 +77,4 @@ resource "cloudflare_record" "plutonium_server" {
   type    = var.default_type
   ttl     = var.default_ttl
   proxied = var.proxy_state
-}
-
-resource "cloudflare_record" "plutonium_server_test" {
-  zone_id = cloudflare_zone.donttrustthecloud_cloud.id
-  name    = "_pluto._udp.smp"
-  type    = "SRV"
-  ttl     = var.default_ttl
-  proxied = var.proxy_state
-  data {
-    service  = "_pluto"
-    proto    = "_udp"
-    name     = "pluto"
-    priority = 0
-    weight   = 0
-    port     = 28960
-    target   = "blops2.donttrustthecloud.cloud"
-  }
 }
