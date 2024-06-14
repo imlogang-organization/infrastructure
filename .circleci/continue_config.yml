@@ -185,7 +185,6 @@ jobs:
       - checkout
       - cloud-container-runner
       - terraform-init
-      - managed-namespace
       - terraform-plan
       - persist_to_workspace:
           root: .
