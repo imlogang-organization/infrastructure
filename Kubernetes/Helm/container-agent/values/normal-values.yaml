@@ -14,8 +14,8 @@ agent:
               preStop:
                 exec:
                   command: 
-                    - "/bin/bash"
-                    - "-c"
+                    - /bin/bash
+                    - -c
                     - >
                       echo 'PreStop hook: Delaying termination for 60 seconds' &&
                       sleep 60 &&
