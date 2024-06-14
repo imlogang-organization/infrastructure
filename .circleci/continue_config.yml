@@ -290,7 +290,6 @@ jobs:
             cd << pipeline.parameters.file-path >>
             chmod +x ./backend.sh && ./backend.sh
       - terraform-init
-      - managed-namespace
       - terraform-plan
       - persist_to_workspace:
           root: .
