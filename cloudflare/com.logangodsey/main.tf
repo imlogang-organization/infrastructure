@@ -110,3 +110,12 @@ resource "cloudflare_record" "wireguard" {
   ttl     = var.default_ttl
   proxied = var.proxy_state
 }
+
+resource "cloudflare_record" "minio_public" {
+  zone_id = cloudflare_zone.logangodsey_com.id
+  name    = "minio_public"
+  value   = var.dynamic_public_ip
+  type    = var.default_type
+  ttl     = var.default_ttl
+  proxied = var.proxy_state
+}
