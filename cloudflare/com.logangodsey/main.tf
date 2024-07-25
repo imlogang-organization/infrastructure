@@ -51,7 +51,7 @@ resource "cloudflare_record" "dockerregistry" {
 resource "cloudflare_record" "games" {
   zone_id = cloudflare_zone.logangodsey_com.id
   name    = "games"
-  value   = var.default_ip_value
+  value   = var.dynamic_public_ip
   type    = var.default_type
   ttl     = var.default_ttl
   proxied = var.proxy_state
@@ -78,7 +78,7 @@ resource "cloudflare_record" "minecraftdell" {
 resource "cloudflare_record" "minecraft" {
   zone_id = cloudflare_zone.logangodsey_com.id
   name    = "minecraft"
-  value   = var.default_ip_value
+  value   = var.dynamic_public_ip
   type    = var.default_type
   ttl     = var.default_ttl
   proxied = var.proxy_state
@@ -87,7 +87,7 @@ resource "cloudflare_record" "minecraft" {
 resource "cloudflare_record" "openvpn" {
   zone_id = cloudflare_zone.logangodsey_com.id
   name    = "openvpn"
-  value   = var.default_ip_value
+  value   = var.dynamic_public_ip
   type    = var.default_type
   ttl     = var.default_ttl
   proxied = var.proxy_state
@@ -105,7 +105,16 @@ resource "cloudflare_record" "uptimekuma" {
 resource "cloudflare_record" "wireguard" {
   zone_id = cloudflare_zone.logangodsey_com.id
   name    = "wireguard"
-  value   = var.default_ip_value
+  value   = var.dynamic_public_ip
+  type    = var.default_type
+  ttl     = var.default_ttl
+  proxied = var.proxy_state
+}
+
+resource "cloudflare_record" "minio_public" {
+  zone_id = cloudflare_zone.logangodsey_com.id
+  name    = "minio_public"
+  value   = var.dynamic_public_ip
   type    = var.default_type
   ttl     = var.default_ttl
   proxied = var.proxy_state

@@ -2,6 +2,7 @@ agent:
   resourceClasses:
     logan/container-runner:
       spec:
+        terminationGracePeriodSeconds: 300 # 5 minutes
         containers:
           - livenessProbe:
               initialDelaySeconds: 250
@@ -9,6 +10,17 @@ agent:
               timeoutSeconds: 20
               successThreshold: 1
               failureThreshold: 6
+            lifecycle:
+              preStop:
+                exec:
+                  command: 
+                    - /bin/bash
+                    - -c
+                    - >
+                      echo 'PreStop hook: Delaying termination for 60 seconds' &&
+                      sleep 60 &&
+                      echo 'PreStop hook: Sending TERM signal to process 1' &&
+                      kill 1
         imagePullSecrets:
           - name: "aws-secret"
     imlogang-organization/container-runner:
