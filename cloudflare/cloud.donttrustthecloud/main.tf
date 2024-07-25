@@ -78,3 +78,12 @@ resource "cloudflare_record" "plutonium_server" {
   ttl     = var.default_ttl
   proxied = var.proxy_state
 }
+
+resource "cloudflare_record" "beamng_server" {
+  zone_id = cloudflare_zone.donttrustthecloud_cloud.id
+  name    = "beamng"
+  value   = var.dynamic_public_ip
+  type    = var.default_type
+  ttl     = var.default_ttl
+  proxied = var.proxy_state
+}
