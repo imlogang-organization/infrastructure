@@ -91,7 +91,7 @@ commands:
             echo 'export TF_VAR_client_id="'"${CLIENT_ID}"'"' >> "$BASH_ENV"
             echo 'export TF_VAR_beemoviebot="'"${BEEMOVIEBOT}"'"' >> "$BASH_ENV"
             echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
-            echo 'export TF_VAR_pterotoken="'"${CIRCLE_TOKEN_BOT}"'"' >> "$BASH_ENV"
+            echo 'export TF_VAR_circle_token="'"${CIRCLE_TOKEN_BOT}"'"' >> "$BASH_ENV"
   
   envvar-stage:
     steps:
@@ -101,7 +101,7 @@ commands:
             echo 'export TF_VAR_client_id="'"${CLIENT_ID_STAGING}"'"' >> "$BASH_ENV"
             echo 'export TF_VAR_beemoviebot="'"${BEEMOVIEBOT_STAGING}"'"' >> "$BASH_ENV"
             echo 'export TF_VAR_pterotoken="'"${PteroToken}"'"' >> "$BASH_ENV"
-            echo 'export TF_VAR_pterotoken="'"${CIRCLE_TOKEN_BOT}"'"' >> "$BASH_ENV"
+            echo 'export TF_VAR_circle_token="'"${CIRCLE_TOKEN_BOT}"'"' >> "$BASH_ENV"
   
   cloud-container-runner:
       steps:
