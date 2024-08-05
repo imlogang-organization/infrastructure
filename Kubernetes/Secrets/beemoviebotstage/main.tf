@@ -8,6 +8,7 @@ resource "kubernetes_secret" "staging-secrets" {
     CLIENT_ID = var.client_id
     BEEMOVIEBOT = var.beemoviebot
     PteroToken = var.pterotoken
+    CIRCLE_TOKEN =  var.circle_token
   }
 
   type = "Opaque"
