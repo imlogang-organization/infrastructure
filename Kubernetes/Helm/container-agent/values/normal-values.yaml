@@ -4,6 +4,11 @@ agent:
       spec:
         terminationGracePeriodSeconds: 300 # 5 minutes
         containers:
+          - resources:
+              limits:
+                ephemeral-storage: "5Gi"
+              requests:
+                ephemeral-storage: "5Gi"
           - livenessProbe:
               initialDelaySeconds: 250
               periodSeconds: 35
