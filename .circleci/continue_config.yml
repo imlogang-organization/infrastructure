@@ -1,5 +1,13 @@
 version: 2.1 
 
+executors:
+  ubuntu-k8s:
+    machine: true
+    resource_class: imlogang-organization-server/ubuntu-k8s
+  machine-runner:
+    machine: true
+    resource_class: imlogang-organization-server/machine-runner
+
 orbs:
   aws-cli: circleci/aws-cli@4.1.3
   gcp-cli: circleci/gcp-cli@3.1.1
@@ -153,8 +161,7 @@ commands:
             echo "Public IP is $TF_VAR_dynamic_public_ip"
 jobs:
   terraform-plan-prod:
-    machine: true 
-    resource_class: imlogang-organization-server/ubuntu-k8s
+    executor: machine-runner
     steps:
       - checkout
       - envvar-prod
@@ -167,8 +174,7 @@ jobs:
             - .
 
   terraform-plan-stage:
-    machine: true 
-    resource_class: imlogang-organization-server/ubuntu-k8s
+    executor: machine-runner
     steps:
       - checkout
       - envvar-stage
@@ -181,8 +187,7 @@ jobs:
             - .
     
   terraform-plan-container-runner-cloud:
-    machine: true 
-    resource_class: imlogang-organization-server/ubuntu-k8s
+    executor: machine-runner
     steps:
       - checkout
       - cloud-container-runner
@@ -194,8 +199,7 @@ jobs:
             - .
 
   terraform-plan-container-runner-server:
-    machine: true 
-    resource_class: imlogang-organization-server/ubuntu-k8s
+    executor: machine-runner
     steps:
       - checkout
       - container-runner-server
@@ -208,8 +212,7 @@ jobs:
             - .
 
   terraform-circleci-release-agent-system:
-    machine: true 
-    resource_class: imlogang-organization-server/ubuntu-k8s
+    executor: machine-runner
     steps:
       - checkout
       - circleci-release-agent-system
@@ -222,8 +225,7 @@ jobs:
             - .
 
   terraform-minio:
-    machine: true 
-    resource_class: imlogang-organization-server/ubuntu-k8s
+    executor: machine-runner
     steps:
       - checkout
       - backend_script
@@ -257,8 +259,7 @@ jobs:
             - .
 
   terraform-cloudflare:
-    machine: true 
-    resource_class: imlogang-organization-server/ubuntu-k8s
+    executor: machine-runner
     steps:
       - run: 
           name: echo resource editing
@@ -279,8 +280,7 @@ jobs:
             - .
 
   terraform-container-agent-update:
-    machine: true 
-    resource_class: imlogang-organization-server/ubuntu-k8s
+    executor: machine-runner
     steps:
       - run: 
           name: echo resource editing
@@ -299,8 +299,7 @@ jobs:
             - .
   
   terraform-plan-gcp-container-runner-upgrade:
-    docker:
-      - image: dockerregistry.logangodsey.com/gcp:12-05-2023
+    executor: machine-runner
     steps:
       - checkout
       - gcp-cli/setup:
@@ -314,8 +313,7 @@ jobs:
           paths:
             - .
   container-runner-server-helm:
-    machine: true
-    resource_class: imlogang-organization-server/ubuntu-k8s
+    executor: machine-runner
     steps:
       - checkout
       - terraform-init
@@ -327,8 +325,7 @@ jobs:
             - .
 
   terraform-apply:
-    machine: true
-    resource_class: imlogang-organization-server/ubuntu-k8s
+    executor: ubuntu-k8s
     steps:
       - attach_workspace:
           at: .
