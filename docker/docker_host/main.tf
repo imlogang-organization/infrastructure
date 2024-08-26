@@ -1,7 +1,3 @@
-resource "docker_image" "tasks_md" {
-  name = "baldissaramatheus/tasks.md"
-}
-
 resource "docker_container" "tasks_md_container" {
   name  = "tasks.md"
   image = docker_image.tasks_md.name
@@ -31,5 +27,23 @@ resource "docker_container" "tasks_md_container" {
     host_path      = "${var.home_directory}/tasks/config"
   }
   restart = "unless-stopped"
+}
+
+resource "docker_container" "homeassistant" {
+  name  = "homeassistant"
+  image = docker_image.tasks_md.name
+  env = [
+    "TZ=America/Chicago"
+  ]
+  ports {
+    internal = 8123
+    external = 8123
+  }
+  volumes {
+    container_path = "/config"
+    host_path      = "${var.home_directory}/homeassistant"
+  }
+  restart = "unless-stopped"
+  privlaged =  true
 }
 
