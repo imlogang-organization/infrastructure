@@ -3,7 +3,7 @@ terraform {
     docker = {
       #https://registry.terraform.io/providers/calxus/docker/latest/docs/resources/image
       source = "calxus/docker"
-      version = "3.0.0"
+      version = "3.0.2"
     }
   }
 }

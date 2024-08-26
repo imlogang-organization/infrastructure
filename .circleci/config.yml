@@ -46,5 +46,7 @@ workflows:
             Kubernetes/Helm/container-agent-server/.* container-agent-server-values-update true
             Kubernetes/Helm/container-agent-server/.* namespace "container-runner-server"
             Kubernetes/Helm/container-agent-server/.* file-path "Kubernetes/Helm/container-agent-server"
+            docker/docker_host/.* file-path "docker/docker_host"
+            docker/docker_host/.* docker_host true
           circleci_domain: cciserver.logangodsey.com
  
