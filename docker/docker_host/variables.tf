@@ -7,3 +7,8 @@ variable "home_directory" {
   type    = string
   default = "/home/logan"  # Adjust this to your actual home directory
 }
+
+variable "privileged" {
+  type = boolean
+  default = true
+}

@@ -26,12 +26,12 @@ resource "docker_container" "tasks_md_container" {
     container_path = "/config/"
     host_path      = "${var.home_directory}/tasks/config"
   }
-  restart = "unless-stopped"
+  restart = var.restart
 }
 
 resource "docker_container" "homeassistant" {
   name  = "homeassistant"
-  image = docker_image.tasks_md.name
+  image = docker_image.homeassistant.name
   env = [
     "TZ=America/Chicago"
   ]
@@ -43,7 +43,16 @@ resource "docker_container" "homeassistant" {
     container_path = "/config"
     host_path      = "${var.home_directory}/homeassistant"
   }
-  restart = "unless-stopped"
-  privlaged =  true
+  restart = var.restart
+  privileged =  var.privileged
 }
 
+resource "docker_container" "watchtower" {
+  name  = "watchtower"
+  image = docker_image.watchtower.name
+  volumes {
+    container_path = "/var/run/docker.sock"
+    host_path      = "/var/run/docker.sock"
+  }
+  restart = var.restart
+}
