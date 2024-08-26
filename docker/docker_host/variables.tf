@@ -9,6 +9,6 @@ variable "home_directory" {
 }
 
 variable "privileged" {
-  type = boolean
+  type = bool
   default = true
 }
