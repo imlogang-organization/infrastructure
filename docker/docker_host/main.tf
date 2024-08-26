@@ -96,7 +96,7 @@ resource "docker_container" "homearr" {
     container_path = "/app/data/configs"
     host_path      = "${var.home_directory}/homarr/configs"
   }
-  volume {
+  volumes {
     container_path = "/app/public/icons"
     host_path      = "${var.home.directory}/homarr/icon"
   }
