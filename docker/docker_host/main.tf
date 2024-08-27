@@ -82,7 +82,7 @@ resource "docker_container" "homearr" {
   env = [
     "PUID=1000",
     "PGID=1000",
-    "TZ=America/Chicago",
+    "TZ=America/Chicago"
   ]
   ports {
     internal = 7575
@@ -98,7 +98,7 @@ resource "docker_container" "homearr" {
   }
   volumes {
     container_path = "/app/public/icons"
-    host_path      = "${var.home.directory}/homarr/icon"
+    host_path      = "${var.home_directory}/homarr/icon"
   }
   restart = var.restart
 }
