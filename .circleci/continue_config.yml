@@ -170,11 +170,7 @@ jobs:
     executor: docker-host
     steps:
       - checkout
-      - run:
-          name: change envvars
-          command: |
-            echo 'export AWS_ACCESS_KEY_ID="'"${MINIO_ACCESS_KEY}"'"' >> "$BASH_ENV"
-            echo 'export AWS_SECRET_ACCESS_KEY="'"${MINIO_SECRET_KEY}"'"' >> "$BASH_ENV"
+      - backend_script
       - terraform-init
       - terraform-plan
       - persist_to_workspace:
