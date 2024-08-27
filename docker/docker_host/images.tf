@@ -25,3 +25,23 @@ resource "docker_image" "dokuwiki" {
 resource "docker_image" "uptime-kuma" {
   name = "louislam/uptime-kuma:1"
 }
+
+resource "docker_image" "sonarr" {
+  name = "lscr.io/linuxserver/sonarr:latest"
+}
+
+resource "docker_image" "jackett" {
+  name = "lscr.io/linuxserver/jackett:latest"
+}
+
+resource "docker_image" "dashdot" {
+  name = "auricenino/dashdot"
+}
+
+resource "docker_image" "influxdb2" {
+  name = "influxdb:2.6"
+}
+
+resource "docker_image" "influxdb2" {
+  name = "amir20/dozzle:latest"
+}

@@ -12,3 +12,9 @@ variable "privileged" {
   type = bool
   default = true
 }
+
+variable "docker_influxdb_init_password" {
+  type        = string
+  description = "The initial password for InfluxDB"
+  default     = ""
+}

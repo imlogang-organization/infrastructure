@@ -109,7 +109,7 @@ resource "docker_container" "dokuwiki" {
   env = [
     "PUID=1000",
     "PGID=1000",
-    "TZ=ACDT/UTC",
+    "TZ=CDT/UTC",
   ]
   ports {
     internal = 80
@@ -128,7 +128,7 @@ resource "docker_container" "uptime-kuma" {
   env = [
     "PUID=1000",
     "PGID=1000",
-    "TZ=ACDT/UTC",
+    "TZ=CDT/UTC",
   ]
   ports {
     internal = 3001
@@ -137,6 +137,129 @@ resource "docker_container" "uptime-kuma" {
   volumes {
     container_path = "/app/data"
     host_path      = "${var.home_directory}/uptime-kuma"
+  }
+  restart = var.restart
+}
+
+resource "docker_container" "sonarr" {
+  name  = "sonarr"
+  image = docker_image.sonarr.name
+  env = [
+    "PUID=1000",
+    "PGID=1000",
+    "TZ=CDT/UTC",
+  ]
+  ports {
+    internal = 8989
+    external = 8989
+  }
+  volumes {
+    container_path = "/config"
+    host_path      = "${var.home_directory}/sonarr/config"
+  }
+  volumes {
+    container_path = "/tv_nfs/TV Shows"
+    host_path      = "${var.home_directory}/nas/tv_shows_nfs/TV Shows"
+  }
+  volumes {
+    container_path = "/mnt/Volume"
+    host_path      = "${var.home_directory}/nas/media_nas3"
+  }
+  restart = var.restart
+}
+
+resource "docker_container" "jackett" {
+  name  = "jackett"
+  image = docker_image.jackett.name
+  env = [
+    "PUID=1000",
+    "PGID=1000",
+    "TZ=Etc/CDT",
+  ]
+  ports {
+    internal = 9117
+    external = 9117
+  }
+  volumes {
+    container_path = "/downloads"
+    host_path      = "${var.home_directory}/jackett/blackhole"
+  }
+  volumes {
+    container_path = "/config"
+    host_path      = "${var.home_directory}/jackett/config"
+  }
+  restart = var.restart
+}
+
+resource "docker_container" "dashdot" {
+  name  = "dashdot"
+  image = docker_image.dashdot.name
+  env = [
+    "PUID=1000",
+    "PGID=1000",
+    "TZ=Etc/CDT",
+  ]
+  ports {
+    internal = 3001
+    external = 85
+  }
+  volumes {
+    container_path = "/etc/os-release"
+    host_path      = "/etc/os-release"
+    read_only      = true
+  }
+
+  volumes {
+    container_path = "/mnt/host_ns_net"
+    host_path      = "/proc/1/ns/net"
+    read_only      = true
+  }
+  restart = var.restart
+  priviledged = var.priviledged
+}
+
+resource "docker_container" "influxdb2" {
+  name  = "influxdb2"
+  image = docker_image.influxdb2.name
+  env = [
+    "DOCKER_INFLUXDB_INIT_MODE=setup",
+    "DOCKER_INFLUXDB_INIT_USERNAME=root",
+    "DOCKER_INFLUXDB_INIT_ORG=imlogang",
+    "DOCKER_INFLUXDB_INIT_PASSWORD=${var.docker_influxdb_init_password}",
+    "DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=secret-token"
+  ]
+  ports {
+    internal = 8086
+    external = 8086
+  }
+  volumes {
+    container_path = "/var/lib/influxdb2"
+    host_path      = "${var.home_directory}/influxdb/data"
+  }
+  volumes {
+    container_path = "/etc/influxdb2"
+    host_path      = "${var.home_directory}/influxdb/config"
+  }
+  restart = var.restart
+}
+
+resource "docker_container" "dozzle" {
+  name  = "dozzle"
+  image = docker_image.dozzle.name
+  env = [
+    "DOCKER_INFLUXDB_INIT_MODE=setup",
+    "DOCKER_INFLUXDB_INIT_USERNAME=root",
+    "DOCKER_INFLUXDB_INIT_ORG=imlogang",
+    "DOCKER_INFLUXDB_INIT_PASSWORD=${var.docker_influxdb_init_password}",
+    "DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=secret-token"
+  ]
+  ports {
+    internal = 8888
+    external = 8080
+  }
+  volumes {
+    container_path = "/var/run/docker.sock"
+    host_path      = "/var/run/docker.sock"
   }
   restart = var.restart
 }
