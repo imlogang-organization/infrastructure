@@ -565,8 +565,10 @@ workflows:
       - terraform-docker-host-plan:
           context:
             - minio_backend
+            - docker_host
       - terraform-apply-docker-host:
           requires:
             - terraform-docker-host-plan
           context:
             - minio_backend
+            - docker_host
