@@ -215,7 +215,7 @@ resource "docker_container" "dashdot" {
     read_only      = true
   }
   restart = var.restart
-  priviledged = var.priviledged
+  privileged = var.privileged
 }
 
 resource "docker_container" "influxdb2" {
