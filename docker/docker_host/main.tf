@@ -254,8 +254,8 @@ resource "docker_container" "dozzle" {
     "DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=secret-token"
   ]
   ports {
-    internal = 8888
-    external = 8080
+    internal = 8080
+    external = 8888
   }
   volumes {
     container_path = "/var/run/docker.sock"

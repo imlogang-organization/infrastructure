@@ -35,7 +35,7 @@ resource "docker_image" "jackett" {
 }
 
 resource "docker_image" "dashdot" {
-  name = "auricenino/dashdot"
+  name = "mauricenino/dashdot"
 }
 
 resource "docker_image" "influxdb2" {
