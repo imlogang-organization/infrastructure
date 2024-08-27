@@ -1,11 +1,9 @@
 terraform {
   backend "s3" {
-    endpoint        = "${var.minio_url}"
-    bucket          = "${var.bucket_name}"
+    endpoint        = "http://192.168.30.145:9001/"
+    bucket          = "ci-state-file"
     key             = "docker/docker_host/terraform.tfstate"
-    region          = "${var.region}"
-    access_key      = "${var.minio_access_key}"
-    secret_key      = "${var.minio_secret_key}"
+    region          = "us-east-1"
     skip_credentials_validation = true
     skip_metadata_api_check     = true
     force_path_style            = true
