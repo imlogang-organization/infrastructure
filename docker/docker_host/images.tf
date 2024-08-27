@@ -42,6 +42,6 @@ resource "docker_image" "influxdb2" {
   name = "influxdb:2.6"
 }
 
-resource "docker_image" "influxdb2" {
+resource "docker_image" "dozzle" {
   name = "amir20/dozzle:latest"
 }
