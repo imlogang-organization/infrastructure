@@ -356,7 +356,6 @@ jobs:
   terraform-apply-docker-host:
     executor: docker-host
     steps:
-      - backend_script
       - attach_workspace:
           at: .
       - run:
