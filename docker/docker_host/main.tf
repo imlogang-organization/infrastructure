@@ -359,34 +359,6 @@ resource "docker_container" "npm-ui" {
     "DB_MYSQL_NAME=npm",
     "DISABLE_IPV6=true"
   ]
-}
-
-resource "docker_container" "npm-ui" {
-  name  = "npm-ui"
-  image = docker_image.npm-ui.name
-  restart = var.restart
-
-  ports {
-    internal = 80
-    external = 5001
-  }
-  ports {
-    internal = 81
-    external = 81
-  }
-  ports {
-    internal = 443
-    external = 443
-  }
-
-  env = [
-    "DB_MYSQL_HOST=db",
-    "DB_MYSQL_PORT: 3306",
-    "DB_MYSQL_USER=npm",
-    "DB_MYSQL_PASSWORD: npm",
-    "DB_MYSQL_NAME=npm",
-    "DISABLE_IPV6=true"
-  ]
   
   volumes {
     container_path = "/data"
