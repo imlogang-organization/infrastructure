@@ -384,6 +384,6 @@ resource "docker_container" "npm-db" {
   
   volumes {
     container_path = "/var/lib/mysql"
-    host_path      = "${var.home_directory}/mysql"
+    host_path      = "${var.home_directory}/npm/mysql"
   }
 }
