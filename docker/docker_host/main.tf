@@ -375,6 +375,10 @@ resource "docker_container" "npm-db" {
   image = docker_image.npm-db.name
   restart = var.restart
 
+  ports {
+    internal = 330
+    external = 3306
+  }
   env = [
     "MYSQL_ROOT_PASSWORD=npm",
     "MYSQL_DATABASE=npm",
