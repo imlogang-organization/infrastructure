@@ -59,7 +59,7 @@ resource "docker_image" "registry-ui" {
 }
 
 resource "docker_image" "npm-ui" {
-  name = "jc21/nginx-proxy-manager:latest'"
+  name = "jc21/nginx-proxy-manager:latest"
 }
 
 resource "docker_image" "npm-db" {
