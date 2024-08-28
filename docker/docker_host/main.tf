@@ -340,7 +340,7 @@ resource "docker_container" "npm-ui" {
 
   ports {
     internal = 80
-    external = 5001
+    external = 80
   }
   ports {
     internal = 81
