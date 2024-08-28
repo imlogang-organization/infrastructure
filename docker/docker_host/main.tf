@@ -368,6 +368,9 @@ resource "docker_container" "npm-ui" {
     container_path = "/etc/letsencrypt"
     host_path      = "${var.home_directory}/npm/letsencrypt"
   }
+  networks_advanced {
+    name = docker_network.npm_network.name
+  }
 }
 
 resource "docker_container" "npm-db" {
@@ -389,5 +392,8 @@ resource "docker_container" "npm-db" {
   volumes {
     container_path = "/var/lib/mysql"
     host_path      = "${var.home_directory}/npm/mysql"
+  }
+  networks_advanced {
+    name = docker_network.npm_network.name
   }
 }
