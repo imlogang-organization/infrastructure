@@ -302,15 +302,15 @@ resource "docker_container" "registry_server" {
     "REGISTRY_STORAGE_DELETE_ENABLED=true"
   ]
 
-  volumes = {
+  volumes {
     container_path = "/var/lib/registry"
     host_path      = "${var.home_directory}/registry/data"
   }
 }
 
-resource "docker_container" "registry_ui" {
+resource "docker_container" "registry-ui" {
   name  = "registry-ui"
-  image = docker_image.registry_ui.name
+  image = docker_image.registry-ui.name
   restart = var.restart
 
   ports {
