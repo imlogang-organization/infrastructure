@@ -306,6 +306,9 @@ resource "docker_container" "registry_server" {
     container_path = "/var/lib/registry"
     host_path      = "${var.home_directory}/registry/data"
   }
+  networks_advanced {
+    name = docker_network.registry_network.name
+  }
 }
 
 resource "docker_container" "registry-ui" {
@@ -331,6 +334,9 @@ resource "docker_container" "registry-ui" {
     "REGISTRY_SECURED=false",
     "CATALOG_ELEMENTS_LIMIT=1000"
   ]
+  networks_advanced {
+    name = docker_network.registry_network.name
+  }
 }
 
 resource "docker_container" "npm-ui" {
