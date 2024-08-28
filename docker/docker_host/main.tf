@@ -376,7 +376,7 @@ resource "docker_container" "npm-db" {
   restart = var.restart
 
   ports {
-    internal = 330
+    internal = 3306
     external = 3306
   }
   env = [
