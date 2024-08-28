@@ -124,7 +124,7 @@ resource "docker_container" "dokuwiki" {
 
 resource "docker_container" "uptime-kuma" {
   name  = "uptime-kuma"
-  image = docker_image.dokuwiki.name
+  image = docker_image.uptime-kuma.name
   env = [
     "PUID=1000",
     "PGID=1000",
