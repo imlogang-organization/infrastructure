@@ -263,3 +263,155 @@ resource "docker_container" "dozzle" {
   }
   restart = var.restart
 }
+
+resource "docker_container" "dockekr-gc" {
+  name  = "docker-gc"
+  image = docker_image.docker-gc.name
+  env = [
+    "CRON=0 */4 * * *",
+    "FORCE_IMAGE_REMOVAL=1",
+    "FORCE_CONTAINER_REMOVAL=1",
+    "GRACE_PERIOD_SECONDS=3600",
+    "DRY_RUN=0",
+    "CLEAN_UP_VOLUMES=1",
+    "TZ=America/Chicago"
+  ]
+  volumes {
+    container_path = "/var/run/docker.sock"
+    host_path      = "/var/run/docker.sock"
+  }
+  volumes {
+    container_path = "/etc/docker-gc-exclude"
+    host_path      = "${var.home_directory}/docker-gc/docker-gc-exclude"
+  } 
+  restart = var.restart
+}
+
+
+resource "docker_container" "registry_server" {
+  name  = "registry-server"
+  image = docker_image.registry-server.name
+  restart = var.restart
+
+  env = [
+    "REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin=[http://dockerregistry.logangodsey.com:5001]",
+    "REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods=[HEAD,GET,OPTIONS,DELETE]",
+    "REGISTRY_HTTP_HEADERS_Access-Control-Allow-Credentials=[true]",
+    "REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers=[Authorization,Accept,Cache-Control]",
+    "REGISTRY_HTTP_HEADERS_Access-Control-Expose-Headers=[Docker-Content-Digest]",
+    "REGISTRY_STORAGE_DELETE_ENABLED=true"
+  ]
+
+  volumes = {
+    container_path = "/var/lib/registry"
+    host_path      = "${var.home_directory}/registry/data"
+  }
+}
+
+resource "docker_container" "registry_ui" {
+  name  = "registry-ui"
+  image = docker_image.registry_ui.name
+  restart = var.restart
+
+  ports {
+    internal = 80
+    external = 5001
+  }
+
+  env = [
+    "SINGLE_REGISTRY=true",
+    "REGISTRY_TITLE=Docker Registry UI",
+    "DELETE_IMAGES=true",
+    "SHOW_CONTENT_DIGEST=true",
+    "NGINX_PROXY_PASS_URL=http://registry-server:5000",
+    "SHOW_CATALOG_NB_TAGS=true",
+    "CATALOG_MIN_BRANCHES=1",
+    "CATALOG_MAX_BRANCHES=1",
+    "TAGLIST_PAGE_SIZE=100",
+    "REGISTRY_SECURED=false",
+    "CATALOG_ELEMENTS_LIMIT=1000"
+  ]
+}
+
+resource "docker_container" "npm-ui" {
+  name  = "npm-ui"
+  image = docker_image.npm-ui.name
+  restart = var.restart
+
+  ports {
+    internal = 80
+    external = 5001
+  }
+  ports {
+    internal = 81
+    external = 81
+  }
+  ports {
+    internal = 443
+    external = 443
+  }
+
+  env = [
+    "DB_MYSQL_HOST=db",
+    "DB_MYSQL_PORT: 3306",
+    "DB_MYSQL_USER=npm",
+    "DB_MYSQL_PASSWORD: npm",
+    "DB_MYSQL_NAME=npm",
+    "DISABLE_IPV6=true"
+  ]
+}
+
+resource "docker_container" "npm-ui" {
+  name  = "npm-ui"
+  image = docker_image.npm-ui.name
+  restart = var.restart
+
+  ports {
+    internal = 80
+    external = 5001
+  }
+  ports {
+    internal = 81
+    external = 81
+  }
+  ports {
+    internal = 443
+    external = 443
+  }
+
+  env = [
+    "DB_MYSQL_HOST=db",
+    "DB_MYSQL_PORT: 3306",
+    "DB_MYSQL_USER=npm",
+    "DB_MYSQL_PASSWORD: npm",
+    "DB_MYSQL_NAME=npm",
+    "DISABLE_IPV6=true"
+  ]
+  
+  volumes {
+    container_path = "/data"
+    host_path      = "${var.home_directory}/npm/data"
+  }
+  volumes {
+    container_path = "/etc/letsencrypt"
+    host_path      = "${var.home_directory}/npm/letsencrypt"
+  }
+}
+
+resource "docker_container" "npm-db" {
+  name  = "npm-db"
+  image = docker_image.npm-db.name
+  restart = var.restart
+
+  env = [
+    "MYSQL_ROOT_PASSWORD=npm",
+    "MYSQL_DATABASE=npm",
+    "MYSQL_USER=npm",
+    "MYSQL_PASSWORD=npm",
+  ]
+  
+  volumes {
+    container_path = "/var/lib/mysql"
+    host_path      = "${var.home_directory}/mysql"
+  }
+}

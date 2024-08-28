@@ -45,3 +45,23 @@ resource "docker_image" "influxdb2" {
 resource "docker_image" "dozzle" {
   name = "amir20/dozzle:latest"
 }
+
+resource "docker_image" "docker-gc" {
+  name = "clockworksoul/docker-gc-cron:latest"
+}
+
+resource "docker_image" "registry-server" {
+  name = "registry:2.8.2"
+}
+
+resource "docker_image" "registry-ui" {
+  name = "joxit/docker-registry-ui:main"
+}
+
+resource "docker_image" "npm-ui" {
+  name = "jc21/nginx-proxy-manager:latest'"
+}
+
+resource "docker_image" "npm-db" {
+  name = "jc21/mariadb-aria:latest"
+}
