@@ -352,10 +352,10 @@ resource "docker_container" "npm-ui" {
   }
 
   env = [
-    "DB_MYSQL_HOST=db",
-    "DB_MYSQL_PORT: 3306",
+    "DB_MYSQL_HOST=npm-db",
+    "DB_MYSQL_PORT=3306",
     "DB_MYSQL_USER=npm",
-    "DB_MYSQL_PASSWORD: npm",
+    "DB_MYSQL_PASSWORD=npm",
     "DB_MYSQL_NAME=npm",
     "DISABLE_IPV6=true"
   ]
