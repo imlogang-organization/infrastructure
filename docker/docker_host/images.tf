@@ -65,3 +65,7 @@ resource "docker_image" "npm-ui" {
 resource "docker_image" "npm-db" {
   name = "jc21/mariadb-aria:latest"
 }
+
+resource "docker_image" "grafana" {
+  name = "grafana/grafana-oss:8.4.3"
+}
