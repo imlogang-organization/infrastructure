@@ -4,7 +4,7 @@ This is the terraform repository that controls Logan's Infrastructure to a point
 
 Most notably, this handles the secrets in all Kubernetes Namespaces execpt `circleci-server`. 
 
-This will also handle the creation of new buckets in my locally hosted MiniO, my single EC2 instance in AWS and eventually, my Docker host internally. 
+This will also handle the creation of new buckets in my locally hosted MiniO, my single EC2 instance in AWS and my bare metal Docker host. 
 
 All secrets are stored in Contexts inside of my self-hosted CircleCI Server and are referenced in each workflow as needed. 
 Please note that `kubeconfig` is needed for each workflow as that is an easy way to make sure that Machine Runner most jobs run on has access to the underlying Kubernetes infrastructure. 
