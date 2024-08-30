@@ -448,10 +448,6 @@ resource "docker_container" "wireguard" {
   }
 }
 
-provider "docker" {
-  # Configuration options for the Docker provider
-}
-
 resource "docker_container" "filebrowser" {
   name  = "filebrowser"
   image = docker_image.filebrowser.name
