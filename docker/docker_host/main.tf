@@ -447,3 +447,40 @@ resource "docker_container" "wireguard" {
     "net.ipv4.conf.all.src_valid_mark" = "1"
   }
 }
+
+provider "docker" {
+  # Configuration options for the Docker provider
+}
+
+resource "docker_container" "filebrowser" {
+  name  = "filebrowser"
+  image = "filebrowser/filebrowser:latest"
+  
+  # Environment variables
+  env = [
+    "PUID=${data.external.current_user.result["uid"]}",
+    "PGID=${data.external.current_user.result["gid"]}"
+  ]
+
+  # Volumes
+  volumes = [
+    "${path.home}/filebrowser:/srv",
+    "${path.home}/:/srv/Docker_Home",
+    "${path.home}/filebrowser/filebrowser.db:/database/filebrowser.db",
+    "${path.home}/filebrowser/settings.json:/config/settings.json"
+  ]
+
+  # Ports
+  ports {
+    internal = 80
+    external = 8081
+  }
+
+  # Restart policy
+  restart = var.restart
+}
+
+# To fetch current user's UID and GID, you might need to use an external data source
+data "external" "current_user" {
+  program = ["bash", "-c", "echo {\"uid\":\"$(id -u)\", \"gid\":\"$(id -g)\"}"]
+}
