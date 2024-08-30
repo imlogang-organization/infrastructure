@@ -472,6 +472,10 @@ resource "docker_container" "filebrowser" {
     host_path      = "${var.home_directory}/filebrowser/settings.json"
   }
 
+  volumes {
+    container_path = "/srv/Home"
+    host_path      = "${var.home_directory}"
+  }
   ports {
     internal = 80
     external = 8081
