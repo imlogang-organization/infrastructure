@@ -453,7 +453,7 @@ resource "docker_container" "filebrowser" {
   image = docker_image.filebrowser.name
   
   env = [
-    "PUID=100",
+    "PUID=1000",
     "PGID=1000"
   ]
 
