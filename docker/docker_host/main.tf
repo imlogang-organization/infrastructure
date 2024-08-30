@@ -454,15 +454,13 @@ provider "docker" {
 
 resource "docker_container" "filebrowser" {
   name  = "filebrowser"
-  image = "filebrowser/filebrowser:latest"
+  image = docker_image.filebrowser.name
   
-  # Environment variables
   env = [
-    "PUID=${data.external.current_user.result["uid"]}",
-    "PGID=${data.external.current_user.result["gid"]}"
+    "PUID=100",
+    "PGID=1000"
   ]
 
-  # Volumes
   volumes = [
     "${path.home}/filebrowser:/srv",
     "${path.home}/:/srv/Docker_Home",
@@ -470,17 +468,25 @@ resource "docker_container" "filebrowser" {
     "${path.home}/filebrowser/settings.json:/config/settings.json"
   ]
 
-  # Ports
+  volumes {
+    container_path = "/srv"
+    host_path      = "${var.home_directory}/filebrowser"
+  }
+
+  volumes {
+    container_path = "/database/filebrowser.db"
+    host_path      = "${var.home_directory}/filebrowser/filebrowser.db"
+  }
+
+  volumes {
+    container_path = "/config/settings.json"
+    host_path      = "${var.home_directory}/filebrowser/settings.json"
+  }
+
   ports {
     internal = 80
     external = 8081
   }
 
-  # Restart policy
   restart = var.restart
-}
-
-# To fetch current user's UID and GID, you might need to use an external data source
-data "external" "current_user" {
-  program = ["bash", "-c", "echo {\"uid\":\"$(id -u)\", \"gid\":\"$(id -g)\"}"]
 }

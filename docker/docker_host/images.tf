@@ -73,3 +73,7 @@ resource "docker_image" "grafana" {
 resource "docker_image" "wireguard" {
   name = "lscr.io/linuxserver/wireguard:latest"
 }
+
+resource "docker_image" "filebrowser" {
+  name = "filebrowser/filebrowser:latest"
+}
