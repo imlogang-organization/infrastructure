@@ -69,3 +69,7 @@ resource "docker_image" "npm-db" {
 resource "docker_image" "grafana" {
   name = "grafana/grafana-oss:8.4.3"
 }
+
+resource "docker_image" "wireguard" {
+  name = "lscr.io/linuxserver/wireguard:latest"
+}

@@ -403,3 +403,45 @@ resource "docker_container" "npm-db" {
     name = docker_network.npm_network.name
   }
 }
+
+resource "docker_container" "wireguard" {
+  name  = "wireguard"
+  image = docker_image.wireguard.name
+  restart = var.restart
+
+  ports {
+    internal = 51820
+    external = 51820
+    portocal = "udp"
+  }
+  env = [
+    "PUID=1000",
+    "PGID=1000",
+    "TZ=America/Chicago",
+    "SERVERURL=wireguard.logangodsey.com",
+    "SERVERPORT=51820",
+    "PEERS=logan,dadrouter,loganrouter,dadlaptop,loganipad11in,logani7mac,",
+    "PEERDNS=192.168.30.1",
+    "INTERNAL_SUBNET=10.13.13.0",
+    "PERSISTENTKEEPALIVE_PEERS=15",
+    "LOG_CONFS=true"
+  ]
+  
+  volumes {
+    container_path = "/config"
+    host_path      = "${var.home_directory}/wireguard/config"
+  }
+  volumes {
+    container_path = "/lib/modules"
+    host_path      = "/lib/modules"
+  }
+
+  capabilities = [
+    "NET_ADMIN",
+    "SYS_MODULE"
+  ]
+
+  sysctls = {
+    "net.ipv4.conf.all.src_valid_mark" = "1"
+  }
+}
