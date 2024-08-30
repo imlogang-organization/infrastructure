@@ -51,7 +51,7 @@ resource "docker_image" "docker-gc" {
 }
 
 resource "docker_image" "registry-server" {
-  name = "registry:2.8.2"
+  name = "registry:latest"
 }
 
 resource "docker_image" "registry-ui" {
@@ -67,7 +67,7 @@ resource "docker_image" "npm-db" {
 }
 
 resource "docker_image" "grafana" {
-  name = "grafana/grafana-oss:8.4.3"
+  name = "grafana/grafana-oss:main"
 }
 
 resource "docker_image" "wireguard" {
