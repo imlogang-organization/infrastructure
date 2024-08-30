@@ -23,7 +23,7 @@ resource "docker_image" "dokuwiki" {
 }
 
 resource "docker_image" "uptime-kuma" {
-  name = "louislam/uptime-kuma:1"
+  name = "louislam/uptime-kuma:latest"
 }
 
 resource "docker_image" "sonarr" {
