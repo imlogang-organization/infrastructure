@@ -457,13 +457,6 @@ resource "docker_container" "filebrowser" {
     "PGID=1000"
   ]
 
-  volumes = [
-    "${path.home}/filebrowser:/srv",
-    "${path.home}/:/srv/Docker_Home",
-    "${path.home}/filebrowser/filebrowser.db:/database/filebrowser.db",
-    "${path.home}/filebrowser/settings.json:/config/settings.json"
-  ]
-
   volumes {
     container_path = "/srv"
     host_path      = "${var.home_directory}/filebrowser"
