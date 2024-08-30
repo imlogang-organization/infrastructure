@@ -151,12 +151,12 @@ commands:
           name: fix cloudflare envvars
           command: |
             echo 'export TF_VAR_cloudflare_api_token="'"${CLOUDFLARE_ACCESS_KEY}"'"' >> "$BASH_ENV"
-  cloudflare-fix-envvars-logangodsey:
-    steps:
-      - run: 
-          name: fix cloudflare envvars
-          command: |
-            echo 'export TF_VAR_cloudflare_api_token="'"${CLOUDFLARE_ACCESS_KEY_LOGANGODSEY}"'"' >> "$BASH_ENV"
+  # cloudflare-fix-envvars-logangodsey:
+  #   steps:
+  #     - run: 
+  #         name: fix cloudflare envvars
+  #         command: |
+  #           echo 'export TF_VAR_cloudflare_api_token="'"${CLOUDFLARE_ACCESS_KEY_LOGANGODSEY}"'"' >> "$BASH_ENV"
   get_public_ip:
     steps:
       - run: 
@@ -229,7 +229,7 @@ jobs:
           paths:
             - .
 
-  terraform-circleci-release-agent-system:
+  terraform-circleci-release-agent-system-plan:
     executor: machine-runner
     steps:
       - checkout
@@ -242,7 +242,7 @@ jobs:
           paths:
             - .
 
-  terraform-minio:
+  terraform-minio-plan:
     executor: machine-runner
     steps:
       - checkout
@@ -254,7 +254,7 @@ jobs:
           paths:
             - .
 
-  terraform-aws:
+  terraform-aws-plan:
     docker:
       - image: dockerregistry.logangodsey.com/aws:04-17-2024
     resource_class: medium
@@ -276,7 +276,7 @@ jobs:
           paths:
             - .
 
-  terraform-cloudflare:
+  terraform-cloudflare-plan:
     executor: machine-runner
     steps:
       - run: 
@@ -297,7 +297,7 @@ jobs:
           paths:
             - .
 
-  terraform-container-agent-update:
+  terraform-container-agent-update-plan:
     executor: machine-runner
     steps:
       - run: 
@@ -330,7 +330,7 @@ jobs:
           root: .
           paths:
             - .
-  container-runner-server-helm:
+  container-runner-server-helm-plan:
     executor: machine-runner
     steps:
       - checkout
@@ -457,13 +457,13 @@ workflows:
   terraform-circleci-release-agent-system:
     when: << pipeline.parameters.circleci-release-agent-system >>
     jobs:
-      - terraform-circleci-release-agent-system:
+      - terraform-circleci-release-agent-system-plan:
           context:
             - kubeconfig
             - circleci-release-agent-system
       - terraform-apply:
           requires:
-            - terraform-circleci-release-agent-system
+            - terraform-circleci-release-agent-system-plan
           context:
             - kubeconfig
             - circleci-release-agent-system
@@ -471,14 +471,14 @@ workflows:
   terraform-minio:
     when: << pipeline.parameters.minio >>
     jobs:
-        - terraform-minio:
+        - terraform-minio-plan:
             context:
               - kubeconfig
               - minio
               - minio_backend
         - terraform-apply:
             requires:
-              - terraform-minio
+              - terraform-minio-plan
             context:
               - kubeconfig
               - minio
@@ -487,13 +487,13 @@ workflows:
   terraform-aws:
     when: << pipeline.parameters.aws >>
     jobs:
-        - terraform-aws:
+        - terraform-aws-plan:
             context:
               - kubeconfig
               - minio_backend
         - terraform-apply-aws:
             requires:
-              - terraform-aws
+              - terraform-aws-plan
             context:
               - kubeconfig
               - minio_backend
@@ -501,14 +501,14 @@ workflows:
   terraform-cloudflare:
     when: << pipeline.parameters.cloudflare >>
     jobs:
-      - terraform-cloudflare:
+      - terraform-cloudflare-plan:
           context:
             - kubeconfig
             - cloudflare
             - minio_backend
       - terraform-apply:
           requires:
-            - terraform-cloudflare
+            - terraform-cloudflare-plan
           context:
             - kubeconfig
             - cloudflare
@@ -517,13 +517,13 @@ workflows:
   terraform-container-agent-update:
     when: << pipeline.parameters.container-agent-values-update >>
     jobs:
-      - terraform-container-agent-update:
+      - terraform-container-agent-update-plan:
           context:
             - kubeconfig
             - minio_backend
       - terraform-apply:
           requires:
-            - terraform-container-agent-update
+            - terraform-container-agent-update-plan
           context:
             - kubeconfig
             - minio_backend
@@ -548,13 +548,13 @@ workflows:
   container-runner-server-helm:
     when: << pipeline.parameters.container-agent-server-values-update >>
     jobs: 
-      - container-runner-server-helm:
+      - container-runner-server-helm-plan:
           context:
             - kubeconfig
             - minio_backend
       - terraform-apply:
           requires:
-            - container-runner-server-helm
+            - container-runner-server-helm-plan
           context:
             - kubeconfig
             - minio_backend
