@@ -412,7 +412,7 @@ resource "docker_container" "wireguard" {
   ports {
     internal = 51820
     external = 51820
-    portocal = "udp"
+    protocol = "udp"
   }
   env = [
     "PUID=1000",
@@ -436,10 +436,12 @@ resource "docker_container" "wireguard" {
     host_path      = "/lib/modules"
   }
 
-  capabilities = [
-    "NET_ADMIN",
-    "SYS_MODULE"
-  ]
+  capabilities {
+    add = [
+      "NET_ADMIN",
+      "SYS_MODULE"
+    ]
+  }
 
   sysctls = {
     "net.ipv4.conf.all.src_valid_mark" = "1"
