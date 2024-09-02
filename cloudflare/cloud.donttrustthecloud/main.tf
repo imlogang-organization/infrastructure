@@ -87,3 +87,12 @@ resource "cloudflare_record" "beamng_server" {
   ttl     = var.default_ttl
   proxied = var.proxy_state
 }
+
+resource "cloudflare_record" "npm" {
+  zone_id = cloudflare_zone.donttrustthecloud_cloud
+  name    = "npm"
+  value   = "3.133.124.166"
+  type    = var.default_type
+  ttl     = var.default_ttl
+  proxied = var.proxy_state
+}
