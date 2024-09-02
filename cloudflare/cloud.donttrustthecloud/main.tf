@@ -89,7 +89,7 @@ resource "cloudflare_record" "beamng_server" {
 }
 
 resource "cloudflare_record" "npm" {
-  zone_id = cloudflare_zone.donttrustthecloud_cloud
+  zone_id = cloudflare_zone.donttrustthecloud_cloud.id
   name    = "npm"
   value   = "3.133.124.166"
   type    = var.default_type
