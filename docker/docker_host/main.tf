@@ -226,7 +226,8 @@ resource "docker_container" "influxdb2" {
     "DOCKER_INFLUXDB_INIT_USERNAME=root",
     "DOCKER_INFLUXDB_INIT_ORG=imlogang",
     "DOCKER_INFLUXDB_INIT_PASSWORD=${var.docker_influxdb_init_password}",
-    "DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=secret-token"
+    "DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=secret-token",
+    "DOCKER_INFLUXDB_INIT_BUCKET=docker_host"
   ]
   ports {
     internal = 8086
@@ -479,6 +480,22 @@ resource "docker_container" "filebrowser" {
   ports {
     internal = 80
     external = 8081
+  }
+
+  restart = var.restart
+}
+
+resource "docker_container" "grafana" {
+  name = "grafana"
+  image = docker_image.grafana.name
+
+  ports {
+    internal = 3000
+    external = 3000
+  }
+  volumes {
+    volume_name = "grafana-storage"
+    container_path = "/var/lib/grafana"
   }
 
   restart = var.restart
