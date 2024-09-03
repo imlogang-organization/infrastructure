@@ -138,6 +138,10 @@ resource "docker_container" "uptime-kuma" {
     container_path = "/app/data"
     host_path      = "${var.home_directory}/uptime-kuma"
   }
+  volumes {
+    container_path = "/var/run/docker.sock"
+    host_path      = "/var/run/docker.sock"
+  }
   restart = var.restart
 }
 
