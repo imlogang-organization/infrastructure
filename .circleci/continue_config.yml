@@ -58,6 +58,9 @@ parameters:
   docker_host:
     default: false
     type: boolean
+  influxdb:
+    default: false
+    type: boolean
   namespace:
     default: ""
     type: string
@@ -166,6 +169,18 @@ commands:
             echo 'export TF_VAR_dynamic_public_ip="'"${TF_VAR_dynamic_public_ip}"'"' >> "$BASH_ENV"
             echo "Public IP is $TF_VAR_dynamic_public_ip"
 jobs:
+  terraform-influxdb-plan:
+    executor: machine-runner
+    steps:
+      - checkout
+      - backend_script
+      - terraform-init
+      - terraform-plan
+      - persist_to_workspace:
+            root: .
+            paths:
+              - .
+
   terraform-docker-host-plan:
     executor: docker-host
     steps:
@@ -355,6 +370,17 @@ jobs:
   
   terraform-apply-docker-host:
     executor: docker-host
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: terraform apply
+          command: |
+            cd << pipeline.parameters.file-path >>
+            terraform apply -auto-approve "plan.tf"
+    
+  terraform-apply-influxdb:
+    executor: machine-runner
     steps:
       - attach_workspace:
           at: .
@@ -571,3 +597,17 @@ workflows:
           context:
             - minio_backend
             - docker_host
+
+  terraform-influxdb:
+    when: << pipeline.parameters.influxdb >>
+    jobs:
+      - terraform-influxdb-plan:
+          context: 
+            - minio_backend
+            - influxdb
+      - terraform-apply-influxdb:
+          requires:
+            - terraform-influxdb-plan
+          context:
+            - minio_backend
+            - influxdb

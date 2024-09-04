@@ -48,5 +48,7 @@ workflows:
             Kubernetes/Helm/container-agent-server/.* file-path "Kubernetes/Helm/container-agent-server"
             docker/docker_host/.* file-path "docker/docker_host"
             docker/docker_host/.* docker_host true
+            influxdb/.* influxdb true
+            influxdb/.* file-ath "influxdb"
           circleci_domain: cciserver.logangodsey.com
  
