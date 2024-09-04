@@ -5,7 +5,7 @@ terraform {
   backend "s3" {
     endpoint        = "${MINIO_URL}"
     bucket          = "${BUCKET_NAME}"
-    key             = "docker/docker_host/terraform.tfstate"
+    key             = "influxdb/terraform.tfstate"
     region          = "${REGION}"
     access_key      = "${MINIO_ACCESS_KEY}"
     secret_key      = "${MINIO_SECRET_KEY}"
