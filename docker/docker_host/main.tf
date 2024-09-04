@@ -503,4 +503,53 @@ resource "docker_container" "grafana" {
   }
 
   restart = var.restart
+  }
+
+resource "docker_container" "graphite" {
+  name = "graphite"
+  image = docker_image.graphite.name
+
+  ports {
+    internal = 80
+    external = 82
+  }
+  ports {
+    internal = 2003
+    external = 2003
+  }
+  ports {
+    internal = 2004
+    external = 2004
+  }
+  ports {
+    internal = 2023
+    external = 2023
+  }
+  ports {
+    internal = 2024
+    external = 2024
+  }
+  ports {
+    internal = 8125
+    external = 8125
+    protocol = "udp"
+  }
+  ports {
+    internal = 8126
+    external = 8126
+  }
+
+  volumes  {
+    container_path = "/opt/graphite/conf"
+    host_path      = "${var.home_directory}/graphite/configs"
+  }
+  volumes {
+    container_path = "/opt/graphite/storage"
+    host_path      = "${var.home_directory}/graphite/data"
+  }
+  volumes {
+    container_path = "/opt/statsd/config"
+    host_path      = "${var.home_directory}/graphite/statsd_config"
+  }
+  restart = var.restart
 }

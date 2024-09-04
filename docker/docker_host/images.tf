@@ -77,3 +77,7 @@ resource "docker_image" "wireguard" {
 resource "docker_image" "filebrowser" {
   name = "filebrowser/filebrowser:latest"
 }
+
+resource "docker_image" "graphite" {
+  name = "graphiteapp/graphite-statsd"
+}
