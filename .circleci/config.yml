@@ -49,6 +49,6 @@ workflows:
             docker/docker_host/.* file-path "docker/docker_host"
             docker/docker_host/.* docker_host true
             influxdb/.* influxdb true
-            influxdb/.* file-ath "influxdb"
+            influxdb/.* file-path "influxdb"
           circleci_domain: cciserver.logangodsey.com
  
