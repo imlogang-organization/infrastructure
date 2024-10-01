@@ -1,5 +1,11 @@
 version: 2.1 
 
+default_branch_filtering: &default_branch_filtering
+  filters:
+    branches:
+      only:
+        - main
+
 executors:
   ubuntu-k8s:
     machine: true
@@ -431,12 +437,14 @@ workflows:
           context:
             - kubeconfig
             - beemoviebot
+          <<: *default_branch_filtering
       - terraform-apply:
           requires:
             - terraform-plan-prod
           context:
             - kubeconfig
             - beemoviebot
+          <<: *default_branch_filtering
           
   terraform-beemoviebot-stage:
     when: << pipeline.parameters.stage >>
@@ -445,12 +453,14 @@ workflows:
           context:
             - kubeconfig
             - beemoviebot
+          <<: *default_branch_filtering
       - terraform-apply:
           requires:
             - terraform-plan-stage
           context:
             - kubeconfig
             - beemoviebot
+          <<: *default_branch_filtering
   
   terraform-cloud-container-runner:
     when: << pipeline.parameters.container-runner-cloud >>
@@ -459,12 +469,14 @@ workflows:
           context:
             - kubeconfig
             - container-runner-cloud
+          <<: *default_branch_filtering
       - terraform-apply:
           requires:
             - terraform-plan-container-runner-cloud
           context:
             - kubeconfig
             - container-runner-cloud
+          <<: *default_branch_filtering
   
   terraform-server-container-runner:
     when: << pipeline.parameters.container-runner-server >>
@@ -473,12 +485,14 @@ workflows:
           context:
             - kubeconfig
             - container-runner-server
+          <<: *default_branch_filtering
       - terraform-apply:
           requires:
             - terraform-plan-container-runner-server
           context:
             - kubeconfig
             - container-runner-server
+          <<: *default_branch_filtering
   
   terraform-circleci-release-agent-system:
     when: << pipeline.parameters.circleci-release-agent-system >>
@@ -487,12 +501,14 @@ workflows:
           context:
             - kubeconfig
             - circleci-release-agent-system
+          <<: *default_branch_filtering
       - terraform-apply:
           requires:
             - terraform-circleci-release-agent-system-plan
           context:
             - kubeconfig
             - circleci-release-agent-system
+          <<: *default_branch_filtering
     
   terraform-minio:
     when: << pipeline.parameters.minio >>
@@ -502,6 +518,7 @@ workflows:
               - kubeconfig
               - minio
               - minio_backend
+            <<: *default_branch_filtering
         - terraform-apply:
             requires:
               - terraform-minio-plan
@@ -509,6 +526,7 @@ workflows:
               - kubeconfig
               - minio
               - minio_backend
+            <<: *default_branch_filtering
 
   terraform-aws:
     when: << pipeline.parameters.aws >>
@@ -517,12 +535,14 @@ workflows:
             context:
               - kubeconfig
               - minio_backend
+            <<: *default_branch_filtering
         - terraform-apply-aws:
             requires:
               - terraform-aws-plan
             context:
               - kubeconfig
               - minio_backend
+            <<: *default_branch_filtering
 
   terraform-cloudflare:
     when: << pipeline.parameters.cloudflare >>
@@ -532,6 +552,7 @@ workflows:
             - kubeconfig
             - cloudflare
             - minio_backend
+          <<: *default_branch_filtering
       - terraform-apply:
           requires:
             - terraform-cloudflare-plan
@@ -539,6 +560,7 @@ workflows:
             - kubeconfig
             - cloudflare
             - minio_backend
+          <<: *default_branch_filtering
 
   terraform-container-agent-update:
     when: << pipeline.parameters.container-agent-values-update >>
@@ -547,12 +569,14 @@ workflows:
           context:
             - kubeconfig
             - minio_backend
+          <<: *default_branch_filtering
       - terraform-apply:
           requires:
             - terraform-container-agent-update-plan
           context:
             - kubeconfig
             - minio_backend
+          <<: *default_branch_filtering
 
   terraform-gcp:
     when: 
@@ -564,12 +588,14 @@ workflows:
           context:
             - gcloud
             - gcp_container_runner_token
+          <<: *default_branch_filtering
       - terraform-apply-gcp:
           requires:
             - terraform-plan-gcp-container-runner-upgrade
           context:
             - gcloud
             - gcp_container_runner_token
+          <<: *default_branch_filtering
   
   container-runner-server-helm:
     when: << pipeline.parameters.container-agent-server-values-update >>
@@ -578,12 +604,14 @@ workflows:
           context:
             - kubeconfig
             - minio_backend
+          <<: *default_branch_filtering
       - terraform-apply:
           requires:
             - container-runner-server-helm-plan
           context:
             - kubeconfig
             - minio_backend
+          <<: *default_branch_filtering
   terraform-docker-host: 
     when: << pipeline.parameters.docker_host >>
     jobs:
@@ -591,12 +619,14 @@ workflows:
           context:
             - minio_backend
             - docker_host
+          <<: *default_branch_filtering
       - terraform-apply-docker-host:
           requires:
             - terraform-docker-host-plan
           context:
             - minio_backend
             - docker_host
+          <<: *default_branch_filtering
 
   terraform-influxdb:
     when: << pipeline.parameters.influxdb >>
@@ -605,9 +635,11 @@ workflows:
           context: 
             - minio_backend
             - influxdb
+          <<: *default_branch_filtering
       - terraform-apply-influxdb:
           requires:
             - terraform-influxdb-plan
           context:
             - minio_backend
             - influxdb
+          <<: *default_branch_filtering
