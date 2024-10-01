@@ -14,6 +14,7 @@ jobs:
   check_user:
     docker: 
       - image: dockerregistry.logangodsey.com/base:02-18-2024
+    resource_class: small
     steps:
       - run:
           name: Check User
