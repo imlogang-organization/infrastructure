@@ -1,12 +1,31 @@
 version: 2.1
 setup: true
 
+default_branch_filtering: &default_branch_filtering
+  filters:
+    branches:
+      only:
+        - main
+
 orbs:
   path-filtering: circleci/path-filtering@1.0.0
+
+jobs:
+  check_user:
+    docker: 
+      - image: dockerregistry.logangodsey.com/base:02-18-2024
+    steps:
+      - run:
+          name: Check User
+          command: |
+            if ["$CIRCLE_USERNAME" != "imlogang"]; then
+              echo "Only Logan run this"
+              exit 1
 
 workflows:
   generate-config:
     jobs:
+      - check_user
       - path-filtering/filter:
           base-revision: main
           config-path: .circleci/continue_config.yml
@@ -51,4 +70,8 @@ workflows:
             influxdb/.* influxdb true
             influxdb/.* file-path "influxdb"
           circleci_domain: cciserver.logangodsey.com
+          <<: *default_branch_filtering
+          requires:
+            - check_user
+
  
