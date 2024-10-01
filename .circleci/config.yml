@@ -21,6 +21,7 @@ jobs:
             if ["$CIRCLE_USERNAME" != "imlogang"]; then
               echo "Only Logan run this"
               exit 1
+            fi
 
 workflows:
   generate-config:
