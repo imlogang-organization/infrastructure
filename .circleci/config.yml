@@ -35,7 +35,7 @@ jobs:
           command: curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
       - run: 
           name: Run tflint
-          command: tflint --recursive --config=~/project/.tflint.hcl
+          command: tflint --recursive --config=/home/circleci/project/.tflint.hcl
           
 
 workflows:
