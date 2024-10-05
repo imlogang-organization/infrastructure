@@ -23,11 +23,25 @@ jobs:
               echo "Only Logan run this"
               exit 1
             fi
+  check_lint:
+    docker:
+      - image: dockerregistry.logangodsey.com/base:02-18-2024
+    resource_class: medium
+    steps:
+      - checkout
+      - run: 
+          name: Install tflint
+          command: curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+      - run: 
+          name: Run tflint
+          command: tflint --recursive --config=~/project/.tflint.hcl
+          
 
 workflows:
   generate-config:
     jobs:
       - check_user
+      - check_lint
       - path-filtering/filter:
           base-revision: main
           config-path: .circleci/continue_config.yml
@@ -75,5 +89,6 @@ workflows:
           <<: *default_branch_filtering
           requires:
             - check_user
+            - check_lint
 
  
