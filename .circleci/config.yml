@@ -19,10 +19,11 @@ jobs:
       - run:
           name: Check User
           command: |
-            if ["$CIRCLE_USERNAME" != "imlogang"]; then
-              echo "Only Logan run this"
+            if [[ "$CIRCLE_USERNAME" != "imlogang" ]]; then
+              echo "Only Logan can run this"
               exit 1
             fi
+
   check_lint:
     docker:
       - image: dockerregistry.logangodsey.com/base:02-18-2024
