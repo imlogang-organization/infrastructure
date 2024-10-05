@@ -1,6 +1,7 @@
 variable "restart" {
   default = "unless-stopped"
   description = "Restart cadance of Docker Container."
+  type = string
 }
 
 variable "home_directory" {

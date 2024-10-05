@@ -1,16 +1,14 @@
-variable "minio_region" {
-  description = "Default MINIO region"
-  default     = "us-east-1"
-}
-
 variable "minio_server" {
   description = "Default MINIO host and port"
+  type = string
 }
 
 variable "minio_user" {
   description = "MINIO user"
+  type = string
 }
 
 variable "minio_password" {
   description = "MINIO password"
+  type = string
 }

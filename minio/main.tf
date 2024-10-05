@@ -27,18 +27,3 @@ resource "minio_iam_user" "ptero_backup_user" {
    name = "ptero-backup-user"
    force_destroy = true
 }
-
-output "test" {
-  value = "${minio_iam_user.ptero_backup_user.id}"
-  sensitive = true
-}
-
-output "status" {
-  value = "${minio_iam_user.ptero_backup_user.status}"
-  sensitive = true
-}
-
-output "secret" {
-  value = "${minio_iam_user.ptero_backup_user.secret}"
-  sensitive = true
-}

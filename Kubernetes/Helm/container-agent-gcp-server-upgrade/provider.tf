@@ -1,8 +1,21 @@
 terraform {
+  required_version = "1.9.7"
   required_providers {
     helm = {
       source = "hashicorp/helm"
       version = ">=2.0.0"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "~> 3.0"  # You can specify a more specific version if needed
+    }
+    google = {
+      source = "hashicorp/google"
+      version = "6.5.0"
+    }
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+      version = "2.32.0"
     }
   }
 }

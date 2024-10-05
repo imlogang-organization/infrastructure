@@ -3,7 +3,7 @@ resource "null_resource" "add_helm_repo" {
     command = "helm repo add container-agent https://packagecloud.io/circleci/container-agent/helm"
   }
   triggers = {
-    always_run = "${timestamp()}"
+    always_run = timestamp()
   }
 }
 

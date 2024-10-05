@@ -1,4 +1,5 @@
 terraform {
+  required_version = "1.9.7"
   required_providers {
     influxdb = {
       #https://registry.terraform.io/providers/DrFaust92/influxdb/latest/docs
