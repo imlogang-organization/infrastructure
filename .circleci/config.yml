@@ -42,7 +42,8 @@ workflows:
   generate-config:
     jobs:
       - check_user
-      - check_lint
+      - check_lint:
+          context: tflint-debug
       - path-filtering/filter:
           base-revision: main
           config-path: .circleci/continue_config.yml
