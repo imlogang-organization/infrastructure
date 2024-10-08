@@ -319,7 +319,7 @@ jobs:
             - .
 
   terraform-container-agent-update-plan:
-    executor: machine-runner
+    executor: ubuntu-k8s
     steps:
       - run: 
           name: echo resource editing
