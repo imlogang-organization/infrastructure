@@ -26,13 +26,10 @@ jobs:
 
   check_lint:
     docker:
-      - image: dockerregistry.logangodsey.com/base:02-18-2024
+      - image: dockerregistry.logangodsey.com/tflint:10-13-2024
     resource_class: medium
     steps:
       - checkout
-      - run: 
-          name: Install tflint
-          command: curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
       - run: 
           name: Run tflint
           command: tflint --recursive --config=/home/circleci/project/.tflint.hcl
@@ -87,6 +84,8 @@ workflows:
             docker/docker_host/.* docker_host true
             influxdb/.* influxdb true
             influxdb/.* file-path "influxdb"
+            proxmox/proxmox0/.* proxmox0 true
+            proxmox/proxmox0/.* file-path "proxmox/proxmox0"
           circleci_domain: cciserver.logangodsey.com
           <<: *default_branch_filtering
           requires:
