@@ -1,4 +1,6 @@
 agent:
+  image:
+    tag: "kubernetes-experimental"
   resourceClasses:
     logan/container-runner:
       spec:
@@ -50,3 +52,4 @@ agent:
     parametersRef: {}
     startPort: 54782
     numPorts: 20
+    
