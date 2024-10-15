@@ -26,7 +26,7 @@ jobs:
 
   check_lint:
     docker:
-      - image: dockerregistry.logangodsey.com/tflint:10-14-2024
+      - image: dockerregistry.logangodsey.com/tflint:10-15-2024
     resource_class: medium
     steps:
       - checkout
