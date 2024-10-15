@@ -31,6 +31,7 @@ jobs:
     steps:
       - checkout
       - run: ls -la
+      - run: pwd
       - run: 
           name: Run tflint
           command: tflint --recursive --config=/home/circleci/project/.tflint.hcl
