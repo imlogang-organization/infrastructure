@@ -4,7 +4,6 @@ resource "proxmox_vm_qemu" "mrserver" {
   os_type = "ubuntu"
   target_node = "proxmox0"
   clone = "ubuntu24.04-server-template"
-  storage = "local-lvm"
   cores = 4
   memory = 8192
   skip_ipv6 = true
@@ -22,7 +21,6 @@ resource "proxmox_vm_qemu" "nomad_client" {
   os_type = "ubuntu"
   target_node = "proxmox0"
   clone = "ubuntu24.04-server-template"
-  storage = "local-lvm"
   cores = 6
   memory = 10240
   skip_ipv6 = true

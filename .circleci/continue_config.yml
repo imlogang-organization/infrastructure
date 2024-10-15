@@ -663,6 +663,8 @@ workflows:
             - proxmox
           <<: *default_branch_filtering
       - terraform-apply-proxmox:
+          requires:
+            - terraform-plan-proxmox
           context:
             - minio_backend
             - proxmox
