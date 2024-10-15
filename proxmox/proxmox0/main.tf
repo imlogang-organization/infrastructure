@@ -33,4 +33,3 @@ resource "proxmox_vm_qemu" "nomad_client" {
     storage  = "local-lvm"
   }
 }
-
