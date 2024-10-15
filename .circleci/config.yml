@@ -30,6 +30,7 @@ jobs:
     resource_class: medium
     steps:
       - checkout
+      - run: ls -la
       - run: 
           name: Run tflint
           command: tflint --recursive --config=/home/circleci/project/.tflint.hcl

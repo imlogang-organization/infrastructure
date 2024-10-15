@@ -17,6 +17,9 @@ Please note that `kubeconfig` is needed for each workflow as that is an easy way
 * `AWS`: This is the Terraform for AWS.
 * `cloudflare`: Handles both domains and their records.
 * `docker`: This is the Terraform for Docker Containers on the Host.
+* `influxdb`: This controls my InfluxDB Host.
 * `Kubernetes/Secrets`: This is the Terraform for my Kubernetes Host and the secrets in it. Folder structure is a `namespace` is a folder.
 * `Kuberentes/Helm`: This is the Terraform for any deployments that are done via Helm. Folder structure is a `namespace` is a folder.
 * `minio`: This is the Terraform for MiniO.
+* `proxmox`: This controls my Proxmox host.
+* `scripts`: This is scripts that can be useful locally.
