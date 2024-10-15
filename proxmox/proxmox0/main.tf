@@ -1,5 +1,5 @@
 resource "proxmox_vm_qemu" "mrserver" {
-  name = "ubuntu_machine_runner_server"
+  name = "ubuntu-machine-runner-server"
   desc = "Machine Runner for Self Hosted CircleCI Server."
   os_type = "ubuntu"
   target_node = "proxmox0"
@@ -8,15 +8,15 @@ resource "proxmox_vm_qemu" "mrserver" {
   memory = 8192
   skip_ipv6 = true
   disk {
-    slot     = 0
+    slot     = "scsi0"
     size     = "150G"
-    type     = "scsi"
+    type     = "disk"
     storage  = "local-lvm"
   }
 }
 
 resource "proxmox_vm_qemu" "nomad_client" {
-  name = "ubuntu_nomad_client"
+  name = "ubuntu-nomad-client"
   desc = "Nomad Client for Self Hosted CircleCI Server."
   os_type = "ubuntu"
   target_node = "proxmox0"
@@ -25,9 +25,9 @@ resource "proxmox_vm_qemu" "nomad_client" {
   memory = 10240
   skip_ipv6 = true
   disk {
-    slot     = 0
+    slot     = "scsi0"
     size     = "150G"
-    type     = "scsi"
+    type     = "disk"
     storage  = "local-lvm"
   }
 }
