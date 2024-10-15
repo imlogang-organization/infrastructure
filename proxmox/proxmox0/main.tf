@@ -1,6 +1,7 @@
 resource "proxmox_vm_qemu" "mrserver" {
   name = "ubuntu-machine-runner-server"
   desc = "Machine Runner for Self Hosted CircleCI Server."
+  vmid = 101
   os_type = "ubuntu"
   target_node = "proxmox0"
   clone = "ubuntu24.04-server-template"
@@ -13,11 +14,16 @@ resource "proxmox_vm_qemu" "mrserver" {
     type     = "disk"
     storage  = "local-lvm"
   }
+  network {
+    model  = "virtio"
+    bridge = "vmbr0"
+  }
 }
 
 resource "proxmox_vm_qemu" "nomad_client" {
   name = "ubuntu-nomad-client"
   desc = "Nomad Client for Self Hosted CircleCI Server."
+  vmid = 102
   os_type = "ubuntu"
   target_node = "proxmox0"
   clone = "ubuntu24.04-server-template"
@@ -29,5 +35,9 @@ resource "proxmox_vm_qemu" "nomad_client" {
     size     = "150G"
     type     = "disk"
     storage  = "local-lvm"
+  }
+  network {
+    model  = "virtio"
+    bridge = "vmbr0"
   }
 }
