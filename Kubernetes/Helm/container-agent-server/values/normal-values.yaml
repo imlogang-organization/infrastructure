@@ -9,7 +9,7 @@ agent:
           - resources:
               limits:
                 cpu: 1500m
-                ram: 2Gi
+                memory: 2Gi
                 ephemeral-storage: "5Gi"
               requests:
                 cpu: 2000m
