@@ -249,7 +249,7 @@ jobs:
             - .
 
   terraform-plan-container-runner-server:
-    executor: machine-runner
+    executor: ubuntu-k8s
     steps:
       - checkout
       - container-runner-server
@@ -363,7 +363,7 @@ jobs:
           paths:
             - .
   container-runner-server-helm-plan:
-    executor: machine-runner
+    executor: ubuntu-k8s
     steps:
       - checkout
       - terraform-init
