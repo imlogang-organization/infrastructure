@@ -494,6 +494,7 @@ workflows:
     jobs:
       - terraform-plan-container-runner-server:
           context:
+            - minio
             - kubeconfig
             - container-runner-server
           <<: *default_branch_filtering
@@ -501,6 +502,7 @@ workflows:
           requires:
             - terraform-plan-container-runner-server
           context:
+            - minio
             - kubeconfig
             - container-runner-server
           <<: *default_branch_filtering
