@@ -5,7 +5,7 @@ terraform {
   backend "s3" {
     endpoint        = "${MINIO_URL}"
     bucket          = "${BUCKET_NAME}"
-    key             = "cloudflare/kubernetes/container-agent-server/terraform.tfstate"
+    key             = "kubernetes/helm/container-agent-server/terraform.tfstate"
     region          = "${REGION}"
     access_key      = "${MINIO_ACCESS_KEY}"
     secret_key      = "${MINIO_SECRET_KEY}"

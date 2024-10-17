@@ -367,6 +367,7 @@ jobs:
     executor: ubuntu-k8s
     steps:
       - checkout
+      - backend_script
       - terraform-init
       - managed-namespace
       - terraform-plan
