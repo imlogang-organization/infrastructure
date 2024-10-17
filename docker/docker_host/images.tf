@@ -81,3 +81,7 @@ resource "docker_image" "filebrowser" {
 resource "docker_image" "graphite" {
   name = "graphiteapp/graphite-statsd"
 }
+
+resource "docker_image" "docker-runner-server-mr3" {
+  name = "dockerregistry.logangodsey.com/docker-runner-server-mr3:10-17-2024"
+}

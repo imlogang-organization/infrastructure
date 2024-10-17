@@ -19,3 +19,8 @@ variable "docker_influxdb_init_password" {
   description = "The initial password for InfluxDB"
   default     = ""
 }
+
+variable "dmr3-api-auth-token" {
+  type = string
+  description = "CircleCI Runner API Token for Docker Runner Server MR3"
+}

@@ -553,3 +553,15 @@ resource "docker_container" "graphite" {
   }
   restart = var.restart
 }
+
+resource "docker_container" "docker-runner-server-mr3" {
+  name = "docker-runner-server-mr3"
+  image = docker_image.docker-runner-server-mr3.name
+  env = [
+    "CIRCLECI_RUNNER_NAME=docker-runner-server-mr3",
+    "CIRCLECI_RUNNER_API_AUTH_TOKEN=${var.dmr3-api-auth-token}",
+    "CIRCLECI_RUNNER_API_URL=https://cciserver.logangodsey.com",
+    "CIRCLECI_RUNNER_CLEANUP_WORK_DIR=true"
+  ]
+  restart = var.restart
+}
