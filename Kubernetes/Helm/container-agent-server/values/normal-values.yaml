@@ -8,12 +8,12 @@ agent:
         containers:
           - resources:
               limits:
-                cpu: 1500m
-                memory: 2Gi
-                ephemeral-storage: "5Gi"
-              requests:
                 cpu: 2000m
                 memory: 4Gi
+                ephemeral-storage: "5Gi"
+              requests:
+                cpu: 1500m
+                memory: 2Gi
                 ephemeral-storage: "5Gi"
   customSecret: logan.container-runner-server
   runnerAPI: https://cciserver.logangodsey.com
