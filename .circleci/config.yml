@@ -10,37 +10,37 @@ default_branch_filtering: &default_branch_filtering
 orbs:
   path-filtering: circleci/path-filtering@1.0.0
 
-# jobs:
-#   check_user:
-#     docker: 
-#       - image: dockerregistry.logangodsey.com/base:02-18-2024
-#     #resource_class: imlogang-organization-server/container-runner-server
-#     steps:
-#       - run:
-#           name: Check User
-#           command: |
-#             if [[ "$CIRCLE_USERNAME" != "imlogang" ]]; then
-#               echo "Only Logan can run this"
-#               exit 1
-#             fi
+jobs:
+  check_user:
+    docker: 
+      - image: dockerregistry.logangodsey.com/base:02-18-2024
+    #resource_class: imlogang-organization-server/container-runner-server
+    steps:
+      - run:
+          name: Check User
+          command: |
+            if [[ "$CIRCLE_USERNAME" != "imlogang" ]]; then
+              echo "Only Logan can run this"
+              exit 1
+            fi
 
-#   check_lint:
-#     docker:
-#       - image: dockerregistry.logangodsey.com/tflint:10-15-2024
-#     #resource_class: imlogang-organization-server/container-runner-server
-#     steps:
-#       - checkout
-#       - run: 
-#           name: Run tflint
-#           command: tflint --recursive --config=/root/project/.tflint.hcl
+  check_lint:
+    docker:
+      - image: dockerregistry.logangodsey.com/tflint:10-15-2024
+    #resource_class: imlogang-organization-server/container-runner-server
+    steps:
+      - checkout
+      - run: 
+          name: Run tflint
+          command: tflint --recursive --config=/root/project/.tflint.hcl
           
 
 workflows:
   generate-config:
     jobs:
-      #- check_user
-      #- check_lint:
-      #    context: tflint-debug
+      - check_user
+      - check_lint:
+          context: tflint-debug
       - path-filtering/filter:
           base-revision: main
           config-path: .circleci/continue_config.yml
@@ -89,8 +89,8 @@ workflows:
           circleci_domain: cciserver.logangodsey.com
           #resource_class: imlogang-organization-server/container-runner-server
           <<: *default_branch_filtering
-          #requires:
-          #  - check_user
-          #  - check_lint
+          requires:
+            - check_user
+            - check_lint
 
  

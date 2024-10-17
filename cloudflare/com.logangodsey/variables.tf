@@ -1,6 +1,5 @@
 variable "cloudflare_api_token" {
     description = "API Token for Cloudflare"
-    default = "8agJFRO9rcIpPF-Ll9t2uMBzB5dlaNKHISfa6edC"
     type = string
 }
 
