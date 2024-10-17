@@ -14,7 +14,7 @@ jobs:
   check_user:
     docker: 
       - image: dockerregistry.logangodsey.com/base:02-18-2024
-    resource_class: small
+    resource_class: imlogang-organization-server/container-runner-server
     steps:
       - run:
           name: Check User
@@ -27,7 +27,7 @@ jobs:
   check_lint:
     docker:
       - image: dockerregistry.logangodsey.com/tflint:10-15-2024
-    resource_class: medium
+    resource_class: imlogang-organization-server/container-runner-server
     steps:
       - checkout
       - run: 
