@@ -1,4 +1,6 @@
 agent:
+  image:
+    tag: "kubernetes-experimental"
   resourceClasses:
     imlogang-organization-server/container-runner-server:
       spec:
