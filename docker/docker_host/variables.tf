@@ -24,9 +24,3 @@ variable "dmr3-api-auth-token" {
   type = string
   description = "CircleCI Runner API Token for Docker Runner Server MR3"
 }
-
-variable "can_rm" {
-  type = bool
-  description = "Can we remove the container and restart?"
-  default = true
-}
