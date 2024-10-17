@@ -369,7 +369,6 @@ jobs:
       - checkout
       - backend_script
       - terraform-init
-      - managed-namespace
       - terraform-plan
       - persist_to_workspace:
           root: .
