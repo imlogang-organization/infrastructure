@@ -15,8 +15,3 @@ variable "chart_name" {
     default = "container-agent/container-agent"
     type = string
 }
-
-# variable "chart_version" {
-#     description = "Version to Pull from Chart."
-#     default = "101.0.21"
-# }
