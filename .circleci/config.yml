@@ -14,7 +14,7 @@ jobs:
   check_user:
     docker: 
       - image: dockerregistry.logangodsey.com/base:02-18-2024
-    resource_class: imlogang-organization-server/container-runner-server
+    #resource_class: imlogang-organization-server/container-runner-server
     steps:
       - run:
           name: Check User
@@ -27,7 +27,7 @@ jobs:
   check_lint:
     docker:
       - image: dockerregistry.logangodsey.com/tflint:10-15-2024
-    resource_class: imlogang-organization-server/container-runner-server
+    #resource_class: imlogang-organization-server/container-runner-server
     steps:
       - checkout
       - run: 
@@ -87,7 +87,7 @@ workflows:
             proxmox/proxmox0/.* proxmox0 true
             proxmox/proxmox0/.* file-path "proxmox/proxmox0"
           circleci_domain: cciserver.logangodsey.com
-          resource_class: imlogang-organization-server/container-runner-server
+          #resource_class: imlogang-organization-server/container-runner-server
           <<: *default_branch_filtering
           requires:
             - check_user
