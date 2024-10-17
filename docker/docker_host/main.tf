@@ -27,7 +27,7 @@ resource "docker_container" "tasks_md_container" {
     host_path      = "${var.home_directory}/tasks/config"
   }
   restart = var.restart
-  rm = var.can_rm
+  
 }
 
 resource "docker_container" "homeassistant" {
@@ -46,7 +46,7 @@ resource "docker_container" "homeassistant" {
   }
   restart = var.restart
   privileged =  var.privileged
-  rm = var.can_rm
+  
 }
 
 resource "docker_container" "watchtower" {
@@ -57,7 +57,7 @@ resource "docker_container" "watchtower" {
     host_path      = "/var/run/docker.sock"
   }
   restart = var.restart
-  rm = var.can_rm
+  
 }
 
 resource "docker_container" "tautulli" {
@@ -77,7 +77,7 @@ resource "docker_container" "tautulli" {
     host_path      = "${var.home_directory}/tautulli/config"
   }
   restart = var.restart
-  rm = var.can_rm
+  
 }
 
 resource "docker_container" "homearr" {
@@ -105,7 +105,7 @@ resource "docker_container" "homearr" {
     host_path      = "${var.home_directory}/homarr/icon"
   }
   restart = var.restart
-  rm = var.can_rm
+  
 }
 
 resource "docker_container" "dokuwiki" {
@@ -125,7 +125,7 @@ resource "docker_container" "dokuwiki" {
     host_path      = "${var.home_directory}/dokuwiki/config"
   }
   restart = var.restart
-  rm = var.can_rm
+  
 }
 
 resource "docker_container" "uptime-kuma" {
@@ -149,7 +149,7 @@ resource "docker_container" "uptime-kuma" {
     host_path      = "/var/run/docker.sock"
   }
   restart = var.restart
-  rm = var.can_rm
+  
 }
 
 resource "docker_container" "sonarr" {
@@ -177,7 +177,7 @@ resource "docker_container" "sonarr" {
     host_path      = "${var.home_directory}/nas/media_nas3"
   }
   restart = var.restart
-  rm = var.can_rm
+  
 }
 
 resource "docker_container" "jackett" {
@@ -201,7 +201,7 @@ resource "docker_container" "jackett" {
     host_path      = "${var.home_directory}/jackett/config"
   }
   restart = var.restart
-  rm = var.can_rm
+  
 }
 
 resource "docker_container" "dashdot" {
@@ -229,7 +229,7 @@ resource "docker_container" "dashdot" {
   }
   restart = var.restart
   privileged = var.privileged
-  rm = var.can_rm
+  
 }
 
 resource "docker_container" "influxdb2" {
@@ -256,7 +256,7 @@ resource "docker_container" "influxdb2" {
     host_path      = "${var.home_directory}/influxdb/config"
   }
   restart = var.restart
-  rm = var.can_rm
+  
 }
 
 resource "docker_container" "dozzle" {
@@ -278,7 +278,7 @@ resource "docker_container" "dozzle" {
     host_path      = "/var/run/docker.sock"
   }
   restart = var.restart
-  rm = var.can_rm
+  
 }
 
 resource "docker_container" "dockekr-gc" {
@@ -302,7 +302,7 @@ resource "docker_container" "dockekr-gc" {
     host_path      = "${var.home_directory}/docker-gc/docker-gc-exclude"
   } 
   restart = var.restart
-  rm = var.can_rm
+  
 }
 
 
@@ -310,7 +310,7 @@ resource "docker_container" "registry_server" {
   name  = "registry-server"
   image = docker_image.registry-server.name
   restart = var.restart
-  rm = var.can_rm
+  
 
   env = [
     "REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin=[http://dockerregistry.logangodsey.com:5001]",
@@ -334,7 +334,7 @@ resource "docker_container" "registry-ui" {
   name  = "registry-ui"
   image = docker_image.registry-ui.name
   restart = var.restart
-  rm = var.can_rm
+  
 
   ports {
     internal = 80
@@ -363,7 +363,7 @@ resource "docker_container" "npm-ui" {
   name  = "npm-ui"
   image = docker_image.npm-ui.name
   restart = var.restart
-  rm = var.can_rm
+  
 
   ports {
     internal = 80
@@ -404,7 +404,7 @@ resource "docker_container" "npm-db" {
   name  = "npm-db"
   image = docker_image.npm-db.name
   restart = var.restart
-  rm = var.can_rm
+  
 
   ports {
     internal = 3306
@@ -430,7 +430,7 @@ resource "docker_container" "wireguard" {
   name  = "wireguard"
   image = docker_image.wireguard.name
   restart = var.restart
-  rm = var.can_rm
+  
 
   ports {
     internal = 51820
@@ -505,7 +505,7 @@ resource "docker_container" "filebrowser" {
   }
 
   restart = var.restart
-  rm = var.can_rm
+  
 }
 
 resource "docker_container" "grafana" {
@@ -522,7 +522,7 @@ resource "docker_container" "grafana" {
   }
 
   restart = var.restart
-  rm = var.can_rm
+  
   }
 
 resource "docker_container" "graphite" {
@@ -572,7 +572,7 @@ resource "docker_container" "graphite" {
     host_path      = "${var.home_directory}/graphite/statsd_config"
   }
   restart = var.restart
-  rm = var.can_rm
+  
 }
 
 resource "docker_container" "docker-runner-server-mr3" {
@@ -585,5 +585,5 @@ resource "docker_container" "docker-runner-server-mr3" {
     "CIRCLECI_RUNNER_CLEANUP_WORK_DIR=true"
   ]
   restart = var.restart
-  rm = var.can_rm
+  
 }
