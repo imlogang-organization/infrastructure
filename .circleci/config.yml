@@ -34,7 +34,6 @@ jobs:
           name: Run tflint
           command: tflint --recursive --config=/root/project/.tflint.hcl
           
-
 workflows:
   generate-config:
     jobs:
@@ -92,5 +91,3 @@ workflows:
           requires:
             - check_user
             - check_lint
-
- 

@@ -86,6 +86,7 @@ commands:
           command: |
             cd << pipeline.parameters.file-path >>
             chmod +x ./backend.sh && ./backend.sh
+
   managed-namespace:
     steps:
       - run: 
@@ -101,6 +102,7 @@ commands:
           command: |
             cd << pipeline.parameters.file-path >>
             terraform plan -out plan.tf
+
   terraform-init:
     steps:
       - run:
@@ -144,6 +146,7 @@ commands:
             command: |
               echo 'export TF_VAR_imlogang_organization_container_runner="'"${IMLOGANG_CONTAINER_RUNNER}"'"' >> "$BASH_ENV"
               echo 'export TF_VAR_logan_container_runner="'"${LOGAN_CONTAINER_RUNNER}"'"' >> "$BASH_ENV"
+  
   container-runner-server:
       steps:
         - run:
@@ -157,6 +160,7 @@ commands:
             name: echo envvars for server container runner
             command: |
               echo 'export TF_VAR_circleci_release_agent_system_token="'"${CIRCLECI_RELEASE_AGENT_TOKEN}"'"' >> "$BASH_ENV"
+  
   aws-fix-envvars:
     steps:
       - run:
@@ -165,6 +169,7 @@ commands:
             echo 'export AWS_ACCESS_KEY_ID="'"${AWS_CLI_STR_ACCESS_KEY_ID}"'"' >> "$BASH_ENV"
             echo 'export AWS_SECRET_ACCESS_KEY="'"${AWS_CLI_STR_SECRET_ACCESS_KEY}"'"' >> "$BASH_ENV"
             echo 'export AWS_SESSION_TOKEN="'"${AWS_CLI_STR_SESSION_TOKEN}"'"' >> "$BASH_ENV"
+  
   cloudflare-fix-envvars:
     steps:
       - run: 
@@ -177,6 +182,7 @@ commands:
   #         name: fix cloudflare envvars
   #         command: |
   #           echo 'export TF_VAR_cloudflare_api_token="'"${CLOUDFLARE_ACCESS_KEY_LOGANGODSEY}"'"' >> "$BASH_ENV"
+  
   get_public_ip:
     steps:
       - run: 
@@ -185,6 +191,7 @@ commands:
             TF_VAR_dynamic_public_ip=$(curl ifconfig.me)
             echo 'export TF_VAR_dynamic_public_ip="'"${TF_VAR_dynamic_public_ip}"'"' >> "$BASH_ENV"
             echo "Public IP is $TF_VAR_dynamic_public_ip"
+
 jobs:
   terraform-influxdb-plan:
     executor: machine-runner
