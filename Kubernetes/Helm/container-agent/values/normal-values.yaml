@@ -4,7 +4,7 @@ agent:
   resourceClasses:
     logan/container-runner:
       spec:
-        terminationGracePeriodSeconds: 300 # 5 minutes
+        terminationGracePeriodSeconds: 18300 # 5 minutes
         containers:
           - resources:
               limits:
@@ -56,4 +56,3 @@ agent:
     parametersRef: {}
     startPort: 54782
     numPorts: 20
-    
