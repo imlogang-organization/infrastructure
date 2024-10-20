@@ -17,6 +17,11 @@ agent:
                 ephemeral-storage: "5Gi"
         nodeSelector:
           ci: "true"  
+        tolerations:                    # Add tolerations section
+          - key: "ci-workload"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
   customSecret: logan.container-runner-server
   runnerAPI: https://cciserver.logangodsey.com
 
