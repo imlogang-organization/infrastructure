@@ -26,3 +26,8 @@ variable "target_node" {
   default = "proxmox0"
 }
 
+variable "os_template" {
+  description = "Default Template to create VMs on."
+  type = string
+  default = "ubuntu-24-04-server-template"
+}
