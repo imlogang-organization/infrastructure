@@ -41,4 +41,3 @@ resource "proxmox_vm_qemu" "nomad_client" {
     bridge = "vmbr0"
   }
 }
-
