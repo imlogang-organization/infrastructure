@@ -32,6 +32,8 @@ agent:
                       sleep 60 &&
                       echo 'PreStop hook: Sending TERM signal to process 1' &&
                       kill 1
+        nodeSelector:
+          ci: "true" 
         imagePullSecrets:
           - name: "aws-secret"
     imlogang-organization/container-runner:

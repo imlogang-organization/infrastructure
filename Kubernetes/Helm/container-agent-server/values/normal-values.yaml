@@ -15,10 +15,10 @@ agent:
                 cpu: 1500m
                 memory: 2Gi
                 ephemeral-storage: "5Gi"
+        nodeSelector:
+          ci: "true"  
   customSecret: logan.container-runner-server
   runnerAPI: https://cciserver.logangodsey.com
-  
-
 
   ssh:
     enabled: true
