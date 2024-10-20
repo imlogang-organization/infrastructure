@@ -6,6 +6,8 @@ resource "kubernetes_secret" "container-runner-server" {
 
   data = {
     "imlogang-organization-server.container-runner-server" = var.imlogang_organization_container_runner_server
+    "imlogang-organization-server.small" = var.small
+    "imlogang-organization-server.medium" = var.medium
   }
 
   type = "Opaque"
