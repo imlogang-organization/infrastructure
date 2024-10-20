@@ -13,7 +13,7 @@ orbs:
 jobs:
   check_user:
     docker: 
-      - image: ubuntu:24.10
+      - image: dockerregistry.logangodsey.com/ubuntu-base:10-20-2024
     resource_class: imlogang-organization-server/small
     steps:
       - run:
