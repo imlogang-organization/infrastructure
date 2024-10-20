@@ -4,7 +4,6 @@ agent:
   resourceClasses:
     imlogang-organization-server/container-runner-server:
       spec:
-        terminationGracePeriodSeconds: 300 # 5 minutes
         containers:
           - resources:
               limits:
@@ -15,6 +14,44 @@ agent:
                 cpu: 1500m
                 memory: 2Gi
                 ephemeral-storage: "5Gi"
+        nodeSelector:
+          ci: "true"  
+        tolerations:                    # Add tolerations section
+          - key: "ci-workload"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
+    imlogang-organization-server/small:
+      spec:
+        containers:
+          - resources:
+              limits:
+                cpu: 2000m
+                memory: 4Gi
+                ephemeral-storage: "10Gi"
+              requests:
+                cpu: 1000m
+                memory: 2Gi
+                ephemeral-storage: "10Gi"
+        nodeSelector:
+          ci: "true"  
+        tolerations:                    # Add tolerations section
+          - key: "ci-workload"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
+    imlogang-organization-server/medium:
+      spec:
+        containers:
+          - resources:
+              limits:
+                cpu: 4000m
+                memory: 8Gi
+                ephemeral-storage: "10Gi"
+              requests:
+                cpu: 2000m
+                memory: 4Gi
+                ephemeral-storage: "10Gi"
         nodeSelector:
           ci: "true"  
         tolerations:                    # Add tolerations section
