@@ -36,6 +36,11 @@ agent:
           ci: "true" 
         imagePullSecrets:
           - name: "aws-secret"
+        tolerations:                    # Add tolerations section
+          - key: "ci-workload"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
     imlogang-organization/container-runner:
   customSecret: logan.container-runner
   
