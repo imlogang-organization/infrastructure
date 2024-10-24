@@ -49,8 +49,8 @@ resource "proxmox_vm_qemu" "ubuntu-k8s-7" {
   os_type = var.os_type
   target_node = var.target_node
   clone = var.os_template
-  cores = 4
-  memory = 10240
+  cores = 8
+  memory = 12288
   skip_ipv6 = true
   disk {
     slot     = "scsi0"
