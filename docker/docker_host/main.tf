@@ -587,3 +587,17 @@ resource "docker_container" "docker-runner-server-mr3" {
   restart = var.restart
   
 }
+
+resource "docker_container" "telegraf" {
+  name = "telegraf"
+  image = docker_image.telegraf.name
+  networks_advanced {
+    name = docker_network.telegraf-net.name
+  }
+  volumes  {
+    container_path = "/var/lib/influxdb"
+    host_path      = "${var.home_directory}/telegraf/telegraf.conf"
+  }
+  restart = var.restart
+  
+}

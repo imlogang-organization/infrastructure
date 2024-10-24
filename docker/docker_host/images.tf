@@ -85,3 +85,7 @@ resource "docker_image" "graphite" {
 resource "docker_image" "docker-runner-server-mr3" {
   name = "dockerregistry.logangodsey.com/docker-runner-server-mr3:10-17-2024"
 }
+
+resource "docker_image" "telegraf" {
+  name = "telegraf"
+}
