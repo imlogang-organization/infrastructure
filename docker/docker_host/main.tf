@@ -595,7 +595,7 @@ resource "docker_container" "telegraf" {
     name = docker_network.telegraf-net.name
   }
   volumes  {
-    container_path = "/var/lib/influxdb"
+    container_path = "/etc/telegraf/"
     host_path      = "${var.home_directory}/telegraf/"
   }
   restart = var.restart
