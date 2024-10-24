@@ -10,11 +10,11 @@ agent:
               limits:
                 cpu: 1500m
                 memory: 2Gi
-                ephemeral-storage: "5Gi"
+                ephemeral-storage: "10Gi"
               requests:
                 cpu: 1500m
                 memory: 2Gi
-                ephemeral-storage: "5Gi"
+                ephemeral-storage: "10Gi"
           - livenessProbe:
               initialDelaySeconds: 250
               periodSeconds: 35
@@ -42,6 +42,27 @@ agent:
             value: "true"
             effect: "NoSchedule"
     imlogang-organization/container-runner:
+      spec:
+        terminationGracePeriodSeconds: 18300 # 5 minutes
+        containers:
+          - resources:
+              limits:
+                cpu: 1500m
+                memory: 2Gi
+                ephemeral-storage: "10Gi"
+              requests:
+                cpu: 1500m
+                memory: 2Gi
+                ephemeral-storage: "10Gi"
+        nodeSelector:
+          ci: "true" 
+        imagePullSecrets:
+          - name: "aws-secret"
+        tolerations:                    # Add tolerations section
+          - key: "ci-workload"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
   customSecret: logan.container-runner
   
   # serviceAccount:
