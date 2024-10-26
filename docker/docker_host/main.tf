@@ -609,8 +609,8 @@ resource "docker_container" "flaresolverr" {
     "LOG_LEVEL=info"
   ]
   ports {
-    internal = 8123
-    external = 8123
+    internal = 8191
+    external = 8191
   }
   restart = var.restart
   
