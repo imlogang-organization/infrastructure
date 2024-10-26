@@ -601,3 +601,17 @@ resource "docker_container" "telegraf" {
   restart = var.restart
   
 }
+
+resource "docker_container" "flaresolverr" {
+  name = "flaresolverr"
+  image = docker_image.flaresolver.name
+  env = [
+    "LOG_LEVEL=info"
+  ]
+  ports {
+    internal = 8123
+    external = 8123
+  }
+  restart = var.restart
+  
+}
