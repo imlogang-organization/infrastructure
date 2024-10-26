@@ -201,7 +201,9 @@ resource "docker_container" "jackett" {
     host_path      = "${var.home_directory}/jackett/config"
   }
   restart = var.restart
-  
+  networks_advanced {
+    name = "host"
+  }
 }
 
 resource "docker_container" "dashdot" {
@@ -613,5 +615,7 @@ resource "docker_container" "flaresolverr" {
     external = 8191
   }
   restart = var.restart
-  
+  networks_advanced {
+    name = "host"
+  }
 }
