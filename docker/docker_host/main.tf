@@ -112,9 +112,7 @@ resource "docker_container" "dokuwiki" {
   name  = "dokuwiki"
   image = docker_image.dokuwiki.name
   env = [
-    "PUID=1000",
-    "PGID=1000",
-    "TZ=CDT/UTC",
+    "TZ=CDT/UTC"
   ]
   ports {
     internal = 80
