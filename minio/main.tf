@@ -29,6 +29,6 @@ resource "minio_iam_user" "ptero_backup_user" {
 }
 
 resource "minio_s3_bucket" "support_bundles" {
-  bucket = "support_bundles"
+  bucket = "support-bundles"
   acl    = "public"
 }
