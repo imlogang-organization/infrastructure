@@ -1,6 +1,6 @@
 agent:
-  image:
-    tag: "kubernetes-experimental"
+  #image:
+  #  tag: "kubernetes-experimental"
   resourceClasses:
     logan/container-runner:
       spec:
