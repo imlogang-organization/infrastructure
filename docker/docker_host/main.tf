@@ -112,9 +112,7 @@ resource "docker_container" "dokuwiki" {
   name  = "dokuwiki"
   image = docker_image.dokuwiki.name
   env = [
-    "PUID=1000",
-    "PGID=1000",
-    "TZ=CDT/UTC",
+    "TZ=CDT/UTC"
   ]
   ports {
     internal = 80
@@ -201,7 +199,6 @@ resource "docker_container" "jackett" {
     host_path      = "${var.home_directory}/jackett/config"
   }
   restart = var.restart
-  
 }
 
 resource "docker_container" "dashdot" {
@@ -600,4 +597,17 @@ resource "docker_container" "telegraf" {
   }
   restart = var.restart
   
+}
+
+resource "docker_container" "flaresolverr" {
+  name = "flaresolverr"
+  image = docker_image.flaresolver.name
+  env = [
+    "LOG_LEVEL=info"
+  ]
+  ports {
+    internal = 8191
+    external = 8191
+  }
+  restart = var.restart
 }

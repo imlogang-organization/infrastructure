@@ -89,3 +89,7 @@ resource "docker_image" "docker-runner-server-mr3" {
 resource "docker_image" "telegraf" {
   name = "telegraf"
 }
+
+resource "docker_image" "flaresolver" {
+  name = "ghcr.io/flaresolverr/flaresolverr:latest"
+}

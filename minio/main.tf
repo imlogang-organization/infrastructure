@@ -27,3 +27,8 @@ resource "minio_iam_user" "ptero_backup_user" {
    name = "ptero-backup-user"
    force_destroy = true
 }
+
+resource "minio_s3_bucket" "support_bundles" {
+  bucket = "support-bundles"
+  acl    = "public"
+}
