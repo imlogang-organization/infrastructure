@@ -7,7 +7,7 @@ resource "null_resource" "add_helm_repo" {
   }
 }
 
-resource "helm_release" "container_agent" {
+resource "helm_release" "circleci-release-agent-system" {
   name       = var.deployment_name
   namespace  = var.namespace
   chart      = var.chart_name
