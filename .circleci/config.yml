@@ -85,6 +85,9 @@ workflows:
             influxdb/.* file-path "influxdb"
             proxmox/proxmox0/.* proxmox0 true
             proxmox/proxmox0/.* file-path "proxmox/proxmox0"
+            Kubernetes/Helm/circleci-release-agent-system/.* file-path "Kubernetes/Helm/circleci-release-agent-system"
+            Kubernetes/Helm/circleci-release-agent-system/.* namespace "circleci-release-agent-system"
+            Kubernetes/Helm/circleci-release-agent-system/.* circleci-release-agent-system-helm true
           circleci_domain: cciserver.logangodsey.com
           resource_class: imlogang-organization-server/small
           <<: *default_branch_filtering

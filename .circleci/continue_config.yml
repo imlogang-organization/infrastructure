@@ -70,6 +70,9 @@ parameters:
   proxmox0:
     default: false
     type: boolean
+  circleci-release-agent-system-helm:
+    default: false
+    type: boolean
   namespace:
     default: ""
     type: string
@@ -380,6 +383,19 @@ jobs:
           root: .
           paths:
             - .
+  
+  circleci-release-agent-system:
+    executor: ubuntu-k8s
+    steps:
+      - checkout
+      - backend_script
+      - terraform-init
+      - managed-namespace
+      - terraform-plan
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
   terraform-apply:
     executor: ubuntu-k8s
@@ -678,4 +694,19 @@ workflows:
             - minio_backend
             - proxmox
           <<: *default_branch_filtering
-    
+
+  terraform-circleci-release-agent-system-helm:
+    when: << pipeline.parameters.circleci-release-agent-system-helm >>
+    jobs:
+      - circleci-release-agent-system:
+          context: 
+            - minio_backend
+            - kubeconfig
+          <<: *default_branch_filtering
+      - terraform-apply:
+          requires:
+            - circleci-release-agent-system
+          context:
+            - minio_backend
+            - kubeconfig
+          <<: *default_branch_filtering
