@@ -727,7 +727,7 @@ workflows:
           <<: *default_branch_filtering
 
   terraform-go-api-secrets:
-    when: << pipeline.paramters.go-api >>
+    when: << pipeline.parameters.go-api >>
     jobs: 
       - go-api-plan:
           context:
