@@ -277,6 +277,7 @@ jobs:
       - checkout
       - circleci-release-agent-system
       - terraform-init
+      - managed-namespace
       - terraform-plan
       - persist_to_workspace:
           root: .
