@@ -88,6 +88,9 @@ workflows:
             Kubernetes/Helm/circleci-release-agent-system/.* file-path "Kubernetes/Helm/circleci-release-agent-system"
             Kubernetes/Helm/circleci-release-agent-system/.* namespace "circleci-release-agent-system"
             Kubernetes/Helm/circleci-release-agent-system/.* circleci-release-agent-system-helm true
+            Kubernetes/Secrets/go-api/.* file-path "Kubernetes/Secrets/go-api/"
+            Kubernetes/Secrets/go-api/.* namespace "go-api"
+            Kubernetes/Secrets/go-api/.* go-api true
           circleci_domain: cciserver.logangodsey.com
           resource_class: imlogang-organization-server/small
           <<: *default_branch_filtering

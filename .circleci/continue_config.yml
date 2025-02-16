@@ -73,6 +73,9 @@ parameters:
   circleci-release-agent-system-helm:
     default: false
     type: boolean
+  go-api:
+    default: false
+    type: boolean
   namespace:
     default: ""
     type: string
@@ -396,6 +399,19 @@ jobs:
           paths:
             - .
 
+  go-api-plan:
+    executor: ubuntu-k8s
+    steps:
+      - checkout
+      - backend_script
+      - terraform-init
+      - managed-namespace
+      - terraform-plan
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
   terraform-apply:
     executor: ubuntu-k8s
     steps:
@@ -708,4 +724,22 @@ workflows:
           context:
             - minio_backend
             - kubeconfig
+          <<: *default_branch_filtering
+
+  terraform-go-api-secrets:
+    when: << pipeline.paramters.go-api >>
+    jobs: 
+      - go-api-plan:
+          context:
+            - minio_backend
+            - kubeconfig
+            - go-api-secrets
+          <<: *default_branch_filtering
+      - terraform-apply:
+          requires:
+            - go-api-plan
+          context:
+            - minio_backend
+            - kubeconfig
+            - go-api-secrets
           <<: *default_branch_filtering
