@@ -384,13 +384,12 @@ jobs:
           paths:
             - .
   
-  circleci-release-agent-system:
+  circleci-release-agent-system-helm:
     executor: ubuntu-k8s
     steps:
       - checkout
       - backend_script
       - terraform-init
-      - managed-namespace
       - terraform-plan
       - persist_to_workspace:
           root: .
@@ -698,7 +697,7 @@ workflows:
   terraform-circleci-release-agent-system-helm:
     when: << pipeline.parameters.circleci-release-agent-system-helm >>
     jobs:
-      - circleci-release-agent-system:
+      - circleci-release-agent-system-helm:
           context: 
             - minio_backend
             - kubeconfig

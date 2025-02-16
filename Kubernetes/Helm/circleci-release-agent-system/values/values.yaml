@@ -2,3 +2,4 @@ managedNamespaces:
   - "beemoviebot"
   - "beemoviebotstage"
   - "go-api"
+  
