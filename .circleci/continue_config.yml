@@ -272,7 +272,7 @@ jobs:
             - .
 
   terraform-circleci-release-agent-system-plan:
-    executor: machine-runner
+    executor: ubuntu-k8s
     steps:
       - checkout
       - circleci-release-agent-system
