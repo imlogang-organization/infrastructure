@@ -704,7 +704,7 @@ workflows:
           <<: *default_branch_filtering
       - terraform-apply:
           requires:
-            - circleci-release-agent-system
+            - circleci-release-agent-system-helm
           context:
             - minio_backend
             - kubeconfig
