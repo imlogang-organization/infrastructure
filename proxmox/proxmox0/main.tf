@@ -67,7 +67,7 @@ resource "proxmox_vm_qemu" "ubuntu-k8s-7" {
 resource "proxmox_vm_qemu" "nomad_client_v2" {
   name = "ubuntu-nomad-client-v2"
   desc = "Nomad client that is breakabe for CircleCI Server"
-  vmid = 102
+  vmid = 104
   os_type = var.os_type
   target_node = var.target_node
   clone = "ubuntu24.04-server-template"
