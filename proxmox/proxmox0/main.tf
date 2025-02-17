@@ -63,3 +63,25 @@ resource "proxmox_vm_qemu" "ubuntu-k8s-7" {
     bridge = "vmbr0"
   }
 }
+
+resource "proxmox_vm_qemu" "nomad_client_v2" {
+  name = "ubuntu-nomad-client-v2"
+  desc = "Nomad client that is breakabe for CircleCI Server"
+  vmid = 102
+  os_type = var.os_type
+  target_node = var.target_node
+  clone = "ubuntu24.04-server-template"
+  cores = 6
+  memory = 8192
+  skip_ipv6 = true
+  disk {
+    slot     = "scsi0"
+    size     = "50G"
+    type     = "disk"
+    storage  = "local-lvm"
+  }
+  network {
+    model  = "virtio"
+    bridge = "vmbr0"
+  }
+}
