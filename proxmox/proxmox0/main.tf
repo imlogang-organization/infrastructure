@@ -1,3 +1,7 @@
+//To create a new VM, just copy/paste a current one, 
+//change Disk size and CPU/Memory,
+//and then increase the VMID by 1. 
+
 resource "proxmox_vm_qemu" "mrserver" {
   name = "ubuntu-machine-runner-server"
   desc = "Machine Runner for Self Hosted CircleCI Server."
