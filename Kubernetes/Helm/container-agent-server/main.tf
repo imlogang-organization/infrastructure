@@ -1,6 +1,6 @@
 resource "null_resource" "add_helm_repo" {
   provisioner "local-exec" {
-    command = "helm repo add container-agent https://packagecloud.io/circleci/container-agent/helm"
+    command = "helm repo add container-agent https://packagecloud.io/circleci/container-agent/helm && helm repo update"
   }
   triggers = {
     always_run = timestamp()
