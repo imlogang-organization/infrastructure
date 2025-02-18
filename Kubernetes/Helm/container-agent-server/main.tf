@@ -11,7 +11,7 @@ resource "helm_release" "container_agent_server" {
   name       = var.deployment_name
   namespace  = var.namespace
   chart      = var.chart_name
-  # version    = var.chart_version
+  version    = "v101.1.3"
 
   values = [
     file("${path.module}/values/normal-values.yaml") // This will refer to Kubernetes/Helm/values.yaml
