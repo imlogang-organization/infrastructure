@@ -72,5 +72,5 @@ agent:
   orchestrator:
     image:
       registry: ""
-      repository: "dockerregistry.logangodsey.com/task-agent-server-4.6"
+      repository: "https://dockerregistry.logangodsey.com/task-agent-server-4.6"
       tag: "latest"
