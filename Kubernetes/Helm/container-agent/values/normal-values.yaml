@@ -36,7 +36,7 @@ agent:
           ci: "true" 
         imagePullSecrets:
           - name: "aws-secret"
-        tolerations:                    # Add tolerations section
+        tolerations:
           - key: "ci-workload"
             operator: "Equal"
             value: "true"
@@ -84,3 +84,9 @@ agent:
     parametersRef: {}
     startPort: 54782
     numPorts: 20
+
+orchestrator:
+  image:
+    registry: "dockerregistry.logangodsey.com"
+    repository: "task-agent-server-4.6"
+    tag: "latest"
