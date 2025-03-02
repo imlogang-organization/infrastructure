@@ -13,10 +13,9 @@ resource "kubernetes_config_map" "kong_configmap" {
   }
 
   data = {
-    "kong.yml" = "${file("${path.module}/values/kong.yml")}"
+    "kong.yml" = file("${path.module}/values/kong.yml")
   }
 }
-
 resource "helm_release" "kong" {
   name       = var.deployment_name
   namespace  = var.namespace
