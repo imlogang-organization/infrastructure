@@ -766,6 +766,8 @@ workflows:
             - kubeconfig
           <<: *default_branch_filtering
       - terraform-apply:
+          requires:
+            - terraform-plan-kong
           context:
             - minio_backend
             - kubeconfig
