@@ -20,7 +20,7 @@ service:
 plugins:
   configMaps:
     - pluginName: custom-plugin
-      name: kong.yml  # This should match the ConfigMap name
+      name: kong  # This should match the ConfigMap name
       subdirectories:
-        - name: kong.yml
+        - name: kong
           path: config

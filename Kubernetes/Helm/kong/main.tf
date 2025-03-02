@@ -9,7 +9,7 @@ resource "null_resource" "add_helm_repo" {
 
 resource "kubernetes_config_map" "kong_configmap" {
   metadata {
-    name = "kong.yml"
+    name = "kong"
   }
 
   data = {
