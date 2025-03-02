@@ -1,13 +1,18 @@
 ingressController:
   enabled: true
   installCRDs: false
-  configMap: kong-config  # Default ConfigMap; if you're using a custom one, update this line.
+  configMap: kong
   config:
-    name: kong-config
+    name: kong
 
 kong:
   database: off
   proxy:
+    externalIPs:
+      - 192.168.30.205
+  admin:
+    enabled: true
+    servicePort: 8444
     externalIPs:
       - 192.168.30.205
 
