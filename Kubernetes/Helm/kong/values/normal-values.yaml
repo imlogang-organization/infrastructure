@@ -10,8 +10,8 @@ kong:
   proxy:
     externalIPs:
       - 192.168.30.203
-  admin:
-    enabled: false
+admin:
+  enabled: false
 
 service:
   type: LoadBalancer
