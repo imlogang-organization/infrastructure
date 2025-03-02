@@ -1,10 +1,10 @@
 ingressController:
   enabled: true
   installCRDs: false
-  configMap: kong-config
+  configMap: kong-config  # This is the name of the ConfigMap
   config:
     name: kong-config
-    data:
+    kongConfig:
       kong.yml: |
         _format_version: "1.1"
         _metadata:
@@ -19,7 +19,6 @@ ingressController:
                 methods:
                   - GET
 
-
 kong:
   database: off
   proxy:
@@ -30,4 +29,3 @@ service:
   type: LoadBalancer
   externalIPs:
     - 192.168.30.205
-
