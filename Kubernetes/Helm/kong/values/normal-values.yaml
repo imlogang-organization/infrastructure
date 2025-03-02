@@ -11,11 +11,7 @@ kong:
     externalIPs:
       - 192.168.30.205
   admin:
-    enabled: true
-    servicePort: 8444
-    serviceProtocol: http
-    externalIPs:
-      - 192.168.30.205
+    enabled: false
 
 service:
   type: LoadBalancer
