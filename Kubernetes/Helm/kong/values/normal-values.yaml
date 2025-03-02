@@ -1,0 +1,33 @@
+ingressController:
+  enabled: true
+  installCRDs: false
+  configMap: kong-config
+  config:
+    name: kong-config
+    data:
+      kong.yml: |
+        _format_version: "1.1"
+        _metadata:
+          kong_version: "3.0.0"
+        services:
+          - name: api-service
+            url: http://go-api-service.go-api.svc.cluster.local:8080
+            routes:
+              - name: website
+                paths:
+                  - /
+                methods:
+                  - GET
+
+
+kong:
+  database: off
+  proxy:
+    externalIPs:
+      - 192.168.30.205
+
+service:
+  type: LoadBalancer
+  externalIPs:
+    - 192.168.30.205
+
