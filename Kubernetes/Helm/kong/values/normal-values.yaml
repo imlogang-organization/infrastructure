@@ -11,26 +11,12 @@ kong:
     externalIPs:
       - 192.168.30.203
   admin:
-    enabled: true
-    servicePort: 8444
-    serviceProtocol: http
-    externalIPs:
-      - 192.168.30.203
+    enabled: false
 
 service:
   type: LoadBalancer
   externalIPs:
     - 192.168.30.203
-
-# Explicitly expose the kong-admin service
-kong-admin-service:
-  type: LoadBalancer
-  externalIPs:
-    - 192.168.30.203
-  ports:
-    - port: 8444
-      targetPort: 8444
-      protocol: TCP
 
 # Reference the custom ConfigMap you created with Terraform
 plugins:
