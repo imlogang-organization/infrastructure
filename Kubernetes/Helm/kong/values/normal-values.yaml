@@ -16,19 +16,10 @@ admin:
   type: LoadBalancer  # Or NodePort depending on your needs
   servicePort: 8444
   serviceProtocol: http
-  externalIPs:
-    - 192.168.30.203
   http:
     enabled: true  # Set this to false to disable HTTP access
   tls:
     enabled: false  # Set this to true to enable TLS (HTTPS) for admin access
-  ingress:
-    enabled: false  # Set to true if you want to expose via ingress
-    ingressClassName: kong
-    hostname: kong-admin.example.com
-    path: /
-    pathType: Prefix
-    annotations: {}
 
 service:
   type: LoadBalancer
