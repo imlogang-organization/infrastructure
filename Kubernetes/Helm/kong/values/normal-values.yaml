@@ -9,24 +9,28 @@ kong:
   database: off
   proxy:
     externalIPs:
-      - 192.168.30.205
+      - 192.168.30.203
   admin:
     enabled: true
-    http:
-      enabled: true
-    tls:
-      enabled: false
-    ingress:
-      enabled: true
-      hostname: admin.logangodsey.com
-      path: /
-      pathType: Prefix
-      ingressClassName: kong
+    servicePort: 8444
+    serviceProtocol: http
+    externalIPs:
+      - 192.168.30.203
 
 service:
   type: LoadBalancer
   externalIPs:
-    - 192.168.30.205
+    - 192.168.30.203
+
+# Explicitly expose the kong-admin service
+kong-admin-service:
+  type: LoadBalancer
+  externalIPs:
+    - 192.168.30.203
+  ports:
+    - port: 8444
+      targetPort: 8444
+      protocol: TCP
 
 # Reference the custom ConfigMap you created with Terraform
 plugins:
