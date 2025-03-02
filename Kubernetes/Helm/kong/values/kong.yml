@@ -5,15 +5,20 @@ metadata:
   namespace: kong
 data:
   kong.yml: |
-    _format_version: "1.1"
-    _metadata:
-      kong_version: "3.0.0"
+    _format_version: "2.1"
     services:
+      - name: status
+        url: http://localhost:8001
+        routes:
+        - name: status
+          paths:
+          - /status
+          
       - name: api-service
         url: http://go-api-service.go-api.svc.cluster.local:8080
         routes:
-          - name: website
-            paths:
-              - /
-            methods:
-              - GET
+        - name: website
+          paths:
+            - /
+          methods:
+            - GET
