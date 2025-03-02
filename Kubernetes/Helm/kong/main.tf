@@ -7,6 +7,16 @@ resource "null_resource" "add_helm_repo" {
   }
 }
 
+resource "kubernetes_config_map" "kong_configmap" {
+  metadata {
+    name = "kong.yml"
+  }
+
+  data = {
+    "kong.yml" = "${file("${path.module}/values/kong.yml")}"
+  }
+}
+
 resource "helm_release" "kong" {
   name       = var.deployment_name
   namespace  = var.namespace
@@ -17,6 +27,7 @@ resource "helm_release" "kong" {
   ]
 
   depends_on = [
-    null_resource.add_helm_repo
+    null_resource.add_helm_repo,
+    kukubernetes_config_map.kong_configmap
   ]
 }

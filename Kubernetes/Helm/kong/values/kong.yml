@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kong-custom-configmap
+  namespace: kong
+data:
+  kong.yml: |
+    _format_version: "1.1"
+    _metadata:
+      kong_version: "3.0.0"
+    services:
+      - name: api-service
+        url: http://go-api-service.go-api.svc.cluster.local:8080
+        routes:
+          - name: website
+            paths:
+              - /
+            methods:
+              - GET
