@@ -1,23 +1,9 @@
 ingressController:
   enabled: true
   installCRDs: false
-  configMap: kong-config  # This is the name of the ConfigMap
+  configMap: kong-config  # Default ConfigMap; if you're using a custom one, update this line.
   config:
     name: kong-config
-    kongConfig:
-      kong.yml: |
-        _format_version: "1.1"
-        _metadata:
-          kong_version: "3.0.0"
-        services:
-          - name: api-service
-            url: http://go-api-service.go-api.svc.cluster.local:8080
-            routes:
-              - name: website
-                paths:
-                  - /
-                methods:
-                  - GET
 
 kong:
   database: off
@@ -29,3 +15,12 @@ service:
   type: LoadBalancer
   externalIPs:
     - 192.168.30.205
+
+# Reference the custom ConfigMap you created with Terraform
+plugins:
+  configMaps:
+    - pluginName: custom-plugin
+      name: kong.yml  # This should match the ConfigMap name
+      subdirectories:
+        - name: kong.yml
+          path: config

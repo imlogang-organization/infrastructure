@@ -27,6 +27,6 @@ resource "helm_release" "kong" {
 
   depends_on = [
     null_resource.add_helm_repo,
-    kukubernetes_config_map.kong_configmap
+    kubernetes_config_map.kong_configmap
   ]
 }
