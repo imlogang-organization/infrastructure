@@ -9,17 +9,19 @@ kong:
   database: off
   proxy:
     externalIPs:
-      - 192.168.30.203
+      - 192.168.30.205
 
 admin:
   enabled: true
   type: LoadBalancer  # Or NodePort depending on your needs
-  servicePort: 8444
-  serviceProtocol: http
+  servicePort: 8001   # Admin API should listen on port 8001
+  serviceProtocol: http  # HTTP protocol for Admin API (since TLS is not needed)
+  
+  # Enable HTTP access (port 8001) for admin
   http:
-    enabled: true  # Set this to false to disable HTTP access
+    enabled: true  # Keep HTTP enabled for admin access
   tls:
-    enabled: false  # Set this to true to enable TLS (HTTPS) for admin access
+    enabled: false  # Disable TLS (HTTPS) for admin access since it's not required
 
 service:
   type: LoadBalancer

@@ -8,7 +8,7 @@ data:
     _format_version: "2.1"
     services:
       - name: status
-        url: http://localhost:8001
+        url: http://localhost:8001  
         routes:
         - name: status
           paths:
