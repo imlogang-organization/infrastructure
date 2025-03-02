@@ -12,6 +12,6 @@ variable "deployment_name" {
 
 variable "chart_name" {
     description = "Chart Name."
-    default = "kong"
+    default = "kong/kong"
     type = string
 }
