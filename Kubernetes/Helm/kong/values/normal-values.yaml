@@ -12,10 +12,16 @@ kong:
       - 192.168.30.205
   admin:
     enabled: true
-    servicePort: 8444
-    serviceProtocol: http
-    externalIPs:
-      - 192.168.30.205
+    http:
+      enabled: true
+    tls:
+      enabled: false
+    ingress:
+      enabled: true
+      hostname: admin.logangodsey.com
+      path: /
+      pathType: Prefix
+      ingressClassName: kong
 
 service:
   type: LoadBalancer
