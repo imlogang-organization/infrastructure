@@ -38,3 +38,11 @@ service:
   type: LoadBalancer
   externalIPs:
     - 192.168.30.203
+
+dblessConfig:
+  configMap: "kong"
+
+extraConfigMaps:
+  - name: kong
+    mountPath: /etc/kong/
+    subPath: kong.yml
