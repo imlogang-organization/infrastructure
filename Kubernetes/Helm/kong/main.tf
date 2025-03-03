@@ -36,6 +36,6 @@ resource "null_resource" "rollout_restart" {
   depends_on = [helm_release.kong]
 
   provisioner "local-exec" {
-    command = "kubectl rollout restart kong/kong -n kong"
+    command = "microk8s kubectl rollout restart kong/kong -n kong"
   }
 }
