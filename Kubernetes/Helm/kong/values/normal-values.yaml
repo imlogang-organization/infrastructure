@@ -1,12 +1,19 @@
 ingressController:
   enabled: false
 
-deployment: 
-  kong:
-    database: off
-    proxy:
-      externalIPs:
-        - 192.168.30.203
+kong:
+  database: off
+  proxy:
+    externalIPs:
+      - 192.168.30.203
+  volumes:
+  - name: kong-config
+    configMap:
+      name: kong
+  volumeMounts:
+  - name: kong-config
+    mountPath: /etc/kong
+    subPath: kong.yml
 
 admin:
   enabled: true
@@ -24,22 +31,4 @@ dblessConfig:
   configMap: "kong"
 
 extraConfigMaps:
-  config: |
-    _format_version: "3.0"
-    services:
-    - name: status
-      url: http://localhost:8001
-      routes:
-      - name: status
-        paths:
-        - /status
-
-    - name: go-api-service
-      url: http://go-api-service.go-api.svc.cluster.local:8080
-      routes:
-      - name: go-api-service-routes
-        paths:
-        - /
-        - /hello
-        methods:
-        - GET
+  configMap: kong
