@@ -14,14 +14,7 @@ kong:
   proxy:
     externalIPs:
       - 192.168.30.203
-  userDefinedVolumes:
-    - name: kong
-      configMap:
-        name: kong
-  userDefinedVolumeMounts:
-    - name: kong
-      mountPath: /etc/kong/kong.yml
-      subPath: kong.yml
+
 
 
 env:
@@ -38,9 +31,6 @@ service:
   type: LoadBalancer
   externalIPs:
     - 192.168.30.203
-
-dblessConfig:
-  configMap: "kong"
 
 extraConfigMaps:
   - name: kong
