@@ -31,10 +31,9 @@ dblessConfig:
           - name: website
             paths:
               - /
+              - /resume
+            strip_path: false
           - name: hello_api
             paths:
               - /hello
-          - name: resume
-            paths:
-              - /resume
             strip_path: false
