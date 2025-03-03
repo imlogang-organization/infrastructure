@@ -3,14 +3,6 @@ ingressController:
   envFrom:
     - configMapRef:
         name: kong
-  volumeMounts:
-    - name: kong-config
-      mountPath: /etc/kong/kong.yml
-      subPath: kong.yml
-  volumes:
-    - name: kong-config
-      configMap:
-        name: kong
 
 kong:
   database: off
