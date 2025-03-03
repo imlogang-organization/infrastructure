@@ -12,15 +12,7 @@ kong:
       - 192.168.30.205
 
 admin:
-  enabled: true
-  type: LoadBalancer
-  servicePort: 8444
-  serviceProtocol: http
-  
-  http:
-    enabled: true
-  tls:
-    enabled: false
+  enabled: false
 
 service:
   type: LoadBalancer
