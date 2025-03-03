@@ -23,20 +23,15 @@ dblessConfig:
   config: |
     _format_version: "3.0"
     services:
-    - name: status
-      url: localhost:8001
-      routes:
-      - name: status
-        paths:
-        - /status
-
-    - name: go-api-service
-      url: go-api-service.go-api.svc.cluster.local:8080
-      routes:
-      - name: website
-        paths:
-        - /
-      - name: hello_api
-        paths:
-        - /hello
-      strip_path: false
+      - name: go-api-service
+        protocol: http
+        host: go-api-service.go-api.svc.cluster.local
+        port: 8080 
+        routes:
+          - name: website
+            paths:
+              - /
+          - name: hello_api
+            paths:
+              - /hello
+            strip_path: false
