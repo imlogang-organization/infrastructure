@@ -21,6 +21,11 @@ kong:
     - name: KONG_DECLARATIVE_CONFIG
       value: "/etc/kong/kong.yml"
 
+proxy:
+  env:
+    - name: KONG_DECLARATIVE_CONFIG
+      value: "/etc/kong/kong.yml"
+
 admin:
   enabled: true
   http:
