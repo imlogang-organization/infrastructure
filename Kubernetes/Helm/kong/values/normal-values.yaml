@@ -10,11 +10,6 @@ kong:
   proxy:
     externalIPs:
       - 192.168.30.203
-  containers:
-    - name: proxy
-      env:
-        - name: KONG_DECLARATIVE_CONFIG
-          value: "/etc/kong/kong.yml"
 
 admin:
   enabled: true
