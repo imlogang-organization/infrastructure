@@ -1,9 +1,5 @@
 ingressController:
-  enabled: true
-  installCRDs: false
-  configMap: kong
-  config:
-    name: kong
+  enabled: false
 
 deployment: 
   kong:
@@ -11,18 +7,6 @@ deployment:
     proxy:
       externalIPs:
         - 192.168.30.203
-    userDefinedVolumes:
-      - name: kong
-        configMap:
-          name: kong
-    userDefinedVolumeMounts:
-      - name: kong
-        mountPath: /etc/kong/
-        subPath: kong.yml
-    container:
-      env:
-        - name: KONG_DECLARATIVE_CONFIG
-          value: "/etc/kong/kong.yml"
 
 admin:
   enabled: true
