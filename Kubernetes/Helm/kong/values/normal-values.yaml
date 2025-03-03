@@ -6,14 +6,6 @@ kong:
   proxy:
     externalIPs:
       - 192.168.30.203
-  volumes:
-  - name: kong-config
-    configMap:
-      name: kong
-  volumeMounts:
-  - name: kong-config
-    mountPath: /etc/kong
-    subPath: kong.yml
 
 admin:
   enabled: true
@@ -29,6 +21,3 @@ service:
 
 dblessConfig:
   configMap: "kong"
-
-extraConfigMaps:
-  configMap: kong
