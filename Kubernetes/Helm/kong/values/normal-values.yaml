@@ -10,18 +10,16 @@ kong:
   proxy:
     externalIPs:
       - 192.168.30.203
-  deployment:
-    kong:
-      userDefinedVolumes:
-        - name: kong
-          configMap:
-            name: kong
-      userDefinedVolumeMounts:
-        - name: kong
-          mountPath: /etc/kong/
-      env:
-        - name: KONG_DECLARATIVE_CONFIG
-          value: "/etc/kong/kong.yml"
+  userDefinedVolumes:
+    - name: kong
+      configMap:
+        name: kong
+  userDefinedVolumeMounts:
+    - name: kong
+      mountPath: /etc/kong/
+  env:
+    - name: KONG_DECLARATIVE_CONFIG
+      value: "/etc/kong/kong.yml"
 
 admin:
   enabled: true
