@@ -1,8 +1,7 @@
 ingressController:
   enabled: true
   env:
-    - name: KONG_DECLARATIVE_CONFIG
-      value: "/etc/kong/kong.yml"
+    KONG_DECLARATIVE_CONFIG: "/etc/kong/kong.yml"
   volumeMounts:
     - name: kong-config
       mountPath: /etc/kong/kong.yml
