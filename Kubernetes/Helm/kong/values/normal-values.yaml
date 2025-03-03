@@ -1,9 +1,16 @@
 ingressController:
   enabled: true
-  installCRDs: false
-  configMap: kong
-  config:
-    name: kong
+  env:
+    - name: KONG_DECLARATIVE_CONFIG
+      value: "/etc/kong/kong.yml"
+  volumeMounts:
+    - name: kong-config
+      mountPath: /etc/kong/
+      subPath: kong.yml
+  volumes:
+    - name: kong-config
+      configMap:
+        name: kong  # Ensure this is the correct ConfigMap name
 
 kong:
   database: off
