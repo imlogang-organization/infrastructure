@@ -11,7 +11,7 @@ data:
       url: http://localhost:8001
       routes:
       - name: status
-        paths: 
+        paths:
         - /status
 
     - name: go-api-service
@@ -19,7 +19,7 @@ data:
       routes:
       - name: go-api-service-routes
         paths:
-          - /
-          - /hello
+        - /
+        - /hello
         methods:
-          - GET
+        - GET
