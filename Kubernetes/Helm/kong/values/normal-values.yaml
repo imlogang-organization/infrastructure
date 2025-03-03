@@ -24,5 +24,4 @@ dblessConfig:
   configMap: "kong"
 
 extraConfigMaps:
-  - name: kong
-    mountPath: /etc/kong/
+  configMap: kong
