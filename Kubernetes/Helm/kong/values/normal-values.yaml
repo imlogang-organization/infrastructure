@@ -9,7 +9,7 @@ kong:
   database: off
   proxy:
     externalIPs:
-      - 192.168.30.205
+      - 192.168.30.203
 
 admin:
   enabled: true
