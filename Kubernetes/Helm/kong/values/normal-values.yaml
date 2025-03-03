@@ -20,8 +20,7 @@ deployment:
         mountPath: /etc/kong/
         subPath: kong.yml
 
-env:
-  DECLARATIVE_CONFIG: "/etc/kong/kong.yml"
+
 
 admin:
   enabled: true
