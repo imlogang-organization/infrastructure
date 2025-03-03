@@ -5,21 +5,13 @@ ingressController:
   config:
     name: kong
 
-deployment: 
-  kong:
-    database: off
-    proxy:
-      externalIPs:
-        - 192.168.30.203
-    userDefinedVolumes:
-      - name: kong
-        configMap:
-          name: kong
-    userDefinedVolumeMounts:
-      - name: kong
-        mountPath: /etc/kong/
-        subPath: kong.yml
-    container:
+kong:
+  database: off
+  proxy:
+    externalIPs:
+      - 192.168.30.203
+  containers:
+    - name: proxy
       env:
         - name: KONG_DECLARATIVE_CONFIG
           value: "/etc/kong/kong.yml"
