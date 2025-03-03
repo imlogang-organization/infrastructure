@@ -19,7 +19,7 @@ kong:
       mountPath: /etc/kong/
 
 env:
-  KONG_DECLARATIVE_CONFIG: "/etc/kong/kong.yml"
+  DECLARATIVE_CONFIG: "/etc/kong/kong.yml"
 
 admin:
   enabled: true
