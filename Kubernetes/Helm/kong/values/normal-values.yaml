@@ -1,5 +1,9 @@
 ingressController:
   enabled: true
+  installCRDs: false
+  configMap: kong
+  config:
+    name: kong
   
 kong:
   database: off
@@ -32,4 +36,3 @@ service:
 
 dblessConfig:
   configMap: "kong"
-
