@@ -13,6 +13,8 @@ kong:
 
 admin:
   enabled: true
+  tls:
+    enabled: false
 
 service:
   type: LoadBalancer
