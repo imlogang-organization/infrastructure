@@ -16,7 +16,7 @@ kong:
         name: kong
   userDefinedVolumeMounts:
     - name: kong
-      mountPath: /etc/kong/kong.yml
+      mountPath: /etc/kong/
       subPath: kong.yml
 
 env:
