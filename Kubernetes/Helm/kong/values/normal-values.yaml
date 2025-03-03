@@ -24,4 +24,22 @@ dblessConfig:
   configMap: "kong"
 
 extraConfigMaps:
-  configMap: kong
+  config: |
+    _format_version: "3.0"
+    services:
+    - name: status
+      url: http://localhost:8001
+      routes:
+      - name: status
+        paths:
+        - /status
+
+    - name: go-api-service
+      url: http://go-api-service.go-api.svc.cluster.local:8080
+      routes:
+      - name: go-api-service-routes
+        paths:
+        - /
+        - /hello
+        methods:
+        - GET
