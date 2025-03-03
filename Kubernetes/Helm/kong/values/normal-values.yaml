@@ -23,11 +23,5 @@ service:
   externalIPs:
     - 192.168.30.203
 
-# Reference the custom ConfigMap you created with Terraform
-plugins:
-  configMaps:
-    - pluginName: custom-plugin
-      name: kong
-      subdirectories:
-        - name: kong
-          path: config
+dblessConfig:
+  configMap: "kong-custom-configmap"
