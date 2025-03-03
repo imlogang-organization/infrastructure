@@ -1,9 +1,6 @@
 ingressController:
   enabled: true
-  envFrom:
-    - configMapRef:
-        name: kong
-
+  
 kong:
   database: off
   proxy:
