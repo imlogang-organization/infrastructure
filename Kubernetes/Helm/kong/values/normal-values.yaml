@@ -21,7 +21,6 @@ deployment:
         subPath: kong.yml
 
 
-
 admin:
   enabled: true
   http:
@@ -36,3 +35,7 @@ service:
 
 dblessConfig:
   configMap: "kong"
+
+extraConfigMaps:
+  - name: kong
+    mountPath: /etc/kong/
