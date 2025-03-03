@@ -24,4 +24,4 @@ service:
     - 192.168.30.203
 
 dblessConfig:
-  configMap: "kong-custom-configmap"
+  configMap: "kong"
