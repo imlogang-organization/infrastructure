@@ -13,15 +13,14 @@ kong:
 
 admin:
   enabled: true
-  type: LoadBalancer  # Or NodePort depending on your needs
-  servicePort: 8001   # Admin API should listen on port 8001
-  serviceProtocol: http  # HTTP protocol for Admin API (since TLS is not needed)
+  type: LoadBalancer
+  servicePort: 8444
+  serviceProtocol: http
   
-  # Enable HTTP access (port 8001) for admin
   http:
-    enabled: true  # Keep HTTP enabled for admin access
+    enabled: true
   tls:
-    enabled: false  # Disable TLS (HTTPS) for admin access since it's not required
+    enabled: false
 
 service:
   type: LoadBalancer
@@ -32,7 +31,7 @@ service:
 plugins:
   configMaps:
     - pluginName: custom-plugin
-      name: kong  # This should match the ConfigMap name
+      name: kong
       subdirectories:
         - name: kong
           path: config
