@@ -10,8 +10,9 @@ data:
       - name: go-api-service
         url: http://go-api-service.go-api.svc.cluster.local:8080
         routes:
-        - name: website
+        - name: go-api-service-routes
           paths:
             - /
+            - /hello
           methods:
             - GET
