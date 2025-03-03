@@ -28,4 +28,4 @@ dblessConfig:
 
 extraConfigMaps:
   - name: kong
-    mountPath: /etc/kong/kong.yml
+    mountPath: /etc/kong/
