@@ -32,6 +32,7 @@ dblessConfig:
             paths:
               - /
               - /resume
+              - /blog
             strip_path: false
           - name: hello_api
             paths:
