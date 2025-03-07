@@ -611,3 +611,29 @@ resource "docker_container" "flaresolverr" {
   }
   restart = var.restart
 }
+
+resource "docker_container" "teamspeak" {
+  name = "teamspeak"
+  image = docker_image.teamspeak.name
+  env = [
+    "LOG_LEVEL=info"
+  ]
+  ports {
+    internal = 9987
+    external = 9987
+    protocol = "udp"
+  }
+  ports {
+    internal = 10011
+    external = 10011
+  }
+  ports {
+    internal = 30033
+    external = 30033
+  }
+    volumes  {
+    container_path = "/var/ts3server"
+    host_path      = "${var.home_directory}/ts3server/"
+  }
+  restart = var.restart
+}

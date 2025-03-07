@@ -93,3 +93,7 @@ resource "docker_image" "telegraf" {
 resource "docker_image" "flaresolver" {
   name = "ghcr.io/flaresolverr/flaresolverr:latest"
 }
+
+resource "docker_image" "teamspeak" {
+  name = "teamspeak:latest"
+}
