@@ -517,7 +517,7 @@ resource "docker_container" "grafana" {
     volume_name = "grafana-storage"
     container_path = "/var/lib/grafana"
   }
-
+  
   restart = var.restart
   
   }
