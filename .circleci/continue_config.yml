@@ -421,6 +421,13 @@ jobs:
           at: .
       - terraform-apply-command
   
+  terraform-apply-minio:
+    executor: machine-runner
+    steps:
+      - attach_workspace:
+          at: .
+      - terraform-apply-command
+  
   terraform-apply-docker-host:
     executor: docker-host
     steps:
@@ -582,7 +589,7 @@ workflows:
               - minio
               - minio_backend
             <<: *default_branch_filtering
-        - terraform-apply:
+        - terraform-apply-minio:
             requires:
               - terraform-minio-plan
             context:
