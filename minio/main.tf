@@ -32,3 +32,8 @@ resource "minio_s3_bucket" "support_bundles" {
   bucket = "support-bundles"
   acl    = "public"
 }
+
+resource "minio_s3_bucket" "plugins" {
+  bucket = "subcommand-plugins"
+  acl    = "public"
+}
