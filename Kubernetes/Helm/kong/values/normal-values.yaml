@@ -27,8 +27,6 @@ dblessConfig:
         protocol: http
         host: go-api-service.go-api.svc.cluster.local
         port: 8080 
-        hosts: 
-        - logangodsey.com
         routes:
           - name: website
             paths:
@@ -36,7 +34,11 @@ dblessConfig:
               - /resume
               - /blog
             strip_path: false
+            hosts: 
+            - logangodsey.com
           - name: hello_api
             paths:
               - /hello
+            hosts: 
+            - logangodsey.com
             strip_path: false
