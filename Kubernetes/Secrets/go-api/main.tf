@@ -5,8 +5,9 @@ resource "kubernetes_secret" "go-api" {
   }
 
   data = {
-    USERNAME = var.username
-    PASSWORD = var.password
+    USERNAME          = var.username
+    PASSWORD          = var.password
+    POSTGRES_PASSWORD = var.pg_password
   }
 
   type = "Opaque"
