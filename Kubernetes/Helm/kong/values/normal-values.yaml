@@ -49,4 +49,4 @@ dblessConfig:
               - /api/private/delete_table
             strip_path: false
             hosts:
-            - api-service
+            - api-service.logangodsey.com
