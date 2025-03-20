@@ -45,6 +45,8 @@ dblessConfig:
           - name: api_internal
             paths:
               - /api/private/list_tables
+              - /api/private/create_table
+              - /api/private/delete_table
             strip_path: false
             hosts:
-            - 192.168.30.203
+            - api-service
