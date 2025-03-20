@@ -35,13 +35,19 @@ dblessConfig:
               - /blog
             strip_path: false
             hosts: 
-            - logangodsey.com
+              - logangodsey.com
           - name: hello_api
             paths:
               - /hello
             hosts: 
-            - logangodsey.com
+              - logangodsey.com
             strip_path: false
+
+      - name: go-api-service-internal
+        protocol: http
+        host: go-api-service.go-api.svc.cluster.local
+        port: 8080 
+        routes:
           - name: api_internal
             paths:
               - /api/private/list_tables
@@ -49,4 +55,4 @@ dblessConfig:
               - /api/private/delete_table
             strip_path: false
             hosts:
-            - api-service.logangodsey.com
+              - api-service.logangodsey.com
