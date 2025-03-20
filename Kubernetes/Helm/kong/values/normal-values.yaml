@@ -46,3 +46,5 @@ dblessConfig:
             paths:
               - /api/private/list_tables
             strip_path: false
+            hosts:
+            - 192.168.30.203
