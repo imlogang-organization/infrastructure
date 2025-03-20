@@ -30,5 +30,4 @@ resource "helm_release" "kong" {
     null_resource.add_helm_repo,
     kubernetes_config_map.kong_configmap
   ]
-  recreate_pods = true
 }
