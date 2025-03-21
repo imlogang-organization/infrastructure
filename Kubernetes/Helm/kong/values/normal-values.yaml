@@ -52,7 +52,7 @@ dblessConfig:
         routes:
           - name: api_internal
             paths:
-              - /swagger/
+              - /swagger
               - /swagger/swagger.json
               - /api/private/list_tables
               - /api/private/create_table
