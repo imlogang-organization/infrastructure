@@ -59,8 +59,8 @@ dblessConfig:
             strip_path: false
             hosts:
               - api-service.logangodsey.com
-            plugins:
-              - name: ip-restriction  # Use the IP Restriction plugin
-                config:
-                  allow: 
-                    - 192.168.30.0/24  # Allow this IP range
+            # plugins:
+            #   - name: ip-restriction
+            #     config:
+            #       allow: 
+            #         - 192.168.30.0/24
