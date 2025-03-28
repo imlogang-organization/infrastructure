@@ -226,7 +226,7 @@ jobs:
             - .
 
   terraform-plan-prod:
-    executor: machine-runner
+    executor: ubuntu-k8s
     steps:
       - checkout
       - envvar-prod
@@ -239,7 +239,7 @@ jobs:
             - .
 
   terraform-plan-stage:
-    executor: machine-runner
+    executor: ubuntu-k8s
     steps:
       - checkout
       - envvar-stage
