@@ -504,6 +504,7 @@ workflows:
           context:
             - kubeconfig
             - beemoviebot
+            - docker-pull-k8s-secrets
           <<: *default_branch_filtering
       - terraform-apply:
           requires:
@@ -511,6 +512,7 @@ workflows:
           context:
             - kubeconfig
             - beemoviebot
+            - docker-pull-k8s-secrets
           <<: *default_branch_filtering
           
   terraform-beemoviebot-stage:
@@ -520,6 +522,7 @@ workflows:
           context:
             - kubeconfig
             - beemoviebot
+            - docker-pull-k8s-secrets
           <<: *default_branch_filtering
       - terraform-apply:
           requires:
@@ -527,6 +530,7 @@ workflows:
           context:
             - kubeconfig
             - beemoviebot
+            - docker-pull-k8s-secrets
           <<: *default_branch_filtering
   
   terraform-cloud-container-runner:
