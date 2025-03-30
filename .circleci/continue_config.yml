@@ -346,6 +346,13 @@ jobs:
           root: .
           paths:
             - .
+  
+  terraform-cloudflare-apply:
+    executor: machine-runner
+    steps:
+      - attach_workspace:
+          at: .
+      - terraform-apply-command      
 
   terraform-container-agent-update-plan:
     executor: ubuntu-k8s
@@ -640,7 +647,7 @@ workflows:
             - cloudflare
             - minio_backend
           <<: *default_branch_filtering
-      - terraform-apply:
+      - terraform-cloudflare-apply:
           requires:
             - terraform-cloudflare-plan
           context:
