@@ -94,6 +94,9 @@ workflows:
             Kubernetes/Helm/kong/.* file-path "Kubernetes/Helm/kong"
             Kubernetes/Helm/kong/.* namespace "kong"
             Kubernetes/Helm/kong/.* kong true
+            Kubernetes/Secrets/web-ui/.* file-path "Kubernetes/Secrets/web-ui"
+            Kubernetes/Secrets/web-ui/.* namespace "web-ui"
+            Kubernetes/Secrets/web-ui/.* web-ui true
           circleci_domain: cciserver.logangodsey.com
           resource_class: imlogang-organization-server/small
           <<: *default_branch_filtering

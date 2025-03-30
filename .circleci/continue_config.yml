@@ -85,6 +85,9 @@ parameters:
   kong: 
     default: false
     type: boolean
+  web-ui:
+    default: false
+    type: boolean
 
 commands:
   backend_script:
@@ -496,6 +499,17 @@ jobs:
           paths:
             - .
 
+  web-ui-plan:
+    executor: ubuntu-k8s
+    steps:
+      - checkout
+      - backend_script
+      - terraform-init
+      - terraform-plan
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 workflows:
   terraform-beemoviebot-prod:
     when: << pipeline.parameters.prod >>
@@ -780,6 +794,23 @@ workflows:
       - terraform-apply:
           requires:
             - terraform-plan-kong
+          context:
+            - minio_backend
+            - kubeconfig
+          <<: *default_branch_filtering
+
+  terraform-secrets-web-ui:
+    when: << pipeline.parameters.web-ui >>
+    jobs:
+      - web-ui-plan:
+          context:
+            - minio_backend
+            - kubeconfig
+            - docker-pull-k8s-secrets
+          <<: *default_branch_filtering
+      - terraform-apply:
+          requires:
+            - web-ui-plan
           context:
             - minio_backend
             - kubeconfig
