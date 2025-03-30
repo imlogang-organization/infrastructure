@@ -119,3 +119,12 @@ resource "cloudflare_record" "minio_public" {
   ttl     = var.default_ttl
   proxied = var.proxy_state
 }
+
+resource "cloudflare_record" "root_website" {
+  zone_id = cloudflare_zone.logangodsey_com.id
+  name    = "3.133.124.166"
+  value   = ""
+  type    = var.default_type
+  ttl     = var.default_ttl
+  proxied = true
+}
