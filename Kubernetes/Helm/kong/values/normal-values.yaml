@@ -23,10 +23,10 @@ dblessConfig:
   config: |
     _format_version: "3.0"
     services:
-      - name: go-api-service
+      - name: web-ui
         protocol: http
-        host: go-api-service.go-api.svc.cluster.local
-        port: 8080 
+        host: web-ui.web-ui.svc.cluster.local
+        port: 80
         routes:
           - name: website
             paths:
@@ -37,13 +37,6 @@ dblessConfig:
             hosts: 
               - logangodsey.com
               - www.logangodsey.com
-          - name: hello_api
-            paths:
-              - /hello
-            hosts: 
-              - logangodsey.com
-              - www.logangodsey.com
-            strip_path: false
 
       - name: go-api-service-internal
         protocol: http
@@ -52,10 +45,7 @@ dblessConfig:
         routes:
           - name: api_internal
             paths:
-              - /swagger/index.html
               - /api/private/list_tables
-              - /api/private/create_table
-              - /api/private/delete_table
             strip_path: false
             hosts:
               - api-service.logangodsey.com
