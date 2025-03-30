@@ -6,17 +6,6 @@ resource "null_resource" "add_helm_repo" {
     always_run = timestamp()
   }
 }
-
-resource "kubernetes_config_map" "kong_configmap" {
-  metadata {
-    name = "kong"
-    namespace = var.namespace
-  }
-
-  data = {
-    "kong.yml" = file("${path.module}/values/kong.yml")
-  }
-}
 resource "helm_release" "kong" {
   name       = var.deployment_name
   namespace  = var.namespace
