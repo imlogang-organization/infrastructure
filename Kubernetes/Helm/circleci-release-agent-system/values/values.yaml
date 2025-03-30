@@ -2,6 +2,7 @@ managedNamespaces:
   - "beemoviebot"
   - "beemoviebotstage"
   - "go-api"
+  - "web-ui"
 
 image:
   repository: circleci/k8s-release-agent
