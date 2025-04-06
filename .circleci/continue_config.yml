@@ -1,3 +1,6 @@
+#TODO: Move things running on `ubuntu-k8s` machine runner to use the `container-runner` executor.
+#Should also probbaly move everything runner under `machine-runner` too if we're being honest. 
+#Just less issues overall with kubeconfigs, and terraform versions IMO. 
 version: 2.1 
 
 default_branch_filtering: &default_branch_filtering
@@ -9,10 +12,10 @@ default_branch_filtering: &default_branch_filtering
 executors:
   ubuntu-k8s:
     machine: true
-    resource_class: imlogang-organization-server/ubuntu-k8s
+    resource_class: imlogang-organization-server/container-runner
   machine-runner:
     machine: true
-    resource_class: imlogang-organization-server/machine-runner
+    resource_class: imlogang-organization-server/container-runner
   docker-host:
     machine: true
     resource_class: imlogang-organization-server/docker-host
@@ -209,7 +212,7 @@ commands:
 
 jobs:
   terraform-influxdb-plan:
-    executor: machine-runner
+    executor: container-runner
     steps:
       - checkout
       - backend_script
@@ -233,7 +236,7 @@ jobs:
             - .
 
   terraform-plan-prod:
-    executor: ubuntu-k8s
+    executor: container-runner
     steps:
       - checkout
       - envvar-prod
@@ -246,7 +249,7 @@ jobs:
             - .
 
   terraform-plan-stage:
-    executor: ubuntu-k8s
+    executor: container-runner
     steps:
       - checkout
       - envvar-stage
@@ -259,7 +262,7 @@ jobs:
             - .
     
   terraform-plan-container-runner-cloud:
-    executor: machine-runner
+    executor: container-runner
     steps:
       - checkout
       - cloud-container-runner
@@ -271,7 +274,7 @@ jobs:
             - .
 
   terraform-plan-container-runner-server:
-    executor: ubuntu-k8s
+    executor: container-runner
     steps:
       - checkout
       - container-runner-server
@@ -284,7 +287,7 @@ jobs:
             - .
 
   terraform-circleci-release-agent-system-plan:
-    executor: ubuntu-k8s
+    executor: container-runner
     steps:
       - checkout
       - circleci-release-agent-system
@@ -297,7 +300,7 @@ jobs:
             - .
 
   terraform-minio-plan:
-    executor: machine-runner
+    executor: container-runner
     steps:
       - checkout
       - backend_script
@@ -331,7 +334,7 @@ jobs:
             - .
 
   terraform-cloudflare-plan:
-    executor: machine-runner
+    executor: container-runner
     steps:
       - run: 
           name: echo resource editing
@@ -352,14 +355,14 @@ jobs:
             - .
   
   terraform-cloudflare-apply:
-    executor: machine-runner
+    executor: container-runner
     steps:
       - attach_workspace:
           at: .
       - terraform-apply-command      
 
   terraform-container-agent-update-plan:
-    executor: ubuntu-k8s
+    executor: container-runner
     steps:
       - run: 
           name: echo resource editing
@@ -378,7 +381,7 @@ jobs:
             - .
   
   terraform-plan-gcp-container-runner-upgrade:
-    executor: machine-runner
+    executor: container-runner
     steps:
       - checkout
       - gcp-cli/setup:
@@ -392,7 +395,7 @@ jobs:
           paths:
             - .
   container-runner-server-helm-plan:
-    executor: ubuntu-k8s
+    executor: container-runner
     steps:
       - checkout
       - backend_script
@@ -404,7 +407,7 @@ jobs:
             - .
   
   circleci-release-agent-system-helm:
-    executor: ubuntu-k8s
+    executor: container-runner
     steps:
       - checkout
       - backend_script
@@ -416,7 +419,7 @@ jobs:
             - .
 
   go-api-plan:
-    executor: ubuntu-k8s
+    executor: container-runner
     steps:
       - checkout
       - backend_script
@@ -428,14 +431,14 @@ jobs:
             - .
 
   terraform-apply:
-    executor: ubuntu-k8s
+    executor: container-runner
     steps:
       - attach_workspace:
           at: .
       - terraform-apply-command
   
   terraform-apply-minio:
-    executor: machine-runner
+    executor: container-runner
     steps:
       - attach_workspace:
           at: .
@@ -449,7 +452,7 @@ jobs:
       - terraform-apply-command
     
   terraform-apply-influxdb:
-    executor: machine-runner
+    executor: container-runner
     steps:
       - attach_workspace:
           at: .
@@ -499,7 +502,7 @@ jobs:
       - terraform-apply-command
   
   terraform-plan-kong:
-    executor: ubuntu-k8s
+    executor: container-runner
     steps:
       - checkout
       - backend_script
@@ -511,7 +514,7 @@ jobs:
             - .
 
   web-ui-plan:
-    executor: ubuntu-k8s
+    executor: container-runner
     steps:
       - checkout
       - backend_script
