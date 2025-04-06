@@ -16,6 +16,10 @@ executors:
   docker-host:
     machine: true
     resource_class: imlogang-organization-server/docker-host
+  container-runner:
+    docker:
+      - image: cimg/deploy:2025.01.1
+    resource_class: imlogang-organization-server/small
 
 orbs:
   aws-cli: circleci/aws-cli@4.1.3
@@ -476,7 +480,7 @@ jobs:
       - terraform-apply-command
 
   terraform-plan-proxmox:
-    executor: machine-runner
+    executor: container-runner
     steps:
       - checkout
       - backend_script
@@ -488,7 +492,7 @@ jobs:
             - .
   
   terraform-apply-proxmox:
-    executor: machine-runner
+    executor: container-runner
     steps:
       - attach_workspace:
           at: .

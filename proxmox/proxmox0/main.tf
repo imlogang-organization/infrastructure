@@ -2,28 +2,6 @@
 //change Disk size and CPU/Memory,
 //and then increase the VMID by 1. 
 
-resource "proxmox_vm_qemu" "mrserver" {
-  name = "ubuntu-machine-runner-server"
-  desc = "Machine Runner for Self Hosted CircleCI Server."
-  vmid = 101
-  os_type = var.os_type
-  target_node = var.target_node
-  clone = "ubuntu24.04-server-template"
-  cores = 4
-  memory = 8192
-  skip_ipv6 = true
-  disk {
-    slot     = "scsi0"
-    size     = "150G"
-    type     = "disk"
-    storage  = "local-lvm"
-  }
-  network {
-    model  = "virtio"
-    bridge = "vmbr0"
-  }
-}
-
 resource "proxmox_vm_qemu" "nomad_client" {
   name = "ubuntu-nomad-client"
   desc = "Nomad Client for Self Hosted CircleCI Server."
@@ -68,19 +46,19 @@ resource "proxmox_vm_qemu" "ubuntu-k8s-7" {
   }
 }
 
-resource "proxmox_vm_qemu" "nomad_client_v2" {
-  name = "ubuntu-nomad-client-v2"
-  desc = "Nomad client that is breakabe for CircleCI Server"
-  vmid = 105
+resource "proxmox_vm_qemu" "mrserver_new" {
+  name = "ubuntu-machine-runner-server-new"
+  desc = "Machine Runner for Self Hosted CircleCI Server."
+  vmid = 106
   os_type = var.os_type
   target_node = var.target_node
-  clone = "ubuntu24.04-server-template"
-  cores = 6
+  clone = var.os_template
+  cores = 4
   memory = 8192
   skip_ipv6 = true
   disk {
     slot     = "scsi0"
-    size     = "50G"
+    size     = "150G"
     type     = "disk"
     storage  = "local-lvm"
   }
