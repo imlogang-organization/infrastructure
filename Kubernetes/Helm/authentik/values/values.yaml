@@ -1,27 +1,24 @@
 authentik:
   secret_key: "PleaseGenerateASecureKey"
-  # This sends anonymous usage-data, stack traces on errors and
-  # performance data to sentry.io, and is fully opt-in
   error_reporting:
     enabled: false
   postgresql:
     password: "ThisIsNotASecurePassword"
+  env:
+    AUTHENTIK_PROXY__EXTERNAL_HOST: https://authentik.logangodsey.com
+    AUTHENTIK_PROXY__TRUST_X_FORWARDED_PROTO: "true"
+    AUTHENTIK_CSRF__TRUSTED_ORIGINS: https://authentik.logangodsey.com
 
+# Configure server to use LoadBalancer with specific IP
 server:
-  ingress:
-    # Specify kubernetes ingress controller class name
-    ingressClassName: kong
-    enabled: true
-    hosts:
-      - "authentik.logangodsey.com"
-    paths:
-      - /
-    pathType: Prefix
-    tls: []
-      # - hosts:
-      #     - authentik.logangodsey.com
-      #   secretName: authentik-tls-cert
+  service:
+    type: LoadBalancer
+    loadBalancerIP: 192.168.30.206  # Specify the exact IP you want
+    annotations:
+      # You can also use the annotation method if preferred
+      metallb.universe.tf/loadBalancerIPs: 192.168.30.206
 
+# Database and cache must be enabled
 postgresql:
   enabled: true
   auth:
