@@ -97,6 +97,9 @@ workflows:
             Kubernetes/Secrets/web-ui/.* file-path "Kubernetes/Secrets/web-ui"
             Kubernetes/Secrets/web-ui/.* namespace "web-ui"
             Kubernetes/Secrets/web-ui/.* web-ui true
+            Kubernetes/Helm/authentik/.* file-path "Kubernetes/Helm/authentik"
+            Kubernetes/Helm/authentik/.* authentik true
+            Kubernetes/Helm/authentik/.* namespace "authentik"
           circleci_domain: cciserver.logangodsey.com
           resource_class: imlogang-organization-server/small
           <<: *default_branch_filtering

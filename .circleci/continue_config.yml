@@ -95,6 +95,9 @@ parameters:
   web-ui:
     default: false
     type: boolean
+  authentik:
+    default: false
+    type: boolean
 
 commands:
   backend_script:
@@ -524,6 +527,25 @@ jobs:
           root: .
           paths:
             - .
+  
+  authentik-plan:
+    executor: container-runner
+    steps:
+      - checkout
+      - backend_script
+      - terraform-init
+      - terraform-plan
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  authentik-apply:
+    executor: container-runner
+    steps:
+      - attach_workspace:
+          at: .
+      - terraform-apply-command
 workflows:
   terraform-beemoviebot-prod:
     when: << pipeline.parameters.prod >>
@@ -828,4 +850,16 @@ workflows:
           context:
             - minio_backend
             - kubeconfig
+          <<: *default_branch_filtering
+
+  authentik-terraform:
+    when: << pipeline.parameters.authentik >>
+    jobs: 
+      - authentik-plan:
+          context:
+            - minio_backend
+          <<: *default_branch_filtering
+      - authentik-apply:
+          context: 
+            - minio_backend
           <<: *default_branch_filtering
