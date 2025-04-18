@@ -1,24 +1,29 @@
 authentik:
-    secret_key: "PleaseGenerateASecureKey"
-    # This sends anonymous usage-data, stack traces on errors and
-    # performance data to sentry.io, and is fully opt-in
-    error_reporting:
-        enabled: false
-    postgresql:
-        password: "ThisIsNotASecurePassword"
+  secret_key: "PleaseGenerateASecureKey"
+  # This sends anonymous usage-data, stack traces on errors and
+  # performance data to sentry.io, and is fully opt-in
+  error_reporting:
+    enabled: false
+  postgresql:
+    password: "ThisIsNotASecurePassword"
 
 server:
-    ingress:
-        # Specify kubernetes ingress controller class name
-        ingressClassName: kong
-        enabled: true
-        hosts:
-            - authentik.logangodsey.com
+  ingress:
+    # Specify kubernetes ingress controller class name
+    ingressClassName: kong
+    enabled: true
+    hosts:
+      - host: authentik.logangodsey.com
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - hosts:
+          - authentik.logangodsey.com
 
 postgresql:
-    enabled: true
-    auth:
-        password: "ThisIsNotASecurePassword"
+  enabled: true
+  auth:
+    password: "ThisIsNotASecurePassword"
 redis:
-    enabled: true
-    
+  enabled: true
