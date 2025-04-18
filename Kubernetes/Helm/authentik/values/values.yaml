@@ -21,3 +21,4 @@ postgresql:
         password: "ThisIsNotASecurePassword"
 redis:
     enabled: true
+    

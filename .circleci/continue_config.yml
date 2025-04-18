@@ -860,6 +860,8 @@ workflows:
             - minio_backend
           <<: *default_branch_filtering
       - authentik-apply:
+          requires:
+            - authentik-plan
           context: 
             - minio_backend
           <<: *default_branch_filtering
