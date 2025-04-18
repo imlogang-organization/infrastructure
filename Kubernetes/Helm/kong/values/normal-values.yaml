@@ -58,12 +58,11 @@ dblessConfig:
       - name: authentik
         protocol: http
         host: authentik-server.authentik.svc.cluster.local
-        port: 80
+        port: 443
         routes:
           - name: main_routes
             paths:
               - /
-              - /if/flow/initial-setup/
             strip_path: false
             preserve_host: true
             hosts:
