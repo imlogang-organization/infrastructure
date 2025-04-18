@@ -65,5 +65,6 @@ dblessConfig:
               - /
               - /if/flow/initial-setup/
             strip_path: false
+            preserve_host: true
             hosts:
               - authentik.logangodsey.com
