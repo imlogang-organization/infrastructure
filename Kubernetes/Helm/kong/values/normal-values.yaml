@@ -63,6 +63,7 @@ dblessConfig:
           - name: main_routes
             paths:
               - /
+              - /if/flow/initial-setup/
             strip_path: false
             hosts:
               - authentik.logangodsey.com
