@@ -56,7 +56,7 @@ dblessConfig:
             #         - 192.168.30.0/24
 
       - name: authentik
-        protocol: http
+        protocol: https
         host: authentik-server.authentik.svc.cluster.local
         port: 443
         routes:
