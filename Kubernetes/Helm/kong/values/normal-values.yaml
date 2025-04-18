@@ -60,7 +60,7 @@ dblessConfig:
         host: authentik-server.authentik.svc.cluster.local
         port: 80
         routes:
-          - name: main routes
+          - name: main_routes
             paths:
               - /
               - /auth
