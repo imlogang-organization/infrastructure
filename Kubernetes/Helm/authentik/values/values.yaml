@@ -13,13 +13,14 @@ server:
     ingressClassName: kong
     enabled: true
     hosts:
-      - host: authentik.logangodsey.com
-        paths:
-          - path: /
-            pathType: Prefix
-    tls:
-      - hosts:
-          - authentik.logangodsey.com
+      - "authentik.logangodsey.com"
+    paths:
+      - /
+    pathType: Prefix
+    tls: []
+      # - hosts:
+      #     - authentik.logangodsey.com
+      #   secretName: authentik-tls-cert
 
 postgresql:
   enabled: true
