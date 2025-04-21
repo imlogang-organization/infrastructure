@@ -1,7 +1,7 @@
 # https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs
 # need to see if there's a way to import
 terraform {
-  required_version = "1.11.0"
+  required_version = "1.10.5"
   required_providers {
     cloudflare = {
       source = "cloudflare/cloudflare"
