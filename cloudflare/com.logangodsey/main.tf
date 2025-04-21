@@ -123,8 +123,17 @@ resource "cloudflare_record" "minio_public" {
 resource "cloudflare_record" "root_website" {
   zone_id = cloudflare_zone.logangodsey_com.id
   name    = "3.133.124.166"
-  value   = ""
+  value   = "@"
   type    = var.default_type
   ttl     = var.default_ttl
   proxied = true
+}
+
+resource "cloudflare_record" "authentik" {
+  zone_id = cloudflare_zone.logangodsey_com.id
+  name    = "3.133.124.166"
+  value   = "authentik"
+  type    = var.default_type
+  ttl     = var.default_ttl
+  proxied = false
 }
