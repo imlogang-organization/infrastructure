@@ -1,7 +1,7 @@
 resource "kubernetes_secret" "grafana-loki" {
   metadata {
     name      = "minio-credentials"
-    namespace = kubernetes_namespace.grafana-loki.metadata[0].name
+    namespace = "grafana-loki"
   }
 
   data = {
