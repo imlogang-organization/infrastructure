@@ -37,3 +37,16 @@ resource "minio_s3_bucket" "plugins" {
   bucket = "subcommand-plugins"
   acl    = "public"
 }
+
+resource "minio_s3_bucket" "loki_chunks" {
+  bucket = "loki-chunks"
+  acl    = "public"
+}
+resource "minio_s3_bucket" "loki_ruler" {
+  bucket = "loki-ruler"
+  acl    = "public"
+}
+resource "minio_s3_bucket" "loki_admin" {
+  bucket = "loki-admin"
+  acl    = "public"
+}
