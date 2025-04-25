@@ -14,15 +14,59 @@ agent:
         format = "logfmt"
       }
       
+      # Kubernetes pod discovery
       discovery.kubernetes "pods" {
         role = "pod"
       }
       
+      # Add Kubernetes metadata labels
+      discovery.relabel "pod_metadata" {
+        targets = discovery.kubernetes.pods.targets
+        
+        # Add namespace label
+        rule {
+          source_labels = ["__meta_kubernetes_namespace"]
+          action = "replace"
+          target_label = "namespace"
+        }
+        
+        # Add pod label
+        rule {
+          source_labels = ["__meta_kubernetes_pod_name"]
+          action = "replace"
+          target_label = "pod"
+        }
+        
+        # Add container label
+        rule {
+          source_labels = ["__meta_kubernetes_pod_container_name"]
+          action = "replace"
+          target_label = "container"
+        }
+        
+        # Add app label from Kubernetes standard label
+        rule {
+          source_labels = ["__meta_kubernetes_pod_label_app_kubernetes_io_name"]
+          action = "replace"
+          target_label = "app"
+        }
+        
+        # Add deployment name (extracted from pod name)
+        rule {
+          source_labels = ["__meta_kubernetes_pod_name"]
+          regex = "^(.*)-[a-z0-9]+-[a-z0-9]+$"
+          replacement = "$1"
+          target_label = "deployment"
+        }
+      }
+      
+      # Collect logs from Kubernetes pods
       loki.source.kubernetes "pods" {
-        targets    = discovery.kubernetes.pods.targets
+        targets = discovery.relabel.pod_metadata.output
         forward_to = [loki.write.local.receiver]
       }
       
+      # Send logs to Loki
       loki.write "local" {
         endpoint {
           url = "http://grafana-loki.grafana-loki.svc.cluster.local:3100/loki/api/v1/push"
