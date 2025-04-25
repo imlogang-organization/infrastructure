@@ -1,4 +1,4 @@
-# values.yaml for Grafana Agent
+# values.yaml for Grafana Agent/Alloy
 controller:
   type: statefulset
 
@@ -25,9 +25,6 @@ agent:
         endpoint {
           url = "http://grafana-loki.grafana-loki.svc.cluster.local:3100/loki/api/v1/push"
           tenant_id = "fake"
-          headers = {
-            "X-Scope-OrgID" = "fake"
-          }
         }
         external_labels = {
           cluster = "personal-k8s"
