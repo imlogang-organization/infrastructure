@@ -23,6 +23,14 @@ agent:
       
       loki.write "local" {
         endpoint {
-          url = "http://grafana-loki-gateway.grafana-loki.svc.cluster.local/loki/api/v1/push"
+          url = "http://grafana-loki.grafana-loki.svc.cluster.local:3100/loki/api/v1/push"
+          tenant_id = "fake"
+          headers = {
+            "X-Scope-OrgID" = "fake"
+          }
+        }
+        external_labels = {
+          cluster = "personal-k8s",
+          job = "kubernetes-pods"
         }
       }
