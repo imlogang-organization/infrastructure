@@ -407,7 +407,7 @@ jobs:
           paths:
             - .
   container-runner-server-helm-plan:
-    executor: container-runner
+    executor: ubuntu-k8s
     steps:
       - checkout
       - backend_script
