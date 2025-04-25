@@ -4,6 +4,8 @@ controller:
 
 agent:
   mode: flow
+  extraArgs:
+    - "--disable-reporting"
   configMap:
     create: true
     content: |
