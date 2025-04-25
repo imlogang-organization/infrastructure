@@ -49,17 +49,6 @@ singleBinary:
   extraEnvFrom:
     - secretRef:
         name: minio-credentials
-  extraEnv:
-    - name: S3_ACCESS_KEY
-      valueFrom:
-        secretKeyRef:
-          name: minio-credentials
-          key: access_key
-    - name: S3_SECRET_KEY
-      valueFrom:
-        secretKeyRef:
-          name: minio-credentials
-          key: secret_key
 
 service:
   type: LoadBalancer
