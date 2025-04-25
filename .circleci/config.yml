@@ -106,6 +106,9 @@ workflows:
             Kubernetes/Helm/grafana-alloy/.* file-path "Kubernetes/Helm/grafana-alloy"
             Kubernetes/Helm/grafana-alloy/.* grafana-alloy true
             Kubernetes/Helm/grafana-alloy/.* namespace "grafana-alloy"
+            Kubernetes/Secrets/grafana-alloy/.* file-path "Kubernetes/Secrets/grafana-loki"
+            Kubernetes/Secrets/grafana-alloy/.* grafana-loki-secrets true
+            Kubernetes/Secrets/grafana-alloy/.* namespace "grafana-alloy"
           circleci_domain: cciserver.logangodsey.com
           resource_class: imlogang-organization-server/small
           <<: *default_branch_filtering

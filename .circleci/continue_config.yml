@@ -104,6 +104,9 @@ parameters:
   grafana-alloy:
     default: false
     type: boolean
+  grafana-loki-secrets:
+    default: false
+    type: boolean
 
 commands:
   backend_script:
@@ -924,6 +927,23 @@ workflows:
           context: 
             - minio_backend
           <<: *default_branch_filtering
+
+  grafana-loki-secrets-terraform:
+    when: << pipeline.parameters.grafana-loki-secrets >>
+    jobs: 
+      - grafana-loki-plan:
+          context:
+            - minio_backend
+            - grafana-loki-secrets
+          <<: *default_branch_filtering
+      - grafana-loki-apply:
+          requires:
+            - grafana-loki-plan
+          context: 
+            - minio_backend
+            - grafana-loki-secrets
+          <<: *default_branch_filtering
+
   grafana-alloy-terraform:
     when: << pipeline.parameters.grafana-alloy >>
     jobs: 
