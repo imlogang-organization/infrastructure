@@ -26,8 +26,4 @@ agent:
           url = "http://grafana-loki.grafana-loki.svc.cluster.local:3100/loki/api/v1/push"
           tenant_id = "fake"
         }
-        external_labels {
-          cluster = "personal-k8s"
-          job = "kubernetes-pods"
-        }
       }
