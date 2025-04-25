@@ -15,13 +15,3 @@ terraform {
     }
   }
 }
-
-provider "helm" {
-  kubernetes {
-    config_path = "/home/logan/.kube/config"
-    }
-}
-
-provider "kubernetes" {
-  config_path = "/home/logan/.kube/config"
-}
