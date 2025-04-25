@@ -44,9 +44,8 @@ deploymentMode: SingleBinary
 singleBinary:
   replicas: 1
   extraArgs:
-    - "-ingester.unordered-writes=true"
-    - "-validation.reject-old-samples=false"
-    - "-validation.reject-old-samples-max-age=720h"
+      - "-ingester.unordered-writes=true"
+      - "-validation.reject-old-samples=false"
 
 service:
   type: LoadBalancer
