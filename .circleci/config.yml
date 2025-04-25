@@ -110,8 +110,8 @@ workflows:
             Kubernetes/Secrets/grafana-loki/.* grafana-loki-secrets true
             Kubernetes/Secrets/grafana-loki/.* namespace "grafana-alloy"
           circleci_domain: cciserver.logangodsey.com
-          resource_class: imlogang-organization-server/small
+          #resource_class: imlogang-organization-server/small
           <<: *default_branch_filtering
-          requires:
-            - check_user
-            - check_lint
+          #requires:
+          #  - check_user
+          #  - check_lint

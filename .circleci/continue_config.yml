@@ -286,7 +286,7 @@ jobs:
             - .
 
   terraform-plan-container-runner-server:
-    executor: container-runner
+    executor: ubuntu-k8s
     steps:
       - checkout
       - container-runner-server
@@ -443,7 +443,7 @@ jobs:
             - .
 
   terraform-apply:
-    executor: container-runner
+    executor: ubuntu-k8s
     steps:
       - attach_workspace:
           at: .
