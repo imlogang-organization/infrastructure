@@ -10,8 +10,4 @@ resource "kubernetes_secret" "grafana-loki" {
   }
 
   type = "Opaque"
-
-  depends_on = [
-    kubernetes_namespace.grafana-loki,
-  ]
 }
