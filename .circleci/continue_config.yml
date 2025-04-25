@@ -12,7 +12,7 @@ default_branch_filtering: &default_branch_filtering
 executors:
   ubuntu-k8s:
     machine: true
-    resource_class: imlogang-organization-server/container-runner
+    resource_class: imlogang-organization-server/ubuntu-k8s
   machine-runner:
     machine: true
     resource_class: imlogang-organization-server/container-runner
