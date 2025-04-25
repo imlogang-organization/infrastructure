@@ -100,6 +100,9 @@ workflows:
             Kubernetes/Helm/authentik/.* file-path "Kubernetes/Helm/authentik"
             Kubernetes/Helm/authentik/.* authentik true
             Kubernetes/Helm/authentik/.* namespace "authentik"
+            Kubernetes/Helm/grafana-loki/.* file-path "Kubernetes/Helm/grafana-loki"
+            Kubernetes/Helm/grafana-loki/.* grafana-loki true
+            Kubernetes/Helm/grafana-loki/.* namespace "grafana-loki"
           circleci_domain: cciserver.logangodsey.com
           resource_class: imlogang-organization-server/small
           <<: *default_branch_filtering

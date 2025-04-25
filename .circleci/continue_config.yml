@@ -98,6 +98,9 @@ parameters:
   authentik:
     default: false
     type: boolean
+  grafana-loki:
+    default: false
+    type: boolean
 
 commands:
   backend_script:
@@ -546,6 +549,26 @@ jobs:
       - attach_workspace:
           at: .
       - terraform-apply-command
+
+  grafana-loki-plan:
+    executor: container-runner
+    steps:
+      - checkout
+      - backend_script
+      - terraform-init
+      - terraform-plan
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  grafana-loki-apply:
+    executor: container-runner
+    steps:
+      - attach_workspace:
+          at: .
+      - terraform-apply-command
+
 workflows:
   terraform-beemoviebot-prod:
     when: << pipeline.parameters.prod >>
@@ -862,6 +885,20 @@ workflows:
       - authentik-apply:
           requires:
             - authentik-plan
+          context: 
+            - minio_backend
+          <<: *default_branch_filtering
+  
+  grafana-loki-terraform:
+    when: << pipeline.parameters.grafana-loki >>
+    jobs: 
+      - grafana-loki-plan:
+          context:
+            - minio_backend
+          <<: *default_branch_filtering
+      - grafana-loki-apply:
+          requires:
+            - grafana-loki-plan
           context: 
             - minio_backend
           <<: *default_branch_filtering
