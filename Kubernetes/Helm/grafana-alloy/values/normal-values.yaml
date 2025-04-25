@@ -23,8 +23,8 @@ agent:
       
       loki.write "local" {
         endpoint {
-          url = "http://grafana-loki.grafana-loki.svc.cluster.local:3100/loki/api/v1/push"
-          tenant_id = "fake"
+          url = "http://grafana-loki.grafana-loki.svc.cluster.local:3100/loki/api/v1/push",
+          tenant_id = "fake",
           headers = {
             "X-Scope-OrgID" = "fake"
           }
