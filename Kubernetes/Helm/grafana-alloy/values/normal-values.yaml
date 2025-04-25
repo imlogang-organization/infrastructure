@@ -1,0 +1,23 @@
+# values.yaml for Grafana Agent
+controller:
+  type: statefulset
+
+agent:
+  mode: flow
+  configMap:
+    create: true
+    content: |
+      logging {
+        level  = "info"
+        format = "logfmt"
+      }
+      
+      loki.source.kubernetes "pods" {
+        forward_to = [loki.write.local.receiver]
+      }
+      
+      loki.write "local" {
+        endpoint {
+          url = "http://grafana-loki-gateway.default.svc.cluster.local/loki/api/v1/push"
+        }
+      }

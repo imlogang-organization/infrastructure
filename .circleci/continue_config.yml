@@ -101,6 +101,9 @@ parameters:
   grafana-loki:
     default: false
     type: boolean
+  grafana-alloy:
+    default: false
+    type: boolean
 
 commands:
   backend_script:
@@ -568,6 +571,25 @@ jobs:
       - attach_workspace:
           at: .
       - terraform-apply-command
+  
+  grafana-alloy-plan:
+    executor: container-runner
+    steps:
+      - checkout
+      - backend_script
+      - terraform-init
+      - terraform-plan
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  grafana-alloy-apply:
+    executor: container-runner
+    steps:
+      - attach_workspace:
+          at: .
+      - terraform-apply-command
 
 workflows:
   terraform-beemoviebot-prod:
@@ -899,6 +921,19 @@ workflows:
       - grafana-loki-apply:
           requires:
             - grafana-loki-plan
+          context: 
+            - minio_backend
+          <<: *default_branch_filtering
+  grafana-alloy-terraform:
+    when: << pipeline.parameters.grafana-alloy >>
+    jobs: 
+      - grafana-alloy-plan:
+          context:
+            - minio_backend
+          <<: *default_branch_filtering
+      - grafana-alloy-apply:
+          requires:
+            - grafana-alloy-plan
           context: 
             - minio_backend
           <<: *default_branch_filtering
