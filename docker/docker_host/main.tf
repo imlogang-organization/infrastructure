@@ -518,6 +518,19 @@ resource "docker_container" "grafana" {
     container_path = "/var/lib/grafana"
   }
   
+  env = [
+    "GF_AUTH_GENERIC_OAUTH_ENABLED=true",
+    "GF_AUTH_GENERIC_OAUTH_NAME=authentik",
+    "GF_AUTH_GENERIC_OAUTH_CLIENT_ID=${var.grafana_client_id}",
+    "GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=${var.grafana_client_secret}",
+    "GF_AUTH_GENERIC_OAUTH_SCOPES=openid profile email",
+    "GF_AUTH_GENERIC_OAUTH_AUTH_URL=https://authentik.logangodsey.com/application/o/authorize/",
+    "GF_AUTH_GENERIC_OAUTH_TOKEN_URL=https://authentik.logangodsey.com/application/o/token/",
+    "GF_AUTH_GENERIC_OAUTH_API_URL=https://authentik.logangodsey.com/application/o/userinfo/",
+    "GF_AUTH_SIGNOUT_REDIRECT_URL=https://authentik.logangodsey.com/application/o/grafana/end-session/",
+    "GF_AUTH_OAUTH_AUTO_LOGIN=true",
+    "GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH=Admin",
+  ]
   restart = var.restart
   
   }

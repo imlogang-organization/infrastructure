@@ -24,3 +24,13 @@ variable "dmr3-api-auth-token" {
   type = string
   description = "CircleCI Runner API Token for Docker Runner Server MR3"
 }
+
+variable "grafana_client_id" {
+  type = string
+  description = "The Client ID from Authentik for Grafana"
+}
+
+variable "grafana_client_secret" {
+  type = string
+  description = "The Client Secret from Authentik for Grafana"
+}
