@@ -35,7 +35,7 @@ variable "gcp_external_ip" {
 
 variable "docker_host" {
     description = "IP of Internal Docker Host"
-    default = "192.168.30.188"
+    default = "192.168.30.96"
     type = string
 }
 
