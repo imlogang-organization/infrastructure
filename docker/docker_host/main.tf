@@ -130,8 +130,8 @@ resource "docker_container" "uptime-kuma" {
   name  = "uptime-kuma"
   image = docker_image.uptime-kuma.name
   env = [
-    "PUID=1000",
-    "PGID=1000",
+    "PUID=0",
+    "PGID=0",
     "TZ=CDT/UTC",
   ]
   ports {
