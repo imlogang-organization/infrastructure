@@ -147,7 +147,6 @@ resource "docker_container" "uptime-kuma" {
     host_path      = "/var/run/docker.sock"
   }
   restart = var.restart
-  
 }
 
 resource "docker_container" "sonarr" {
