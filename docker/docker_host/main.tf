@@ -528,7 +528,7 @@ resource "docker_container" "grafana" {
     "GF_AUTH_GENERIC_OAUTH_API_URL=https://authentik.logangodsey.com/application/o/userinfo/",
     "GF_AUTH_SIGNOUT_REDIRECT_URL=https://authentik.logangodsey.com/application/o/grafana/end-session/",
     "GF_AUTH_OAUTH_AUTO_LOGIN=true",
-    "GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH=Admin",
+    "GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH=contains(groups, 'grafana-admins') && 'GrafanaAdmin' || contains(groups, 'grafana-editors') && 'Editor' || 'Viewer'",
     "GF_SERVER_ROOT_URL=https://grafana.logangodsey.com"
   ]
   restart = var.restart
