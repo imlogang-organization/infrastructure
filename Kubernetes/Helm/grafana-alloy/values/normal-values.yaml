@@ -6,6 +6,28 @@ agent:
   mode: flow
   extraArgs:
     - "--disable-reporting"
+  hostAliases:
+    - ip: "192.168.30.20"
+      hostnames:
+        - "ubuntu-k8s"
+    - ip: "192.168.30.21"
+      hostnames:
+        - "ubuntu-k8s-2"
+    - ip: "192.168.30.22"
+      hostnames:
+        - "ubuntu-k8s-3"
+    - ip: "192.168.30.23"
+      hostnames:
+        - "ubuntu-k8s-4"
+    - ip: "192.168.30.24"
+      hostnames:
+        - "ubuntu-k8s-5"
+    - ip: "192.168.30.25"
+      hostnames:
+        - "ubuntu-k8s-6"
+    - ip: "192.168.30.26"
+      hostnames:
+        - "ubuntu-k8s-6"
   configMap:
     create: true
     content: |
