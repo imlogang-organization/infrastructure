@@ -27,7 +27,7 @@ agent:
         - "ubuntu-k8s-6"
     - ip: "192.168.30.26"
       hostnames:
-        - "ubuntu-k8s-6"
+        - "ubuntu-k8s-7"
   configMap:
     create: true
     content: |
