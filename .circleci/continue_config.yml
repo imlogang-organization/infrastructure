@@ -29,6 +29,9 @@ orbs:
   gcp-cli: circleci/gcp-cli@3.1.1
 
 parameters:
+  default-executor:
+    default: "ubuntu-k8s"
+    type: string
   namespace:
     default: ""
     type: string
@@ -443,7 +446,11 @@ jobs:
             - .
 
   terraform-apply:
-    executor: ubuntu-k8s
+    parameters:
+      executor:
+        default: "ubuntu-k8s"
+        type: string
+    executor: << parameters.executor >>
     steps:
       - attach_workspace:
           at: .
@@ -876,6 +883,7 @@ workflows:
             - kubeconfig
           <<: *default_branch_filtering
       - terraform-apply:
+          executor: container-runner
           requires:
             - terraform-plan-kong
           context:
