@@ -137,3 +137,12 @@ resource "cloudflare_record" "authentik" {
   ttl     = var.default_ttl
   proxied = false
 }
+
+resource "cloudflare_record" "grafana" {
+  zone_id = cloudflare_zone.logangodsey_com.id
+  name    = "grafana"
+  value   = "3.133.124.166"
+  type    = var.default_type
+  ttl     = var.default_ttl
+  proxied = false
+}
