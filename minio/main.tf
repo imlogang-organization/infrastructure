@@ -51,7 +51,7 @@ resource "minio_s3_bucket" "loki_admin" {
   acl    = "public"
 }
 
-resource "minio_s3_bucket" "loki_admin" {
+resource "minio_s3_bucket" "tempo_traces" {
   bucket = "tempo-traces"
   acl    = "public"
 }
