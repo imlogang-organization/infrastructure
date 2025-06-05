@@ -989,7 +989,7 @@ workflows:
           <<: *default_branch_filtering
   
   grafana-tempo-secrets-terraform:
-    when: << pipeline.paramaters.grafana-tempo-secrets >>
+    when: << pipeline.parameters.grafana-tempo-secrets >>
     jobs:
       - grafana-tempo-plan:
           context:
