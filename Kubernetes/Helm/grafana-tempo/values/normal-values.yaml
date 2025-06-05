@@ -4,6 +4,8 @@ tempo:
     trace:
       backend: s3
       s3:
+        access_key: ${AWS_ACCESS_KEY_ID}
+        secret_key: ${AWS_SECRET_ACCESS_KEY}
         bucket: tempo-traces
         endpoint: 192.168.30.145:9000
         insecure: true
@@ -23,6 +25,7 @@ extraEnv:
 
 extraArgs:
   - "-config.expand-env=true"
+  - "-log.level=debug"
 
 service:
   type: LoadBalancer
