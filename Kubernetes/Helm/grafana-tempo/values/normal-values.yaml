@@ -11,17 +11,17 @@ tempo:
         insecure: true
         region: us-east-1
 
-extraEnv:
-  - name: AWS_ACCESS_KEY_ID
-    valueFrom:
-      secretKeyRef:
-        name: minio-credentials
-        key: S3_ACCESS_KEY
-  - name: AWS_SECRET_ACCESS_KEY
-    valueFrom:
-      secretKeyRef:
-        name: minio-credentials
-        key: S3_SECRET_KEY
+  extraEnv:
+    - name: AWS_ACCESS_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: minio-credentials
+          key: S3_ACCESS_KEY
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: minio-credentials
+          key: S3_SECRET_KEY
 
 extraArgs:
   - "-log.level=debug"
