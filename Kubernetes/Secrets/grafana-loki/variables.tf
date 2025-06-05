@@ -7,4 +7,3 @@ variable "secret_key" {
   description = "Secret Key"
   type = string
 }
-
