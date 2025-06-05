@@ -112,6 +112,9 @@ workflows:
             Kubernetes/Secrets/grafana-tempo/.* namespace "grafana-tempo"
             Kubernetes/Secrets/grafana-tempo/.* file-path "Kubernetes/Secrets/grafana-tempo"
             Kubernetes/Secrets/grafana-tempo/.* grafana-tempo-secrets true
+            Kubernetes/Helm/grafana-tempo/.* grafana-tempo true
+            Kubernetes/Helm/grafana-tempo/.* file-path "Kubernetes/Helm/grafana-tempo"
+            Kubernetes/Helm/grafana-tempo/.* namespace "grafana-tempo"
           circleci_domain: cciserver.logangodsey.com
           resource_class: imlogang-organization-server/small
           tag: "3.9"

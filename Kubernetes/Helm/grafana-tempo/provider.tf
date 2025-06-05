@@ -1,0 +1,17 @@
+terraform {
+  required_version = "1.10.5"
+  required_providers {
+    helm = {
+      source = "hashicorp/helm"
+      version = ">=2.0.0"
+    }
+    null = {
+      source  = "hashicorp/null"
+      version = "~> 3.0"  # You can specify a more specific version if needed
+    }
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+      version = "2.32.0"
+    }
+  }
+}

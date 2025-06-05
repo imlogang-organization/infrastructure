@@ -113,6 +113,9 @@ parameters:
   grafana-tempo-secrets:
     default: false
     type: boolean
+  grafana-tempo:
+    default: false
+    type: boolean
 
 commands:
   backend_script:
@@ -1002,4 +1005,18 @@ workflows:
           context:
             - minio_backend
             - grafana-loki-secrets
+          <<: *default_branch_filtering
+  
+  grafana-tempo-deploy-terraform:
+    when: << pipeline.parameters.grafana-tempo >>
+    jobs:
+      - grafana-tempo-plan:
+          context:
+            - minio_backend
+          <<: *default_branch_filtering
+      - grafana-tempo-apply:
+          requires:
+            - grafana-tempo-plan
+          context:
+            - minio_backend
           <<: *default_branch_filtering
