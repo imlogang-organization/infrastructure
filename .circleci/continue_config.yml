@@ -110,6 +110,9 @@ parameters:
   grafana-loki-secrets:
     default: false
     type: boolean
+  grafana-tempo-secrets:
+    default: false
+    type: boolean
 
 commands:
   backend_script:
@@ -600,6 +603,25 @@ jobs:
       - attach_workspace:
           at: .
       - terraform-apply-command
+  
+  grafana-tempo-plan:
+    executor: container-runner
+    steps:
+      - checkout
+      - backend_script
+      - terraform-init
+      - terraform-plan
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  grafana-tempo-apply:
+    executor: container-runner
+    steps:
+      - attach_workspace:
+          at: .
+      - terraform-apply-command
 
 workflows:
   terraform-beemoviebot-prod:
@@ -964,4 +986,20 @@ workflows:
             - grafana-alloy-plan
           context: 
             - minio_backend
+          <<: *default_branch_filtering
+  
+  grafana-tempo-secrets-terraform:
+    when: << pipeline.paramaters.grafana-tempo-secrets >>
+    jobs:
+      - grafana-tempo-plan:
+          context:
+            - minio_backend
+            - grafana-loki-secrets
+          <<: *default_branch_filtering
+      - grafana-tempo-apply:
+          requires:
+            - grafana-tempo-plan
+          context:
+            - minio_backend
+            - grafana-loki-secrets
           <<: *default_branch_filtering

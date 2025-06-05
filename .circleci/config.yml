@@ -109,6 +109,9 @@ workflows:
             Kubernetes/Secrets/grafana-loki/.* file-path "Kubernetes/Secrets/grafana-loki"
             Kubernetes/Secrets/grafana-loki/.* grafana-loki-secrets true
             Kubernetes/Secrets/grafana-loki/.* namespace "grafana-alloy"
+            Kubernetes/Secrets/grafana-tempo/.* namespace "grafana-tempo"
+            Kubernetes/Secrets/grafana-tempo/.* file-path "Kubernetes/Secrets/grafana-tempo"
+            Kubernetes/Secrets/grafana-tempo/.* grafana-tempo-secrets true
           circleci_domain: cciserver.logangodsey.com
           resource_class: imlogang-organization-server/small
           tag: "3.9"
