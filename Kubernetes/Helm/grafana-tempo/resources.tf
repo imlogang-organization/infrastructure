@@ -1,5 +1,5 @@
 resource "kubernetes_namespace" "circleci" {
   metadata {
-    name = "grafana-loki"
+    name = "grafana-tempo"
   }
 }

@@ -5,7 +5,7 @@ terraform {
   backend "s3" {
     endpoint        = "${MINIO_URL}"
     bucket          = "${BUCKET_NAME}"
-    key             = "cloudflare/kubernetes/grafana-loki/terraform.tfstate"
+    key             = "cloudflare/kubernetes/grafana-tempo/terraform.tfstate"
     region          = "${REGION}"
     access_key      = "${MINIO_ACCESS_KEY}"
     secret_key      = "${MINIO_SECRET_KEY}"
