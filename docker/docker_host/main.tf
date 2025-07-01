@@ -665,10 +665,10 @@ resource "docker_container" "actual" {
 
   healthcheck  {
     test = "['CMD-SHELL', 'node src/scripts/health-check.js']"
-    interval = 60
+    interval = 60s
     retries = 3
-    start_interval = 30
-    timeout = 10
+    start_interval = 30s
+    timeout = 10s
   }
   restart = var.restart
 }
