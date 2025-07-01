@@ -658,17 +658,17 @@ resource "docker_container" "actual" {
     internal = 5006
     external = 5006
   }
-    volumes  {
+  volumes {
     container_path = "/data"
     host_path      = "${var.home_directory}/actual_budget/"
   }
 
-  healthcheck  {
-    test = "['CMD-SHELL', 'node src/scripts/health-check.js']"
-    interval = 60s
+  healthcheck {
+    test = ["CMD-SHELL", "node src/scripts/health-check.js"]
+    interval = "60s"
     retries = 3
-    start_interval = 30s
-    timeout = 10s
+    start_interval = "30s"
+    timeout = "10s"
   }
   restart = var.restart
 }
