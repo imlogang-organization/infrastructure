@@ -650,3 +650,25 @@ resource "docker_container" "teamspeak" {
   }
   restart = var.restart
 }
+
+resource "docker_container" "actual" {
+  name = "actual"
+  image = docker_image.actual.name
+  ports {
+    internal = 5006
+    external = 5006
+  }
+    volumes  {
+    container_path = "/data"
+    host_path      = "${var.home_directory}/actual_budget/"
+  }
+
+  healthcheck  {
+    test = "['CMD-SHELL', 'node src/scripts/health-check.js']"
+    interval = 60
+    retries = 3
+    start_interval = 30
+    timeout = 10
+  }
+  restart = var.restart
+}

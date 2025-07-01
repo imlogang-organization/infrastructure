@@ -97,3 +97,7 @@ resource "docker_image" "flaresolver" {
 resource "docker_image" "teamspeak" {
   name = "teamspeak:latest"
 }
+
+resource "docker_image" "actual" {
+  name = "docker.io/actualbudget/actual-server:latest"
+}
