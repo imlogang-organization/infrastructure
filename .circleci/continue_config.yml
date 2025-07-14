@@ -890,6 +890,7 @@ workflows:
             - docker-pull-k8s-secrets
           <<: *default_branch_filtering
       - terraform-apply:
+          executor: container-runner
           requires:
             - go-api-plan
           context:
