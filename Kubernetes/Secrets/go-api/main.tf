@@ -8,6 +8,7 @@ resource "kubernetes_secret" "go-api" {
     USERNAME          = var.username
     PASSWORD          = var.password
     POSTGRES_PASSWORD = var.pg_password
+    HC_TOKEN          = var.hc_token
   }
 
   type = "Opaque"

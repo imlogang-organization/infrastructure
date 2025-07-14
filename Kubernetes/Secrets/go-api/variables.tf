@@ -27,3 +27,8 @@ variable "docker-email" {
   description = "Docker email"
   type = string
 }
+
+variable "hc_token" {
+  description = "Token for Honeycomb"
+  type = string
+}
