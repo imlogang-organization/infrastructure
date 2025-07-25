@@ -1,3 +1,9 @@
+logging:
+  image:
+    registry: ""
+    repository: "circleci/logging-collector-canary"
+    tag: 3.1.4-7701-8f293f0-amd64
+
 agent:
   image:
     repository: "circleci/runner-agent-canary"
