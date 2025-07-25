@@ -2,7 +2,7 @@ agent:
   image:
     repository: "circleci/runner-agent-canary"
     pullPolicy: Always
-    tag: "kubernetes-3.1.4-7698-002953a"
+    tag: "kubernetes-3.1.4-7698-002953a-amd64"
   
   pullSecrets: 
     - name: regcred
