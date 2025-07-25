@@ -1,3 +1,13 @@
+resource "kubernetes_namespace" "circleci" {
+  metadata {
+    name = "circleci"
+  }
+  
+  lifecycle {
+    ignore_changes = all
+  }
+}
+
 resource "kubernetes_secret" "container-runner-secrets" {
   metadata {
     name      = "logan.container-runner"
