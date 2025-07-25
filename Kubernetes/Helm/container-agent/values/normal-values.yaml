@@ -5,7 +5,7 @@ agent:
     tag: "kubernetes-3.1.4-7698-002953a-amd64"
   
   pullSecrets: 
-    - name: regcred
+    - regcred
   
   resourceClasses:
     logan/container-runner:
@@ -21,6 +21,8 @@ agent:
                 cpu: 1500m
                 memory: 2Gi
                 ephemeral-storage: "10Gi"
+        imagePullSecrets:
+          - name: regcred
         nodeSelector:
           ci: "true" 
         tolerations:
