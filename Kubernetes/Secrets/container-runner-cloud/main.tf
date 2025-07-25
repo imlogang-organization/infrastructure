@@ -19,7 +19,7 @@ resource "kubernetes_secret" "container-runner-secrets" {
 resource "kubernetes_secret" "docker_pull" {
   metadata {
     name      = "regcred"
-    namespace =  kubernetes_namespace.go-api.metadata[0].name
+    namespace =  kubernetes_namespace.circleci.metadata[0].name
   }
 
   type = "kubernetes.io/dockerconfigjson"
