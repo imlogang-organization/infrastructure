@@ -283,7 +283,7 @@ jobs:
             - .
     
   terraform-plan-container-runner-cloud:
-    executor: container-runner
+    executor: ubuntu-k8s
     steps:
       - checkout
       - cloud-container-runner
@@ -670,6 +670,7 @@ workflows:
           context:
             - kubeconfig
             - container-runner-cloud
+            - docker-cci-creds
           <<: *default_branch_filtering
       - terraform-apply:
           requires:
@@ -677,6 +678,7 @@ workflows:
           context:
             - kubeconfig
             - container-runner-cloud
+            - docker-cci-creds
           <<: *default_branch_filtering
   
   terraform-server-container-runner:
