@@ -1,8 +1,8 @@
-logging:
-  image:
-    registry: ""
-    repository: "circleci/logging-collector-canary"
-    tag: 3.1.4-7701-8f293f0-amd64
+# logging:
+#   image:
+#     registry: ""
+#     repository: "circleci/logging-collector-canary"
+#     tag: 3.1.4-7701-8f293f0-amd64
 
 agent:
   image:
@@ -27,8 +27,8 @@ agent:
                 cpu: 1500m
                 memory: 2Gi
                 ephemeral-storage: "10Gi"
-        # imagePullSecrets:
-        #   - name: regcred
+        imagePullSecrets:
+          - name: regcred-personal
         nodeSelector:
           ci: "true" 
         tolerations:
