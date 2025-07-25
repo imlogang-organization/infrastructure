@@ -27,8 +27,8 @@ agent:
                 cpu: 1500m
                 memory: 2Gi
                 ephemeral-storage: "10Gi"
-        imagePullSecrets:
-          - name: regcred
+        # imagePullSecrets:
+        #   - name: regcred
         nodeSelector:
           ci: "true" 
         tolerations:
