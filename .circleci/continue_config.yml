@@ -383,7 +383,7 @@ jobs:
       - terraform-apply-command      
 
   terraform-container-agent-update-plan:
-    executor: container-runner
+    executor: ubuntu-k8s
     steps:
       - run: 
           name: echo resource editing
