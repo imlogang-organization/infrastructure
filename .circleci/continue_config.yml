@@ -671,6 +671,7 @@ workflows:
             - kubeconfig
             - container-runner-cloud
             - docker-cci-creds
+            - minio_backend
           <<: *default_branch_filtering
       - terraform-apply:
           requires:
@@ -679,6 +680,7 @@ workflows:
             - kubeconfig
             - container-runner-cloud
             - docker-cci-creds
+            - minio_backend
           <<: *default_branch_filtering
   
   terraform-server-container-runner:
