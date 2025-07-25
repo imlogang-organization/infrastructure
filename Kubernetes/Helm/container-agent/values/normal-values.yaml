@@ -1,6 +1,12 @@
 agent:
-  #image:
-  #  tag: "kubernetes-experimental"
+  image:
+    repository: "circleci/runner-agent-canary"
+    pullPolicy: Always
+    tag: "kubernetes-3.1.4-7698-002953a"
+  
+  pullSecrets: 
+    - name: regcred
+  
   resourceClasses:
     logan/container-runner:
       spec:
@@ -15,27 +21,8 @@ agent:
                 cpu: 1500m
                 memory: 2Gi
                 ephemeral-storage: "10Gi"
-          - livenessProbe:
-              initialDelaySeconds: 250
-              periodSeconds: 35
-              timeoutSeconds: 20
-              successThreshold: 1
-              failureThreshold: 6
-            lifecycle:
-              preStop:
-                exec:
-                  command: 
-                    - /bin/bash
-                    - -c
-                    - >
-                      echo 'PreStop hook: Delaying termination for 60 seconds' &&
-                      sleep 60 &&
-                      echo 'PreStop hook: Sending TERM signal to process 1' &&
-                      kill 1
         nodeSelector:
           ci: "true" 
-        imagePullSecrets:
-          - name: "aws-secret"
         tolerations:
           - key: "ci-workload"
             operator: "Equal"
@@ -56,27 +43,12 @@ agent:
                 ephemeral-storage: "10Gi"
         nodeSelector:
           ci: "true" 
-        imagePullSecrets:
-          - name: "aws-secret"
         tolerations:                    # Add tolerations section
           - key: "ci-workload"
             operator: "Equal"
             value: "true"
             effect: "NoSchedule"
   customSecret: logan.container-runner
-  
-  # serviceAccount:
-  #   annotations:
-  #     eks.amazonaws.com/role-arn: arn:aws:iam::397187125081:role/cci-iam
-  #   name: kaniko-test
-  # podAnnotations:
-  #   eks.amazonaws.com/role-arn: arn:aws:iam::397187125081:role/cci-iam
-  # image:
-  #   registry: ""
-  #   repository: "circleci/runner-agent"
-  #   pullPolicy: Always
-  #   tag: "kubernetes-edge"
-  #   digest: ""
 
   ssh:
     enabled: true
