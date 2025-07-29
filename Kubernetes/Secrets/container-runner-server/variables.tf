@@ -12,3 +12,8 @@ variable "medium" {
   description = "Auth Token of medium container runner resource class on server"
   type = string
 }
+
+variable "docker_builder" {
+  description = "Auth Token of docker_builder container runner resource class on server"
+  type = string
+}
