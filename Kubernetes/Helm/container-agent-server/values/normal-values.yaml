@@ -59,6 +59,28 @@ agent:
             operator: "Equal"
             value: "true"
             effect: "NoSchedule"
+    imlogang-organization-server/docker-builder:
+      metadata:
+        annotations:
+          io.kubernetes.cri-o.userns-mode: "auto:size=65536"
+      spec:
+        containers:
+          - resources:
+              limits:
+                cpu: 4000m
+                memory: 8Gi
+                ephemeral-storage: "40Gi"
+              requests:
+                cpu: 4000m
+                memory: 8Gi
+                ephemeral-storage: "40Gi"
+        nodeSelector:
+          ci: "true"  
+        tolerations:
+          - key: "ci-workload"
+            operator: "Equal"
+            value: "true"
+            effect: "NoSchedule"
   customSecret: logan.container-runner-server
   runnerAPI: https://cciserver.logangodsey.com
 
