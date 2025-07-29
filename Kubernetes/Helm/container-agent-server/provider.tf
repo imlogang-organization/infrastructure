@@ -17,7 +17,7 @@ terraform {
 }
 
 provider "helm" {
-  kubernetes {
+  kubernetes = {
     config_path = "/home/logan/.kube/config"
     }
 }

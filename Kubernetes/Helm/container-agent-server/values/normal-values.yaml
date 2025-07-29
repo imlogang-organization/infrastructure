@@ -64,6 +64,7 @@ agent:
         annotations:
           io.kubernetes.cri-o.userns-mode: "auto:size=65536"
       spec:
+        runtimeClassName: sysbox-runc
         containers:
           - resources:
               limits:
