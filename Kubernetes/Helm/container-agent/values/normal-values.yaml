@@ -2,13 +2,13 @@ logging:
   image:
     registry: "circleci"
     repository: "logging-collector-canary"
-    tag: 3.1.4-7701-8f293f0-amd64
+    tag: 3.1.4-7722-2c75334-amd64
 
 agent:
   image:
     repository: "circleci/runner-agent-canary"
     pullPolicy: Always
-    tag: "kubernetes-3.1.4-7701-8f293f0-amd64"
+    tag: "kubernetes-3.1.4-7722-2c75334-amd64"
   
   pullSecrets: 
     - regcred
